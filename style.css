@@ -1,259 +1,64 @@
-@font-face{
-    font-family:"Malvinas";
-    src:url("MalvinasSans.ttf");
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
-
-    font-family:Arial, Helvetica, sans-serif;
-
-    background:
-    linear-gradient(
-        rgba(0,0,0,.80),
-        rgba(0,0,0,.80)
-    ),
-    url("fondo_bvja.jpg");
-
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-
-    color:#FFFFFF;
-
-    min-height:100vh;
-
-}
-
-#background-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.25);
-    z-index:-1;
-}
-
-#app{
-
-    max-width:900px;
-
-    margin:auto;
-
+    margin:0;
     padding:20px;
-
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f2f2f2;
 }
 
-.logo{
+.contenedor{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
 
-    font-family:"Malvinas";
-
-    font-size:42px;
-
+h1{
     text-align:center;
-
-    color:#ffffff;
-
-    margin-top:15px;
-
+    color:#c62828;
 }
 
-.sublogo{
-
+h2{
     text-align:center;
-
-    font-size:18px;
-
-    letter-spacing:3px;
-
-    margin-bottom:20px;
-
-    color:#dddddd;
-
-}
-
-.usuario{
-
-    background:#212121;
-
-    border-left:6px solid #d32f2f;
-
-    border-radius:12px;
-
-    padding:15px;
-
-    margin-bottom:20px;
-
-}
-
-.card{
-
-    background:#2b2b2b;
-
-    border-radius:12px;
-
-    padding:15px;
-
-    margin-bottom:15px;
-
-    box-shadow:0 3px 10px rgba(0,0,0,.35);
-
+    color:#555;
 }
 
 button{
-
     width:100%;
-
     padding:15px;
-
-    margin-top:10px;
-
+    margin:8px 0;
     border:none;
-
     border-radius:10px;
-
-    background:#c62828;
-
+    background:#d32f2f;
     color:white;
-
-    font-size:17px;
-
-    font-weight:bold;
-
+    font-size:18px;
     cursor:pointer;
-
-    transition:.25s;
-
 }
 
 button:hover{
-
-    background:#e53935;
-
+    background:#b71c1c;
 }
 
-button:active{
-
-    transform:scale(.98);
-
+.card{
+    background:white;
+    border-radius:10px;
+    padding:15px;
+    margin:10px 0;
+    border-left:6px solid #d32f2f;
 }
 
-input,
-select,
-textarea{
-
+input, select, textarea{
     width:100%;
-
-    padding:12px;
-
-    margin-top:8px;
-    margin-bottom:12px;
-
+    padding:10px;
+    margin:8px 0;
     border-radius:8px;
-
-    border:1px solid #555;
-
-    background:#3b3b3b;
-
-    color:white;
-
-    font-size:15px;
-
+    border:1px solid #ccc;
+    box-sizing:border-box;
 }
 
-textarea{
-
-    resize:vertical;
-
-    min-height:90px;
-
-}
-
-h1,h2,h3{
-
-    margin-bottom:15px;
-
-}
-
-hr{
-
-    border:0;
-
-    height:1px;
-
-    background:#555;
-
-    margin:15px 0;
-
-}
-
-.estado-operativo{
-
-    color:#4CAF50;
-
-    font-weight:bold;
-
-}
-
-.estado-mantenimiento{
-
-    color:#FFC107;
-
-    font-weight:bold;
-
-}
-
-.estado-fuera{
-
-    color:#F44336;
-
-    font-weight:bold;
-
-}
-
-.badge{
-
-    display:inline-block;
-
-    padding:4px 10px;
-
-    border-radius:20px;
-
-    font-size:13px;
-
-    font-weight:bold;
-
-    background:#616161;
-
-}
-
-.footer{
-
-    margin-top:30px;
-
+.estado{
     text-align:center;
-
-    color:#bbbbbb;
-
-    font-size:13px;
-
-}
-
-@media(max-width:700px){
-
-    .logo{
-
-        font-size:34px;
-
-    }
-
-    button{
-
-        font-size:16px;
-
-    }
-
+    color:green;
+    font-weight:bold;
 }
