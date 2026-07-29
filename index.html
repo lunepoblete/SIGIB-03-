@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGIB 03</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,34 +16,50 @@
         <p>Sistema Integral de Gestión de Inventario Bomberos</p>
     </header>
 
+
     <main>
 
         <h2>Módulos</h2>
 
         <div class="modulos">
 
-            <button>🚒 Equipamiento estructural</button>
+            <button onclick="abrirModulo('🚒 Equipamiento estructural')">
+                🚒 Equipamiento estructural
+            </button>
 
-            <button>🧯 Extintores</button>
+            <button onclick="abrirModulo('🧯 Extintores')">
+                🧯 Extintores
+            </button>
 
-            <button>🚑 Rescate</button>
+            <button onclick="abrirModulo('🚑 Rescate')">
+                🚑 Rescate
+            </button>
 
-            <button>🔦 Herramientas</button>
+            <button onclick="abrirModulo('🔦 Herramientas')">
+                🔦 Herramientas
+            </button>
 
-            <button>👕 Indumentaria</button>
+            <button onclick="abrirModulo('👕 Indumentaria')">
+                👕 Indumentaria
+            </button>
 
-            <button>📋 Salidas y devoluciones</button>
+            <button onclick="abrirModulo('📋 Salidas y devoluciones')">
+                📋 Salidas y devoluciones
+            </button>
 
         </div>
 
     </main>
 
+
     <footer>
         <p>SIGIB 03 - Módulo en desarrollo</p>
     </footer>
 
-<script src="datos.js"></script>
-<script src="app.js"></script>
+
+    <script src="datos.js"></script>
+    <script src="app.js"></script>
 
 </body>
+
 </html>
