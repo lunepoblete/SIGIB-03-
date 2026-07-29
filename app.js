@@ -1,3 +1,3 @@
-window.onload = function () {
-    cargarPizarra();
-};
+function abrirModulo(nombre) {
+    alert("Ingresando a módulo: " + nombre);
+}
