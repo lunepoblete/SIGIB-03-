@@ -1,12 +1,46 @@
 /* ==========================================
    SIGIB 03
-   MODULO PIZARRA MEJORADO
+   MODULO PIZARRA
+   FIREBASE
 ========================================== */
 
+let tareas = [];
 
-function mostrarPizarra(){
 
-let html = `
+
+async function cargarPizarraFirebase(){
+
+    if(typeof leerPizarraFirebase=="function"){
+
+        let datos = await leerPizarraFirebase();
+
+        tareas = datos;
+
+        localStorage.setItem(
+            "tareas",
+            JSON.stringify(tareas)
+        );
+
+    }else{
+
+        tareas = JSON.parse(
+            localStorage.getItem("tareas") || "[]"
+        );
+
+    }
+
+}
+
+
+
+
+
+
+async function mostrarPizarra(){
+
+    await cargarPizarraFirebase();
+
+    let html = `
 
 <h2>📝 Pizarra</h2>
 
@@ -14,9 +48,12 @@ let html = `
 ➕ Nueva tarea
 </button>
 
+<hr>
+
 <h3>⏳ Pendientes</h3>
 
 `;
+
 
 
 let pendientes = tareas.filter(
@@ -30,7 +67,9 @@ if(pendientes.length==0){
 html += `
 
 <div class="card">
+
 No hay tareas pendientes
+
 </div>
 
 `;
@@ -40,7 +79,6 @@ No hay tareas pendientes
 
 
 pendientes.forEach(t=>{
-
 
 html += `
 
@@ -57,28 +95,31 @@ ${t.prioridad}
 
 <br><br>
 
-👤 Creada por:
-${t.creador}
+👤 ${t.creador}
 
 <br>
 
 📅 ${t.fecha}
 
+<br><br>
 
-<button onclick="editarTarea(${t.id})">
+<button onclick="editarTarea('${t.id}')">
+
 ✏️ Modificar
+
 </button>
 
+<button onclick="finalizarTarea('${t.id}')">
 
-<button onclick="finalizarTarea(${t.id})">
 ✅ Finalizar
+
 </button>
 
+<button onclick="eliminarTarea('${t.id}')">
 
-<button onclick="eliminarTarea(${t.id})">
 🗑️ Eliminar
-</button>
 
+</button>
 
 </div>
 
@@ -104,41 +145,51 @@ t=>t.estado=="Finalizada"
 
 
 
-finalizadas.forEach(t=>{
-
+if(finalizadas.length==0){
 
 html += `
 
 <div class="card">
 
+No hay tareas finalizadas
+
+</div>
+
+`;
+
+}
+
+
+
+finalizadas.forEach(t=>{
+
+html += `
+
+<div class="card">
 
 <h3>✅ ${t.titulo}</h3>
 
-
 📝 ${t.descripcion}
-
 
 <br><br>
 
-Creada por:
-${t.creador}
-
+👤 ${t.creador}
 
 <br>
 
-Realizada por:
-${t.realizador}
-
+✔ ${t.realizador}
 
 <br>
 
 📅 ${t.fechaFinalizacion}
 
+<br><br>
 
-<button onclick="eliminarTarea(${t.id})">
+<button onclick="eliminarTarea('${t.id}')">
+
 🗑️ Eliminar
-</button>
 
+</button>
 
 </div>
 
@@ -151,72 +202,149 @@ ${t.realizador}
 cambiarContenido(html);
 
 }
+/* ==========================================
+   NUEVA TAREA
+========================================== */
 
+function nuevaTarea(){
 
+let html = `
 
+<h2>➕ Nueva tarea</h2>
 
+<input
+id="nuevoTitulo"
+placeholder="Título">
 
-function editarTarea(id){
-
-
-let t=tareas.find(
-x=>x.id==id
-);
-
-
-
-let html=`
-
-
-<h2>✏️ Modificar tarea</h2>
-
-
-<input id="editTitulo"
-value="${t.titulo}">
-
-
-<textarea id="editDescripcion">
-${t.descripcion}
+<textarea
+id="nuevoDescripcion"
+placeholder="Descripción">
 </textarea>
 
+<select id="nuevoPrioridad">
 
+<option>🟢 Baja</option>
 
-<select id="editPrioridad">
+<option selected>🟡 Media</option>
 
-<option>${t.prioridad}</option>
-
-<option>
-🟢 Baja
-</option>
-
-<option>
-🟡 Media
-</option>
-
-<option>
-🔴 Alta
-</option>
+<option>🔴 Alta</option>
 
 </select>
 
+<br><br>
 
-<button onclick="guardarEdicionTarea(${id})">
-
-💾 Guardar cambios
-
+<button onclick="guardarTarea()">
+💾 Guardar
 </button>
 
+<button onclick="mostrarPizarra()">
+❌ Cancelar
+</button>
 
 `;
 
-
-
 cambiarContenido(html);
-
 
 }
 
 
+
+
+
+async function guardarTarea(){
+
+let tarea={
+
+id:Date.now().toString(),
+
+titulo:nuevoTitulo.value,
+
+descripcion:nuevoDescripcion.value,
+
+prioridad:nuevoPrioridad.value,
+
+estado:"Pendiente",
+
+creador:usuarioActual.nombre,
+
+fecha:new Date().toLocaleString()
+
+};
+
+
+
+tareas.push(tarea);
+
+
+
+localStorage.setItem(
+
+"tareas",
+
+JSON.stringify(tareas)
+
+);
+
+
+
+if(typeof guardarTareaFirebase=="function"){
+
+await guardarTareaFirebase(tarea);
+
+}
+
+
+
+alert("Tarea creada");
+
+
+
+mostrarPizarra();
+
+}
+/* ==========================================
+   EDITAR TAREA
+========================================== */
+
+function editarTarea(id){
+
+let t=tareas.find(x=>x.id==id);
+
+let html=`
+
+<h2>✏️ Modificar tarea</h2>
+
+<input
+id="editTitulo"
+value="${t.titulo}">
+
+<textarea id="editDescripcion">${t.descripcion}</textarea>
+
+<select id="editPrioridad">
+
+<option ${t.prioridad=="🟢 Baja"?"selected":""}>🟢 Baja</option>
+
+<option ${t.prioridad=="🟡 Media"?"selected":""}>🟡 Media</option>
+
+<option ${t.prioridad=="🔴 Alta"?"selected":""}>🔴 Alta</option>
+
+</select>
+
+<br><br>
+
+<button onclick="guardarEdicionTarea('${id}')">
+💾 Guardar cambios
+</button>
+
+<button onclick="mostrarPizarra()">
+❌ Cancelar
+</button>
+
+`;
+
+cambiarContenido(html);
+
+}
 
 
 
@@ -224,11 +352,7 @@ cambiarContenido(html);
 
 function guardarEdicionTarea(id){
 
-
-let t=tareas.find(
-x=>x.id==id
-);
-
+let t=tareas.find(x=>x.id==id);
 
 t.titulo=editTitulo.value;
 
@@ -236,21 +360,37 @@ t.descripcion=editDescripcion.value;
 
 t.prioridad=editPrioridad.value;
 
+localStorage.setItem(
+"tareas",
+JSON.stringify(tareas)
+);
 
+mostrarPizarra();
+
+}
+
+
+
+
+
+function finalizarTarea(id){
+
+let t=tareas.find(x=>x.id==id);
+
+t.estado="Finalizada";
+
+t.realizador=usuarioActual.nombre;
+
+t.fechaFinalizacion=new Date().toLocaleString();
 
 localStorage.setItem(
 "tareas",
 JSON.stringify(tareas)
 );
 
-
-
 mostrarPizarra();
 
-
 }
-
-
 
 
 
@@ -258,34 +398,15 @@ mostrarPizarra();
 
 function eliminarTarea(id){
 
+if(confirm("¿Eliminar esta tarea?")){
 
-let confirmar =
-confirm(
-"¿Eliminar esta tarea?"
-);
-
-
-
-if(confirmar){
-
-
-tareas=tareas.filter(
-t=>t.id!=id
-);
-
-
+tareas=tareas.filter(x=>x.id!=id);
 
 localStorage.setItem(
 "tareas",
 JSON.stringify(tareas)
 );
 
-
-
 mostrarPizarra();
-
-
-}
-
 
 }
