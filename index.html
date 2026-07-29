@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIGIB 03</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGIB 03</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🚒 SIGIB 03</h1>
-<p>Prueba de funcionamiento</p>
+    <header>
+        <h1>🚒 SIGIB 03</h1>
+        <p>Sistema Integral de Gestión de Inventario Bomberos</p>
+    </header>
 
-<div id="app"></div>
+    <main>
 
-<script>
-document.getElementById("app").innerHTML = `
-<h2>✅ SIGIB FUNCIONANDO</h2>
-<p>Si ves este mensaje, el problema no es GitHub Pages.</p>
-`;
-</script>
+        <h2>Módulos</h2>
+
+        <div class="modulos">
+
+            <button>🚒 Equipamiento estructural</button>
+
+            <button>🧯 Extintores</button>
+
+            <button>🚑 Rescate</button>
+
+            <button>🔦 Herramientas</button>
+
+            <button>👕 Indumentaria</button>
+
+            <button>📋 Salidas y devoluciones</button>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>SIGIB 03 - Módulo en desarrollo</p>
+    </footer>
+
+<script src="datos.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>
