@@ -1,145 +1,70 @@
 /* ==========================================
    SIGIB 03
-   MODULO REPORTES
+   MÓDULO REPORTES
 ========================================== */
 
+function mostrarReportes() {
 
-function mostrarReportes(){
+    let totalMateriales = inventario.length;
 
+    let operativos = inventario.filter(
+        m => m.estado && m.estado.includes("Operativo")
+    ).length;
 
-let totalMateriales = inventario.length;
+    let mantenimiento = inventario.filter(
+        m => m.estado && m.estado.includes("Mantenimiento")
+    ).length;
 
+    let fueraServicio = inventario.filter(
+        m => m.estado && m.estado.includes("Fuera")
+    ).length;
 
-let operativos = inventario.filter(
-m => m.estado.includes("Operativo")
-).length;
+    let tareasPendientes = tareas.filter(
+        t => t.estado == "Pendiente"
+    ).length;
 
+    let tareasFinalizadas = tareas.filter(
+        t => t.estado == "Finalizada"
+    ).length;
 
-let mantenimiento = inventario.filter(
-m => m.estado.includes("Mantenimiento")
-).length;
+    let totalMovimientos = movimientos.length;
 
+    document.getElementById("app").innerHTML = `
 
-let fueraServicio = inventario.filter(
-m => m.estado.includes("Fuera")
-).length;
+    <div class="contenedor">
 
+        <h2>📊 Reportes</h2>
 
+        <div class="card">
+            <h3>📦 Inventario</h3>
 
-let tareasPendientes = tareas.filter(
-t => t.estado=="Pendiente"
-).length;
+            Materiales: <b>${totalMateriales}</b><br>
+            🟢 Operativos: <b>${operativos}</b><br>
+            🟡 Mantenimiento: <b>${mantenimiento}</b><br>
+            🔴 Fuera de servicio: <b>${fueraServicio}</b>
+        </div>
 
+        <div class="card">
+            <h3>📋 Pizarra</h3>
 
-let tareasFinalizadas = tareas.filter(
-t => t.estado=="Finalizada"
-).length;
+            Pendientes: <b>${tareasPendientes}</b><br>
+            Finalizadas: <b>${tareasFinalizadas}</b>
+        </div>
 
+        <div class="card">
+            <h3>🔄 Movimientos</h3>
 
+            Total: <b>${totalMovimientos}</b>
+        </div>
 
-let totalMovimientos = movimientos.length;
+        <button onclick="cargarPizarra()">
+            ⬅ Volver al menú
+        </button>
 
+    </div>
 
-
-
-
-let html = `
-
-<h2>📊 Reportes</h2>
-
-
-
-<div class="card">
-
-<h3>📦 Inventario</h3>
-
-
-📋 Materiales registrados:
-
-<br>
-
-<b>${totalMateriales}</b>
-
-
-<hr>
-
-
-🟢 Operativos:
-
-<b>${operativos}</b>
-
-
-<br>
-
-🟡 Mantenimiento:
-
-<b>${mantenimiento}</b>
-
-
-<br>
-
-🔴 Fuera de servicio:
-
-<b>${fueraServicio}</b>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-
-<h3>📝 Pizarra</h3>
-
-
-⏳ Pendientes:
-
-<b>${tareasPendientes}</b>
-
-
-<br>
-
-
-✅ Finalizadas:
-
-<b>${tareasFinalizadas}</b>
-
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-
-<h3>🔄 Movimientos</h3>
-
-
-Total registrados:
-
-
-<br>
-
-
-<b>${totalMovimientos}</b>
-
-
-</div>
-
-
-
-`;
-
-
-
-cambiarContenido(html);
-
-
+    `;
 
 }
+
+window.mostrarReportes = mostrarReportes;
