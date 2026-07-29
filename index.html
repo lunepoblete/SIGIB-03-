@@ -5,19 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGIB 03</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
+    <div id="login">
+
         <h1>🚒 SIGIB 03</h1>
-        <p>Sistema Integral de Gestión de Inventario Bomberos</p>
-    </header>
+
+        <p>
+            Sistema Integral de Gestión de Inventario Bomberos
+        </p>
+
+        <input type="text" id="usuario" placeholder="Usuario">
+
+        <input type="password" id="clave" placeholder="Contraseña">
+
+        <button onclick="ingresar()">
+            Ingresar
+        </button>
+
+    </div>
 
 
-    <main>
+    <main id="panel" style="display:none;">
+
+        <header>
+            <h1>🚒 SIGIB 03</h1>
+            <p>Panel principal</p>
+        </header>
+
 
         <h2>Módulos</h2>
 
@@ -53,7 +71,7 @@
 
 
     <footer>
-        <p>SIGIB 03 - Módulo en desarrollo</p>
+        <p>SIGIB 03</p>
     </footer>
 
 
