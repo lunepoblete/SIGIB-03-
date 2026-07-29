@@ -1,3 +1,26 @@
+function ingresar() {
+
+    let usuario = document.getElementById("usuario").value;
+    let clave = document.getElementById("clave").value;
+
+
+    // Usuario de prueba
+    if (usuario === "bombero" && clave === "1234") {
+
+        document.getElementById("login").style.display = "none";
+
+        document.getElementById("panel").style.display = "block";
+
+    } else {
+
+        alert("Usuario o contraseña incorrectos");
+
+    }
+
+}
+
+
+
 function abrirModulo(nombre) {
 
     if (nombre === "🚒 Equipamiento estructural") {
@@ -11,6 +34,7 @@ function abrirModulo(nombre) {
     }
 
 }
+
 
 
 function mostrarEquipamiento() {
@@ -28,6 +52,7 @@ function mostrarEquipamiento() {
     </tr>
     `;
 
+
     equipamientoEstructural.forEach(item => {
 
         contenido += `
@@ -40,6 +65,7 @@ function mostrarEquipamiento() {
         `;
 
     });
+
 
     contenido += "</table>";
 
