@@ -1,48 +1,59 @@
 function cargarPizarra() {
-    document.getElementById("app").innerHTML = `
-        <div class="contenedor">
 
-            <h1>🚒 SIGIB 03</h1>
-            <h2>Sistema de Gestión de Inventario Bomberos</h2>
+    const app = document.getElementById("app");
 
-            <hr>
+    app.innerHTML = `
 
-            <button onclick="mostrarInventario()">
-                📦 Inventario
-            </button>
+    <div class="contenedor">
 
-            <button onclick="mostrarMovimientos()">
-                🔄 Movimientos
-            </button>
+        <h1>🚒 SIGIB 03</h1>
 
-            <button onclick="mostrarReportes()">
-                📊 Reportes
-            </button>
+        <h2>Sistema de Gestión de Inventario Bomberos</h2>
 
-            <button>
-                📋 Pizarra
-            </button>
+        <hr>
 
-            <button>
-                ⚙️ Configuración
-            </button>
+        <button onclick="mostrarInventario()">
+            📦 Inventario
+        </button>
 
-            <hr>
+        <button onclick="mostrarMovimientos()">
+            🔄 Movimientos
+        </button>
 
-            <h3>Áreas</h3>
+        <button onclick="mostrarReportes()">
+            📊 Reportes
+        </button>
 
-            <p>🚒 Incendios Estructurales</p>
-            <p>🌲 Incendios Forestales</p>
-            <p>🚗 Rescate Vehicular</p>
-            <p>🩺 Trauma</p>
-            <p>🌊 Rescate Acuático</p>
-            <p>🧗 GRIMP</p>
-            <p>🫁 ERA</p>
-            <p>👕 Ropería</p>
-            <p>⛽ Equipos a Explosión</p>
+        <button onclick="alert('Próximamente')">
+            📋 Pizarra
+        </button>
 
-        </div>
+        <button onclick="alert('Próximamente')">
+            👤 Usuarios
+        </button>
+
+        <button onclick="alert('Próximamente')">
+            ⚙️ Configuración
+        </button>
+
+        <hr>
+
+        <h3>Áreas del cuartel</h3>
+
+        <p>🚒 Incendios Estructurales</p>
+        <p>🌲 Incendios Forestales</p>
+        <p>🚗 Rescate Vehicular</p>
+        <p>🩺 Trauma</p>
+        <p>🌊 Rescate Acuático</p>
+        <p>🧗 GRIMP</p>
+        <p>🫁 ERA</p>
+        <p>👕 Ropería</p>
+        <p>⛽ Equipos a Explosión</p>
+
+    </div>
+
     `;
+
 }
 
 cargarPizarra();
