@@ -1,18 +1,48 @@
 function cargarPizarra() {
     document.getElementById("app").innerHTML = `
-        <div style="padding:20px;font-family:Arial,sans-serif">
+        <div class="contenedor">
+
             <h1>🚒 SIGIB 03</h1>
-            <p>Sistema de Gestión de Inventario Bomberos</p>
+            <h2>Sistema de Gestión de Inventario Bomberos</h2>
 
             <hr>
 
-            <button onclick="alert('Inventario')">📦 Inventario</button>
-            <button onclick="alert('Movimientos')">🔄 Movimientos</button>
-            <button onclick="alert('Reportes')">📊 Reportes</button>
+            <button onclick="mostrarInventario()">
+                📦 Inventario
+            </button>
 
-            <p style="margin-top:20px;color:green;">
-                ✅ SIGIB funcionando correctamente
-            </p>
+            <button onclick="mostrarMovimientos()">
+                🔄 Movimientos
+            </button>
+
+            <button onclick="mostrarReportes()">
+                📊 Reportes
+            </button>
+
+            <button>
+                📋 Pizarra
+            </button>
+
+            <button>
+                ⚙️ Configuración
+            </button>
+
+            <hr>
+
+            <h3>Áreas</h3>
+
+            <p>🚒 Incendios Estructurales</p>
+            <p>🌲 Incendios Forestales</p>
+            <p>🚗 Rescate Vehicular</p>
+            <p>🩺 Trauma</p>
+            <p>🌊 Rescate Acuático</p>
+            <p>🧗 GRIMP</p>
+            <p>🫁 ERA</p>
+            <p>👕 Ropería</p>
+            <p>⛽ Equipos a Explosión</p>
+
         </div>
     `;
 }
+
+cargarPizarra();
