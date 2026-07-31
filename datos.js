@@ -502,24 +502,26 @@ const inventariosIniciales = {
             observaciones: ""
         },
 
-        {
-            nombre: "ESCALERAS",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "BIFURCADORES",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "EQUIPOS GEN. ESPUMA",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        }
+     {
+    nombre: "ESCALERAS",
+    cantidad: 0,
+    estado: "Bueno",
+    observaciones: ""
+},
+
+{
+    nombre: "BIFURCADORES",
+    cantidad: 0,
+    estado: "Bueno",
+    observaciones: ""
+},
+
+{
+    nombre: "EQUIPOS GEN. ESPUMA",
+    cantidad: 0,
+    estado: "Bueno",
+    observaciones: ""
+},
 
     ],
 
