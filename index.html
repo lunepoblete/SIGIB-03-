@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGIB 03</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+
+    <!-- INGRESO -->
 
     <div id="login">
 
@@ -18,9 +22,11 @@
             Sistema Integral de Gestión de Inventario Bomberos
         </p>
 
-        <input type="text" id="usuario" placeholder="Usuario">
-
-        <input type="password" id="clave" placeholder="Contraseña">
+        <input 
+            type="number" 
+            id="legajo" 
+            placeholder="Número de legajo"
+        >
 
         <button onclick="ingresar()">
             Ingresar
@@ -28,6 +34,9 @@
 
     </div>
 
+
+
+    <!-- PANEL PRINCIPAL -->
 
     <main id="panel" style="display:none;">
 
@@ -39,44 +48,60 @@
 
         <h2>Módulos</h2>
 
+
         <div class="modulos">
+
 
             <button onclick="abrirModulo('🚒 Equipamiento estructural')">
                 🚒 Equipamiento estructural
             </button>
 
+
             <button onclick="abrirModulo('🧯 Extintores')">
                 🧯 Extintores
             </button>
+
 
             <button onclick="abrirModulo('🚑 Rescate')">
                 🚑 Rescate
             </button>
 
+
             <button onclick="abrirModulo('🔦 Herramientas')">
                 🔦 Herramientas
             </button>
+
 
             <button onclick="abrirModulo('👕 Indumentaria')">
                 👕 Indumentaria
             </button>
 
+
             <button onclick="abrirModulo('📋 Salidas y devoluciones')">
                 📋 Salidas y devoluciones
             </button>
 
+
         </div>
+
 
     </main>
 
 
+
     <footer>
-        <p>SIGIB 03</p>
+
+        <p>
+            SIGIB 03 - Sistema en desarrollo
+        </p>
+
     </footer>
+
 
 
     <script src="datos.js"></script>
     <script src="app.js"></script>
+
 
 </body>
 
