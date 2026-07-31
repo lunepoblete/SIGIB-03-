@@ -1,49 +1,60 @@
 // ========================================
-// SIGIB 03 - PIZARRA
+// SIGIB 03
+// MODULO PIZARRA
 // ========================================
+
 
 
 function cargarPizarra() {
 
-    const app = document.getElementById("app");
+
+    const app = document.getElementById("panel");
+
 
     app.innerHTML = `
 
+
     <div class="contenedor">
+
 
         <h1>🚒 SIGIB 03</h1>
 
-        <h2>Sistema de Gestión de Inventario Bomberos</h2>
+
+        <h2>
+        Sistema de Gestión de Inventario Bomberos
+        </h2>
+
 
         <hr>
 
-        <button onclick="mostrarInventario()">
+
+        <button onclick="mostrarMenuPrincipal()">
             📦 Inventario
         </button>
+
 
         <button onclick="mostrarMovimientos()">
             🔄 Movimientos
         </button>
 
+
         <button onclick="mostrarReportes()">
             📊 Reportes
         </button>
+
 
         <button onclick="mostrarPizarra()">
             📋 Pizarra
         </button>
 
-        <button onclick="alert('Próximamente')">
-            👤 Usuarios
-        </button>
-
-        <button onclick="alert('Próximamente')">
-            ⚙️ Configuración
-        </button>
 
         <hr>
 
-        <h3>Áreas del cuartel</h3>
+
+        <h3>
+        Áreas del cuartel
+        </h3>
+
 
         <p>🚒 Incendios Estructurales</p>
         <p>🌲 Incendios Forestales</p>
@@ -55,11 +66,15 @@ function cargarPizarra() {
         <p>👕 Ropería</p>
         <p>⛽ Equipos a Explosión</p>
 
+
     </div>
+
 
     `;
 
+
 }
+
 
 
 
@@ -68,64 +83,130 @@ function cargarPizarra() {
 // ========================================
 
 
-function mostrarPizarra(){
+function mostrarPizarra() {
 
-    const app = document.getElementById("app");
+
+    const app = document.getElementById("panel");
+
 
     app.innerHTML = `
 
+
     <div class="contenedor">
 
-        <h1>📋 PIZARRA SIGIB 03</h1>
 
-        <h2>Estado operativo del cuartel</h2>
+        <button onclick="mostrarMenuPrincipal()">
 
-        <hr>
-
-
-        <h3>🚒 Móviles</h3>
-
-        <p>🚒 Móvil 26 - Disponible</p>
-        <p>🚒 Móvil 32 - Disponible</p>
-        <p>🚒 Móvil 38 - Disponible</p>
-        <p>🚒 Móvil 40 - Disponible</p>
-        <p>🚒 Móvil 41 - Disponible</p>
-
-
-        <hr>
-
-
-        <h3>📦 Materiales</h3>
-
-        <p>🟢 Equipamiento operativo</p>
-        <p>🟡 Elementos en revisión</p>
-        <p>🔴 Elementos fuera de servicio</p>
-
-
-        <hr>
-
-
-        <h3>📝 Novedades</h3>
-
-        <p>Sin novedades cargadas</p>
-
-
-        <hr>
-
-
-        <button onclick="cargarPizarra()">
             ⬅ Volver
+
         </button>
+
+
+
+        <h1>
+            📋 PIZARRA SIGIB 03
+        </h1>
+
+
+
+        <h2>
+            Estado operativo del cuartel
+        </h2>
+
+
+
+        <hr>
+
+
+
+        <h3>
+            🚒 Móviles
+        </h3>
+
+
+
+        <p>
+            🚒 Móvil 26 - Disponible
+        </p>
+
+
+        <p>
+            🚒 Móvil 32 - Disponible
+        </p>
+
+
+        <p>
+            🚒 Móvil 38 - Disponible
+        </p>
+
+
+        <p>
+            🚒 Móvil 40 - Disponible
+        </p>
+
+
+        <p>
+            🚒 Móvil 41 - Disponible
+        </p>
+
+
+
+        <hr>
+
+
+
+        <h3>
+            📦 Estado de materiales
+        </h3>
+
+
+        <p>
+            🟢 Operativos
+        </p>
+
+
+        <p>
+            🟡 En revisión
+        </p>
+
+
+        <p>
+            🔴 Fuera de servicio
+        </p>
+
+
+
+        <hr>
+
+
+
+        <h3>
+            📝 Novedades
+        </h3>
+
+
+        <p>
+            Sin novedades cargadas
+        </p>
+
 
 
     </div>
 
+
     `;
+
 
 }
 
 
 
-cargarPizarra();
-window.mostrarPizarra = mostrarPizarra;
+
+// ========================================
+// EXPORTAR FUNCIONES
+// ========================================
+
+
 window.cargarPizarra = cargarPizarra;
+
+window.mostrarPizarra = mostrarPizarra;
