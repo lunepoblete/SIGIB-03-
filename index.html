@@ -17,21 +17,21 @@
 <body>
 
 
-    <!-- INGRESO -->
+    <!-- LOGIN -->
 
     <section id="login">
 
         <h1>🚒 SIGIB 03</h1>
 
-        <p>
+        <h3>
             Sistema Integral de Gestión de Inventario Bomberos
-        </p>
+        </h3>
 
 
         <input
             type="number"
             id="legajo"
-            placeholder="Ingrese su legajo"
+            placeholder="Ingrese legajo"
         >
 
 
@@ -44,51 +44,22 @@
 
 
 
+    <!-- APLICACIÓN -->
 
-    <!-- PANEL PRINCIPAL -->
-
-    <main id="panel" style="display:none;">
-
-
-        <header>
-
-            <h1>
-                🚒 SIGIB 03
-            </h1>
-
-            <p>
-                Panel principal
-            </p>
-
-        </header>
-
-
-
-        <!-- AQUÍ APP.JS CARGA LOS MÓDULOS -->
-
-        <div id="menuModulos" class="modulos"></div>
-
-
+    <main 
+        id="panel"
+        style="display:none;"
+    >
 
     </main>
 
 
 
+    <!-- CARGA DE ARCHIVOS -->
 
-    <footer>
+    <script src="./datos.js"></script>
 
-        <p>
-            SIGIB 03 - Sistema de Gestión de Inventario
-        </p>
-
-    </footer>
-
-
-
-
-    <script src="datos.js"></script>
-
-    <script src="app.js"></script>
+    <script src="./app.js"></script>
 
 
 </body>
