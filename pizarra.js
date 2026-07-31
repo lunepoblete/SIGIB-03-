@@ -127,3 +127,5 @@ function mostrarPizarra(){
 
 
 cargarPizarra();
+window.mostrarPizarra = mostrarPizarra;
+window.cargarPizarra = cargarPizarra;
