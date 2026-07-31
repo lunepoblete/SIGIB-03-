@@ -155,3 +155,93 @@ function buscarElemento() {
     });
 
 }
+// ========================================
+// APP.JS - PARTE 3
+// AGREGAR - EDITAR - ELIMINAR
+// ========================================
+
+function agregarElemento() {
+
+    let nombre = prompt("Nombre del elemento:");
+
+    if (!nombre) return;
+
+    let cantidad = prompt("Cantidad:");
+
+    if (cantidad === null) return;
+
+    let estado = prompt("Estado (Bueno / Revisar / Fuera de servicio):", "Bueno");
+
+    if (estado === null) return;
+
+    let ubicacion = prompt("Ubicación:");
+
+    if (ubicacion === null) return;
+
+    let observaciones = prompt("Observaciones:", "");
+
+    if (observaciones === null) observaciones = "";
+
+    equipamientoEstructural.push({
+        nombre: nombre,
+        cantidad: Number(cantidad),
+        estado: estado,
+        ubicacion: ubicacion,
+        observaciones: observaciones
+    });
+
+    mostrarEquipamiento();
+
+}
+
+
+
+function editarElemento(indice) {
+
+    let item = equipamientoEstructural[indice];
+
+    let nombre = prompt("Nombre:", item.nombre);
+
+    if (nombre === null) return;
+
+    let cantidad = prompt("Cantidad:", item.cantidad);
+
+    if (cantidad === null) return;
+
+    let estado = prompt("Estado:", item.estado);
+
+    if (estado === null) return;
+
+    let ubicacion = prompt("Ubicación:", item.ubicacion);
+
+    if (ubicacion === null) return;
+
+    let observaciones = prompt("Observaciones:", item.observaciones);
+
+    if (observaciones === null) return;
+
+    item.nombre = nombre;
+    item.cantidad = Number(cantidad);
+    item.estado = estado;
+    item.ubicacion = ubicacion;
+    item.observaciones = observaciones;
+
+    mostrarEquipamiento();
+
+}
+
+
+
+function eliminarElemento(indice) {
+
+    let confirmar = confirm(
+        "¿Desea eliminar este elemento?"
+    );
+
+    if (!confirmar) return;
+
+    equipamientoEstructural.splice(indice, 1);
+
+    mostrarEquipamiento();
+
+}
