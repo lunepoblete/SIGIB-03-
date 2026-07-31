@@ -307,7 +307,7 @@ const modulos = [
             {
                 nombre: "🚒 Móvil 40",
                 codigo: "IE-40"
-            }
+            },
 
         ]
     },
@@ -331,7 +331,7 @@ const modulos = [
             {
                 nombre: "🚒 Móvil 36",
                 codigo: "IF-36"
-            }
+            },
 
         ]
     },
@@ -388,7 +388,7 @@ const modulos = [
             {
                 nombre: "📦 Depósito",
                 codigo: "RA-DEP"
-            }
+            },
 
         ]
     },
@@ -507,13 +507,13 @@ const inventariosIniciales = {
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "BIFURCADORES",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "EQUIPOS GEN. ESPUMA",
             cantidad: 0,
@@ -524,9 +524,9 @@ const inventariosIniciales = {
     ],
 
 
-    "IE-32": [],
-    "IE-38": [],
-    "IE-40": [],
+    "movil-32": [],
+    "movil-38": [],
+    "movil-40": [],
 
 
 
@@ -546,7 +546,7 @@ const inventariosIniciales = {
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "mangas",
             cantidad: 0,
@@ -570,7 +570,7 @@ const inventariosIniciales = {
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "estabilizacion",
             cantidad: 0,
@@ -593,7 +593,7 @@ const inventariosIniciales = {
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "inmovilizacion",
             cantidad: 0,
@@ -618,19 +618,19 @@ const inventariosIniciales = {
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "bolsas de rescate",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "cascos",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "chalecos",
             cantidad: 0,
@@ -651,13 +651,13 @@ const inventariosIniciales = {
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "Arneses",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
-        }
+        },
         {
             nombre: "Cascos",
             cantidad: 0,
