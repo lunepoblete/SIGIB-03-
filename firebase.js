@@ -1,56 +1,83 @@
-console.log("ENTRANDO A FIREBASE.JS");
-/* ==========================================
-   SIGIB 03
-   CONEXIÓN FIREBASE
-========================================== */
+// ==========================================
+// SIGIB 03
+// CONEXIÓN FIREBASE
+// ==========================================
 
+
+console.log("ENTRANDO A FIREBASE.JS");
+
+
+// Importar Firebase
 
 import { initializeApp } from 
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
-import { 
-getFirestore 
-} from 
+import { getFirestore } from 
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
 
-// Configuración SIGIB03
+// ==========================================
+// CONFIGURACIÓN SIGIB 03
+// ==========================================
+
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyDzsWkNLKwz0U2iFuYax-4GttWbSvQ-5jQ",
 
-authDomain: "sigib03-ddaeb.firebaseapp.com",
+    apiKey: "AIzaSyDzsWkNLKwz0U2iFuYax-4GttWbSvQ-5jQ",
 
-projectId: "sigib03-ddaeb",
 
-storageBucket: "sigib03-ddaeb.firebasestorage.app",
+    authDomain: "sigib03-ddaeb.firebaseapp.com",
 
-messagingSenderId: "381032367890",
 
-appId: "1:381032367890:web:391fd8fcc55dded04a55cb"
+    projectId: "sigib03-ddaeb",
+
+
+    storageBucket: "sigib03-ddaeb.firebasestorage.app",
+
+
+    messagingSenderId: "381032367890",
+
+
+    appId: "1:381032367890:web:391fd8fcc55dded04a55cb"
+
 
 };
 
 
 
 
-// Inicializar Firebase
+// ==========================================
+// INICIALIZAR FIREBASE
+// ==========================================
+
 
 const app = initializeApp(firebaseConfig);
 
 
 
 
-// Base de datos
+// ==========================================
+// CONEXIÓN FIRESTORE
+// ==========================================
+
 
 const db = getFirestore(app);
 
 
 
-// Exportar conexión
+
+console.log("🔥 Firebase SIGIB 03 conectado");
+
+
+
+
+// ==========================================
+// EXPORTAR BASE DE DATOS
+// ==========================================
+
 
 export { db };
