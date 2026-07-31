@@ -1,3 +1,4 @@
+console.log("PIZARRA JS CARGADO");
 // ========================================
 // SIGIB 03
 // MODULO PIZARRA OPERATIVA
