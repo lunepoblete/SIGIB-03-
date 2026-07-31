@@ -91,3 +91,94 @@ const equipamientoEstructural = [
         ubicacion: "Depósito"
     }
 ];
+// ========================================
+// ESTRUCTURA DE MÓDULOS SIGIB 03
+// ========================================
+
+const modulos = [
+
+    {
+        nombre: "🚒 Incendio estructural",
+        subdivisiones: [
+            "📦 Depósito",
+            "🚒 Móvil 32",
+            "🚒 Móvil 38",
+            "🚒 Móvil 40"
+        ]
+    },
+
+
+    {
+        nombre: "🌲 Incendio forestal",
+        subdivisiones: [
+            "📦 Depósito",
+            "🚒 Móvil 26",
+            "🚒 Móvil 36"
+        ]
+    },
+
+
+    {
+        nombre: "🚗 Rescate vehicular",
+        subdivisiones: [
+            "📦 Depósito",
+            "🚒 Móvil 41"
+        ]
+    },
+
+
+    {
+        nombre: "🩺 Trauma",
+        subdivisiones: [
+            "📦 Depósito",
+            "🚒 Móvil 32",
+            "🚒 Móvil 41"
+        ]
+    },
+
+
+    {
+        nombre: "🌊 Rescate acuático",
+        subdivisiones: [
+            "📦 Depósito"
+        ]
+    },
+
+
+    {
+        nombre: "🪢 G.R.I.M.P.",
+        subdivisiones: [
+            "📦 Depósito",
+            "🚒 Móvil 32",
+            "🚒 Móvil 41"
+        ]
+    },
+
+
+    {
+        nombre: "🫁 E.R.A. (Equipos de Respiración Autónoma)",
+        subdivisiones: [
+            "📦 Depósito",
+            "🚒 Móvil 26",
+            "🚒 Móvil 32",
+            "🚒 Móvil 38"
+        ]
+    },
+
+
+    {
+        nombre: "👕 Ropería",
+        subdivisiones: [
+            "📦 Depósito"
+        ]
+    },
+
+
+    {
+        nombre: "⚙️ Equipos a explosión",
+        subdivisiones: [
+            "📦 Depósito"
+        ]
+    }
+
+];
