@@ -180,6 +180,17 @@ function abrirModulo(indice) {
 let inventarios = {};
 
 
+// Cargar inventario inicial
+
+if (typeof inventariosIniciales !== "undefined") {
+
+    inventarios = JSON.parse(
+        JSON.stringify(inventariosIniciales)
+    );
+
+}
+
+
 
 // ========================================
 // ABRIR INVENTARIO
