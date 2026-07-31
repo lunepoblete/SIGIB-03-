@@ -1055,3 +1055,12 @@ window.editarInventario = editarInventario;
 window.eliminarInventario = eliminarInventario;
 
 window.mostrarReportes = mostrarReportes;
+
+function cambiarContenido(html){
+
+    document.getElementById("panel").innerHTML = html;
+
+}
+
+
+window.cambiarContenido = cambiarContenido;
