@@ -1,318 +1,82 @@
-// ========================================
+// ==========================================
 // SIGIB 03
-// APP.JS
-// PARTE 1: LOGIN Y NAVEGACIÓN PRINCIPAL
-// ========================================
+// APP.JS - NAVEGACIÓN + INVENTARIO FIREBASE
+// ==========================================
+
+
+import { db } from "./firebase.js";
+
+
+import {
+
+    collection,
+    addDoc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    doc,
+    query,
+    where,
+    orderBy
+
+} from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
 
 
 let usuarioActivo = null;
 
 
 
-// ========================================
+
+
+// ==========================================
 // INGRESO POR LEGAJO
-// ========================================
+// ==========================================
 
-function ingresar() {
 
+function ingresar(){
 
-    const legajo =
-        document.getElementById("legajo").value.trim();
 
+const legajo =
+document.getElementById("legajo").value.trim();
 
 
-    const usuario =
-        personal.find(
-            persona => persona.legajo === legajo
-        );
 
+const usuario =
+personal.find(
 
+persona => persona.legajo === legajo
 
-    if (!usuario) {
-
-        alert("Legajo no registrado");
-        return;
-
-    }
-
-
-
-    usuarioActivo = usuario;
-
-
-
-    document.getElementById("login").style.display = "none";
-
-    document.getElementById("panel").style.display = "block";
-
-
-
-    mostrarMenuPrincipal();
-
-
-}
-
-
-
-
-// ========================================
-// MENÚ PRINCIPAL SIGIB 03
-// ========================================
-
-function mostrarMenuPrincipal() {
-
-
-    let contenido = `
-
-
-    <div class="contenedor">
-
-
-        <h1>🚒 SIGIB 03</h1>
-
-
-        <h3>
-        👤 ${usuarioActivo.nombre}
-        </h3>
-
-
-        <p>
-        ${usuarioActivo.funcion}
-        </p>
-
-
-        <hr>
-
-
-
-        <button onclick="mostrarMenuModulos()">
-            📦 Inventario
-        </button>
-
-
-
-        <button onclick="mostrarMovimientos()">
-            🔄 Movimientos
-        </button>
-
-
-
-        <button onclick="mostrarReportes()">
-            📊 Reportes
-        </button>
-
-
-
-        <button onclick="mostrarPizarra()">
-            📋 Pizarra
-        </button>
-
-
-
-        <hr>
-
-
-        <h3>
-        Áreas operativas
-        </h3>
-
-
-        <div class="modulos">
-
-
-    `;
-
-
-
-    modulos.forEach((modulo,index)=>{
-
-
-        contenido += `
-
-
-        <button onclick="abrirModulo(${index})">
-
-            ${modulo.nombre}
-
-        </button>
-
-
-        `;
-
-
-    });
-
-
-
-    contenido += `
-
-
-        </div>
-
-
-    </div>
-
-
-    `;
-
-
-
-    document.getElementById("panel").innerHTML =
-        contenido;
-
-
-}
-
-
-
-
-// ========================================
-// MENÚ DE MÓDULOS
-// ========================================
-
-function mostrarMenuModulos(){
-
-    mostrarMenuPrincipal();
-
-}
-
-
-
-
-// ========================================
-// ABRIR ÁREA
-// ========================================
-
-function abrirModulo(indice){
-
-
-    const modulo =
-        modulos[indice];
-
-
-
-    let contenido = `
-
-
-    <div class="contenedor">
-
-
-    <button onclick="mostrarMenuPrincipal()">
-
-        ⬅ Volver
-
-    </button>
-
-
-
-    <h2>
-
-        ${modulo.nombre}
-
-    </h2>
-
-
-
-    <hr>
-
-
-
-    <div class="modulos">
-
-
-    `;
-
-
-
-    modulo.subdivisiones.forEach(sub=>{
-
-
-        contenido += `
-
-
-        <button onclick="abrirInventario('${sub.codigo}')">
-
-
-            ${sub.nombre}
-
-        </button>
-
-
-        `;
-
-
-    });
-
-
-
-    contenido += `
-
-
-    </div>
-
-
-    </div>
-
-
-    `;
-
-
-
-    document.getElementById("panel").innerHTML =
-        contenido;
-
-
-}
-// ========================================
-// SIGIB 03
-// APP.JS
-// PARTE 2: INVENTARIO
-// ========================================
-
-
-
-// ========================================
-// COPIA DE INVENTARIO BASE
-// ========================================
-
-
-let inventarios = {};
-
-
-
-if(typeof inventario !== "undefined"){
-
-
-    inventarios =
-        JSON.parse(
-            JSON.stringify(inventario)
-        );
-
-
-}
-
-
-
-
-
-// ========================================
-// CARGAR DATOS GUARDADOS
-// ========================================
-
-
-let inventarioGuardado =
-
-localStorage.getItem(
-    "SIGIB_inventario"
 );
 
 
 
-if(inventarioGuardado){
+if(!usuario){
 
 
-    inventarios =
-        JSON.parse(inventarioGuardado);
+alert("Legajo no registrado");
+
+return;
+
+}
+
+
+
+usuarioActivo = usuario;
+
+
+
+document.getElementById("login").style.display="none";
+
+
+document.getElementById("panel").style.display="block";
+
+
+mostrarMenuModulos();
 
 
 }
@@ -321,219 +85,109 @@ if(inventarioGuardado){
 
 
 
-// ========================================
-// ABRIR INVENTARIO
-// ========================================
+// ==========================================
+// MENU PRINCIPAL
+// ==========================================
 
 
-function abrirInventario(codigo){
+function mostrarMenuModulos(){
 
 
 
-    if(!inventarios[codigo]){
+let contenido = `
 
 
-        inventarios[codigo] = [];
+<div class="contenedor">
 
 
-    }
+<h1>
+🚒 SIGIB 03
+</h1>
 
 
 
+<p>
 
+👤 ${usuarioActivo.nombre}
 
-    let contenido = `
+<br>
 
+${usuarioActivo.funcion}
 
+</p>
 
-    <div class="contenedor">
 
 
+<hr>
 
-    <button onclick="mostrarMenuPrincipal()">
 
-        ⬅ Volver
 
-    </button>
+<button onclick="mostrarPizarra()">
 
+📋 Pizarra
 
+</button>
 
-    <h2>
 
-        📦 Inventario
 
-    </h2>
+<button onclick="mostrarMovimientos()">
 
+🔄 Movimientos
 
+</button>
 
-    <h3>
 
-        ${codigo}
 
-    </h3>
 
+<h2>
 
+Seleccione un área
 
-    <hr>
+</h2>
 
 
+<div class="modulos">
 
-    <button onclick="agregarInventario('${codigo}')">
+`;
 
-        ➕ Agregar elemento
 
-    </button>
 
 
 
-    <br><br>
+modulos.forEach((modulo,index)=>{
 
 
+contenido += `
 
-    <input
 
-    id="busqueda"
+<button onclick="abrirModulo(${index})">
 
-    placeholder="🔍 Buscar elemento"
+${modulo.nombre}
 
-    onkeyup="buscarInventario()"
+</button>
 
-    >
 
+`;
 
 
-    <hr>
 
+});
 
 
-    <div id="listaInventario">
 
 
-    `;
+contenido += `
 
+</div>
 
+</div>
 
+`;
 
-    if(inventarios[codigo].length === 0){
 
 
-        contenido += `
-
-
-        <p>
-
-        📦 Sin elementos cargados
-
-        </p>
-
-
-        `;
-
-
-    }
-
-
-
-    else{
-
-
-        inventarios[codigo].forEach((item,index)=>{
-
-
-
-            contenido += `
-
-
-
-            <div class="tarjeta">
-
-
-            <h3>
-
-            ${item.nombre}
-
-            </h3>
-
-
-
-            📦 Cantidad:
-
-            ${item.cantidad}
-
-
-
-            <br>
-
-
-
-            🟢 Estado:
-
-            ${item.estado}
-
-
-
-            <br>
-
-
-
-            📝 Observaciones:
-
-            ${item.observaciones}
-
-
-
-            <br><br>
-
-
-
-            <button onclick="editarInventario('${codigo}',${index})">
-
-            ✏️ Editar
-
-            </button>
-
-
-
-            <button onclick="eliminarInventario('${codigo}',${index})">
-
-            🗑️ Eliminar
-
-            </button>
-
-
-
-            </div>
-
-
-
-            `;
-
-
-
-        });
-
-
-
-    }
-
-
-
-
-    contenido += `
-
-
-    </div>
-
-
-    </div>
-
-
-    `;
-
-
-
-    document.getElementById("panel").innerHTML =
-        contenido;
+document.getElementById("panel").innerHTML =
+contenido;
 
 
 
@@ -543,524 +197,538 @@ function abrirInventario(codigo){
 
 
 
+// ==========================================
+// ABRIR AREA
+// ==========================================
 
-// ========================================
-// BUSCADOR
-// ========================================
+
+function abrirModulo(index){
+
+
+const modulo =
+modulos[index];
+
+
+
+let contenido = `
+
+
+<button onclick="mostrarMenuModulos()">
+
+⬅ Volver
+
+</button>
+
+
+
+<h2>
+
+${modulo.nombre}
+
+</h2>
+
+
+<div class="modulos">
+
+`;
+
+
+
+
+
+modulo.subdivisiones.forEach(sub=>{
+
+
+contenido += `
+
+
+<button onclick="abrirInventario('${modulo.codigo}','${sub.codigo}','${modulo.nombre}','${sub.nombre}')">
+
+
+${sub.nombre}
+
+
+</button>
+
+
+`;
+
+
+
+});
+
+
+
+contenido += "</div>";
+
+
+
+document.getElementById("panel").innerHTML =
+contenido;
+
+
+
+}
+
+
+
+
+
+// ==========================================
+// INVENTARIO FIREBASE
+// ==========================================
+
+
+async function abrirInventario(codigoModulo,codigoUbicacion,nombreModulo,nombreUbicacion){
+
+
+
+let panel =
+document.getElementById("panel");
+
+
+
+panel.innerHTML = `
+
+
+<button onclick="mostrarMenuModulos()">
+
+⬅ Volver
+
+</button>
+
+
+<h2>
+${nombreModulo}
+</h2>
+
+
+<h3>
+${nombreUbicacion}
+</h3>
+
+
+
+<input
+
+id="busqueda"
+
+placeholder="🔍 Buscar elemento"
+
+onkeyup="buscarInventario()"
+
+>
+
+
+<br><br>
+
+
+
+<button onclick="agregarInventario('${codigoModulo}','${codigoUbicacion}','${nombreModulo}','${nombreUbicacion}')">
+
+➕ Agregar elemento
+
+</button>
+
+
+
+<div id="listaInventario">
+
+Cargando...
+
+</div>
+
+
+`;
+
+
+
+cargarInventario(
+codigoUbicacion
+);
+
+
+
+}
+
+
+
+
+
+async function cargarInventario(codigoUbicacion){
+
+
+
+const lista =
+document.getElementById("listaInventario");
+
+
+
+lista.innerHTML="";
+
+
+
+const q =
+query(
+
+collection(db,"inventario"),
+
+where(
+
+"ubicacion",
+
+"==",
+
+codigoUbicacion
+
+),
+
+orderBy("nombre")
+
+);
+
+
+
+const datos =
+await getDocs(q);
+
+
+
+if(datos.empty){
+
+
+lista.innerHTML = `
+
+<p>
+📦 No hay elementos cargados
+</p>
+
+`;
+
+return;
+
+}
+
+
+
+
+
+datos.forEach((d)=>{
+
+
+let item=d.data();
+
+
+
+lista.innerHTML += `
+
+
+<div class="tarjeta">
+
+
+<h3>
+
+${item.nombre}
+
+</h3>
+
+
+
+<p>
+
+📦 Cantidad:
+
+${item.cantidad}
+
+</p>
+
+
+
+<p>
+
+🟢 Estado:
+
+${item.estado}
+
+</p>
+
+
+
+<p>
+
+📝 ${item.observaciones}
+
+</p>
+
+
+
+
+<button onclick="editarInventario('${d.id}')">
+
+✏️ Editar
+
+</button>
+
+
+
+<button onclick="eliminarInventario('${d.id}')">
+
+🗑️ Eliminar
+
+</button>
+
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+// ==========================================
+// AGREGAR
+// ==========================================
+
+
+async function agregarInventario(modulo,ubicacion,nombreModulo,nombreUbicacion){
+
+
+
+let nombre =
+prompt("Nombre del elemento");
+
+
+
+if(!nombre)return;
+
+
+
+let cantidad =
+prompt("Cantidad");
+
+
+
+let estado =
+prompt("Estado","Bueno");
+
+
+
+let observaciones =
+prompt("Observaciones","");
+
+
+
+
+
+await addDoc(
+
+collection(db,"inventario"),
+
+{
+
+
+modulo,
+
+ubicacion,
+
+
+nombre,
+
+
+cantidad:Number(cantidad),
+
+
+estado,
+
+
+observaciones,
+
+
+cargadoPor:
+
+usuarioActivo.nombre,
+
+
+fecha:
+
+new Date().toLocaleString()
+
+
+}
+
+);
+
+
+
+alert("Elemento agregado");
+
+
+abrirInventario(modulo,ubicacion,nombreModulo,nombreUbicacion);
+
+
+
+}
+
+
+
+
+
+// ==========================================
+// EDITAR
+// ==========================================
+
+
+async function editarInventario(id){
+
+
+
+let nuevoNombre =
+prompt("Nuevo nombre");
+
+
+
+if(!nuevoNombre)return;
+
+
+
+await updateDoc(
+
+doc(db,"inventario",id),
+
+{
+
+
+nombre:nuevoNombre,
+
+
+modificadoPor:
+
+usuarioActivo.nombre,
+
+
+fechaModificacion:
+
+new Date().toLocaleString()
+
+
+}
+
+);
+
+
+
+alert("Actualizado");
+
+location.reload();
+
+
+
+}
+
+
+
+
+
+// ==========================================
+// ELIMINAR
+// ==========================================
+
+
+async function eliminarInventario(id){
+
+
+
+if(!confirm("¿Eliminar elemento?"))
+
+return;
+
+
+
+await deleteDoc(
+
+doc(db,"inventario",id)
+
+);
+
+
+
+alert("Eliminado");
+
+
+location.reload();
+
+
+
+}
+
+
+
+
+
+// ==========================================
+// BUSCAR
+// ==========================================
 
 
 function buscarInventario(){
 
 
-
-    const texto =
-
-    document.getElementById("busqueda")
-    .value
-    .toLowerCase();
+let texto =
+document.getElementById("busqueda").value.toLowerCase();
 
 
 
+document.querySelectorAll(".tarjeta")
 
-    const tarjetas =
-
-    document.querySelectorAll(".tarjeta");
-
+.forEach(t=>{
 
 
+t.style.display =
 
-    tarjetas.forEach(t=>{
+t.innerText.toLowerCase().includes(texto)
 
+?
 
-        t.style.display =
+"block"
 
-        t.innerText
-        .toLowerCase()
-        .includes(texto)
+:
 
-        ?
-
-        "block"
-
-        :
-
-        "none";
+"none";
 
 
-
-    });
+});
 
 
 
 }
-// ========================================
-// SIGIB 03
-// APP.JS
-// PARTE 3: GESTIÓN DE ELEMENTOS Y REPORTES
-// ========================================
 
 
 
-// ========================================
-// GUARDAR INVENTARIO
-// ========================================
 
 
-function guardarInventario(){
+window.ingresar=ingresar;
 
+window.mostrarMenuModulos=mostrarMenuModulos;
 
-    localStorage.setItem(
+window.abrirModulo=abrirModulo;
 
-        "SIGIB_inventario",
+window.abrirInventario=abrirInventario;
 
-        JSON.stringify(inventarios)
+window.agregarInventario=agregarInventario;
 
-    );
+window.editarInventario=editarInventario;
 
+window.eliminarInventario=eliminarInventario;
 
-}
-
-
-
-
-
-// ========================================
-// AGREGAR ELEMENTO
-// ========================================
-
-
-function agregarInventario(codigo){
-
-
-
-    let nombre =
-
-    prompt("Nombre del elemento:");
-
-
-
-    if(!nombre) return;
-
-
-
-
-    let cantidad =
-
-    prompt("Cantidad:");
-
-
-
-    if(cantidad === null) return;
-
-
-
-
-    let estado =
-
-    prompt(
-
-        "Estado:",
-
-        "Bueno"
-
-    );
-
-
-
-    if(estado === null) return;
-
-
-
-
-
-    let observaciones =
-
-    prompt(
-
-        "Observaciones:",
-
-        ""
-
-    );
-
-
-
-
-
-
-    inventarios[codigo].push({
-
-
-        nombre:nombre,
-
-
-        cantidad:Number(cantidad),
-
-
-        estado:estado,
-
-
-        observaciones:
-
-        observaciones || ""
-
-
-    });
-
-
-
-
-
-    guardarInventario();
-
-
-
-
-    alert(
-
-        "Elemento agregado correctamente"
-
-    );
-
-
-
-
-    abrirInventario(codigo);
-
-
-
-}
-
-
-
-
-
-// ========================================
-// EDITAR ELEMENTO
-// ========================================
-
-
-function editarInventario(codigo,index){
-
-
-
-    let item =
-
-    inventarios[codigo][index];
-
-
-
-
-
-    let nombre =
-
-    prompt(
-
-        "Nombre:",
-
-        item.nombre
-
-    );
-
-
-
-    if(nombre === null) return;
-
-
-
-
-
-    let cantidad =
-
-    prompt(
-
-        "Cantidad:",
-
-        item.cantidad
-
-    );
-
-
-
-    if(cantidad === null) return;
-
-
-
-
-
-    let estado =
-
-    prompt(
-
-        "Estado:",
-
-        item.estado
-
-    );
-
-
-
-    if(estado === null) return;
-
-
-
-
-
-    let observaciones =
-
-    prompt(
-
-        "Observaciones:",
-
-        item.observaciones
-
-    );
-
-
-
-
-
-
-    item.nombre = nombre;
-
-
-    item.cantidad = Number(cantidad);
-
-
-    item.estado = estado;
-
-
-    item.observaciones =
-
-        observaciones || "";
-
-
-
-
-
-    guardarInventario();
-
-
-
-
-    alert(
-
-        "Elemento actualizado"
-
-    );
-
-
-
-
-    abrirInventario(codigo);
-
-
-
-}
-
-
-
-
-
-// ========================================
-// ELIMINAR ELEMENTO
-// ========================================
-
-
-function eliminarInventario(codigo,index){
-
-
-
-    let confirmar =
-
-    confirm(
-
-        "¿Eliminar este elemento?"
-
-    );
-
-
-
-    if(!confirmar) return;
-
-
-
-
-
-    inventarios[codigo].splice(
-
-        index,
-
-        1
-
-    );
-
-
-
-
-
-    guardarInventario();
-
-
-
-
-    alert(
-
-        "Elemento eliminado"
-
-    );
-
-
-
-
-    abrirInventario(codigo);
-
-
-
-}
-
-
-
-
-
-// ========================================
-// REPORTES
-// ========================================
-
-
-function mostrarReportes(){
-
-
-
-    let total = 0;
-
-
-    let areas = Object.keys(inventarios);
-
-
-
-    areas.forEach(area=>{
-
-
-        total +=
-
-        inventarios[area].length;
-
-
-    });
-
-
-
-
-
-
-    let contenido = `
-
-
-    <div class="contenedor">
-
-
-    <button onclick="mostrarMenuPrincipal()">
-
-    ⬅ Volver
-
-    </button>
-
-
-
-    <h2>
-
-    📊 Reportes SIGIB 03
-
-    </h2>
-
-
-
-    <hr>
-
-
-
-    <p>
-
-    📦 Total de registros:
-
-    ${total}
-
-    </p>
-
-
-
-    <p>
-
-    🗂 Áreas cargadas:
-
-    ${areas.length}
-
-    </p>
-
-
-
-    <hr>
-
-
-
-    <p>
-
-    Reporte básico operativo.
-
-    </p>
-
-
-
-    </div>
-
-
-    `;
-
-
-
-    document.getElementById("panel").innerHTML =
-
-    contenido;
-
-
-
-}
-
-
-
-
-
-// ========================================
-// EXPORTAR FUNCIONES
-// ========================================
-
-
-window.ingresar = ingresar;
-
-window.mostrarMenuPrincipal = mostrarMenuPrincipal;
-
-window.mostrarMenuModulos = mostrarMenuModulos;
-
-window.abrirModulo = abrirModulo;
-
-window.abrirInventario = abrirInventario;
-
-window.buscarInventario = buscarInventario;
-
-window.agregarInventario = agregarInventario;
-
-window.editarInventario = editarInventario;
-
-window.eliminarInventario = eliminarInventario;
-
-window.mostrarReportes = mostrarReportes;
-
-function cambiarContenido(html){
-
-    document.getElementById("panel").innerHTML = html;
-
-}
-
-
-window.cambiarContenido = cambiarContenido;
+window.buscarInventario=buscarInventario;
