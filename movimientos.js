@@ -1,119 +1,310 @@
-/* ==========================================
-   SIGIB 03
-   MODULO MOVIMIENTOS
-========================================== */
+// ==========================================
+// SIGIB 03
+// MODULO MOVIMIENTOS FIREBASE
+// ==========================================
 
 
-let movimientos = JSON.parse(
-    localStorage.getItem("movimientos")
-) || [];
+import { db } from "./firebase.js";
+
+
+import {
+
+    collection,
+    addDoc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    doc,
+    orderBy,
+    query
+
+} from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
-function mostrarMovimientos(){
+
+// ==========================================
+// MOSTRAR MOVIMIENTOS
+// ==========================================
 
 
-let html = `
+async function mostrarMovimientos(){
 
-<h2>🔄 Movimientos</h2>
+
+const panel =
+document.getElementById("panel");
+
+
+
+panel.innerHTML = `
+
+
+<div class="contenedor">
+
+
+<button onclick="mostrarMenuModulos()">
+
+⬅ Volver
+
+</button>
+
+
+
+<h1>
+🔄 Movimientos
+</h1>
+
 
 
 <button onclick="nuevoMovimiento()">
+
 ➕ Nuevo Movimiento
+
 </button>
+
 
 
 <hr>
 
-`;
 
 
+<div id="listaMovimientos">
 
-if(movimientos.length === 0){
-
-html += `
-
-<div class="card">
-
-<p>No hay movimientos registrados</p>
+Cargando movimientos...
 
 </div>
 
+
+
+</div>
+
+
 `;
+
+
+
+cargarMovimientos();
+
 
 }
 
 
 
-movimientos.forEach((m,i)=>{
 
 
-html += `
+// ==========================================
+// CARGAR MOVIMIENTOS FIRESTORE
+// ==========================================
 
-<div class="card">
 
-<h3>${m.tipo}</h3>
+async function cargarMovimientos(){
 
+
+const lista =
+document.getElementById("listaMovimientos");
+
+
+
+lista.innerHTML = "";
+
+
+
+const q = query(
+
+collection(db,"movimientos"),
+
+orderBy("fecha","desc")
+
+);
+
+
+
+const datos =
+await getDocs(q);
+
+
+
+
+if(datos.empty){
+
+
+lista.innerHTML = `
+
+<p>
+🔄 No hay movimientos registrados
+</p>
+
+`;
+
+
+return;
+
+}
+
+
+
+
+
+datos.forEach((documento)=>{
+
+
+let movimiento =
+documento.data();
+
+
+let id =
+documento.id;
+
+
+
+
+lista.innerHTML += `
+
+
+<div class="tarjeta">
+
+
+<h3>
+
+${movimiento.tipo}
+
+</h3>
+
+
+
+<p>
 
 📦 Material:
-${m.material}
+
+${movimiento.material}
+
+</p>
 
 
-<br>
+
+<p>
 
 🔢 Cantidad:
-${m.cantidad}
+
+${movimiento.cantidad}
+
+</p>
 
 
-<br>
 
-📍 Ubicación:
-${m.destino}
+<p>
+
+📍 Destino:
+
+${movimiento.destino}
+
+</p>
 
 
-<br>
+
+<p>
+
+📝 Observación:
+
+${movimiento.observacion}
+
+</p>
+
+
+
+<p>
 
 👤 Responsable:
-${m.responsable}
+
+${movimiento.responsable}
+
+</p>
 
 
-<br>
+
+<p>
 
 📅 Fecha:
-${m.fecha}
+
+${movimiento.fecha}
+
+</p>
 
 
-<br>
 
-🟡 Estado:
-${m.estado}
+<p>
+
+Estado:
+
+${movimiento.estado}
+
+</p>
 
 
-<br><br>
 
 
-<button onclick="finalizarMovimiento(${i})">
+${
+movimiento.estado === "Pendiente"
+
+?
+
+`
+
+<button onclick="finalizarMovimiento('${id}')">
 
 ✅ Finalizar
 
 </button>
 
+`
 
-<button onclick="eliminarMovimiento(${i})">
+:
+
+`
+
+<p>
+
+✔ Finalizado por:
+
+${movimiento.finalizadoPor}
+
+</p>
+
+
+<p>
+
+📅 Fecha finalización:
+
+${movimiento.fechaFinalizacion}
+
+</p>
+
+`
+
+}
+
+
+
+
+<button onclick="eliminarMovimiento('${id}')">
 
 🗑️ Eliminar
 
 </button>
 
 
+
 </div>
+
 
 `;
 
+
+
 });
 
-
-cambiarContenido(html);
 
 
 }
@@ -121,80 +312,24 @@ cambiarContenido(html);
 
 
 
+
+// ==========================================
+// NUEVO MOVIMIENTO
+// ==========================================
+
+
 function nuevoMovimiento(){
 
 
-let html = `
-
-
-<h2>➕ Nuevo Movimiento</h2>
-
-
-
-<select id="movTipo">
-
-<option>Salida</option>
-
-<option>Ingreso</option>
-
-<option>Mantenimiento</option>
-
-<option>Baja</option>
-
-</select>
+const panel =
+document.getElementById("panel");
 
 
 
-<br><br>
+panel.innerHTML = `
 
 
-<input id="movMaterial"
-
-placeholder="Material">
-
-
-
-<br><br>
-
-
-<input id="movCantidad"
-
-type="number"
-
-placeholder="Cantidad">
-
-
-
-<br><br>
-
-
-<input id="movDestino"
-
-placeholder="Destino / Ubicación">
-
-
-
-<br><br>
-
-
-<textarea id="movObs"
-
-placeholder="Observaciones">
-
-</textarea>
-
-
-<br><br>
-
-
-<button onclick="guardarMovimiento()">
-
-💾 Guardar Movimiento
-
-</button>
-
-
-<br><br>
+<div class="contenedor">
 
 
 <button onclick="mostrarMovimientos()">
@@ -205,11 +340,110 @@ placeholder="Observaciones">
 
 
 
+<h2>
+➕ Nuevo Movimiento
+</h2>
+
+
+
+
+<select id="movTipo">
+
+
+<option>
+Salida
+</option>
+
+
+<option>
+Ingreso
+</option>
+
+
+</select>
+
+
+
+<br><br>
+
+
+
+
+<input
+
+id="movMaterial"
+
+placeholder="Material"
+
+>
+
+
+
+
+<br><br>
+
+
+
+<input
+
+id="movCantidad"
+
+type="number"
+
+placeholder="Cantidad"
+
+>
+
+
+
+
+<br><br>
+
+
+
+<input
+
+id="movDestino"
+
+placeholder="Destino / Ubicación"
+
+>
+
+
+
+
+<br><br>
+
+
+
+<textarea
+
+id="movObs"
+
+placeholder="Observaciones">
+
+</textarea>
+
+
+
+
+<br><br>
+
+
+
+<button onclick="guardarMovimiento()">
+
+💾 Guardar Movimiento
+
+</button>
+
+
+
+</div>
+
+
 `;
 
-
-
-cambiarContenido(html);
 
 
 }
@@ -217,7 +451,13 @@ cambiarContenido(html);
 
 
 
-function guardarMovimiento(){
+
+// ==========================================
+// GUARDAR MOVIMIENTO FIREBASE
+// ==========================================
+
+
+async function guardarMovimiento(){
 
 
 
@@ -225,34 +465,75 @@ let movimiento = {
 
 
 tipo:
+
 document.getElementById("movTipo").value,
 
 
+
 material:
+
 document.getElementById("movMaterial").value,
 
 
+
 cantidad:
-Number(document.getElementById("movCantidad").value),
+
+Number(
+
+document.getElementById("movCantidad").value
+
+),
+
 
 
 destino:
+
 document.getElementById("movDestino").value,
 
 
+
 observacion:
+
 document.getElementById("movObs").value,
 
 
+
 responsable:
+
+usuarioActivo
+
+?
+
+usuarioActivo.nombre
+
+:
+
 "Usuario SIGIB",
 
 
+
+legajo:
+
+usuarioActivo
+
+?
+
+usuarioActivo.legajo
+
+:
+
+"",
+
+
+
 estado:
+
 "Pendiente",
 
 
+
 fecha:
+
 new Date().toLocaleString()
 
 
@@ -260,24 +541,25 @@ new Date().toLocaleString()
 
 
 
-movimientos.push(movimiento);
 
 
+await addDoc(
 
-localStorage.setItem(
+collection(db,"movimientos"),
 
-"movimientos",
-
-JSON.stringify(movimientos)
+movimiento
 
 );
+
 
 
 
 alert("Movimiento guardado");
 
 
+
 mostrarMovimientos();
+
 
 
 }
@@ -285,25 +567,53 @@ mostrarMovimientos();
 
 
 
-function finalizarMovimiento(i){
+
+// ==========================================
+// FINALIZAR MOVIMIENTO
+// ==========================================
 
 
-movimientos[i].estado="Finalizado";
+async function finalizarMovimiento(id){
 
 
-localStorage.setItem(
 
-"movimientos",
+await updateDoc(
 
-JSON.stringify(movimientos)
+doc(db,"movimientos",id),
+
+{
+
+
+estado:"Finalizado",
+
+
+finalizadoPor:
+
+usuarioActivo
+
+?
+
+usuarioActivo.nombre
+
+:
+
+"Usuario SIGIB",
+
+
+
+fechaFinalizacion:
+
+new Date().toLocaleString()
+
+
+}
 
 );
 
 
-alert("Movimiento finalizado");
-
 
 mostrarMovimientos();
+
 
 
 }
@@ -311,36 +621,57 @@ mostrarMovimientos();
 
 
 
-function eliminarMovimiento(i){
+
+// ==========================================
+// ELIMINAR MOVIMIENTO
+// ==========================================
 
 
-movimientos.splice(i,1);
+async function eliminarMovimiento(id){
 
 
 
-localStorage.setItem(
+let confirmar =
+confirm("¿Eliminar movimiento?");
 
-"movimientos",
 
-JSON.stringify(movimientos)
+
+if(!confirmar)
+
+return;
+
+
+
+
+await deleteDoc(
+
+doc(db,"movimientos",id)
 
 );
 
 
 
-alert("Movimiento eliminado");
-
-
 mostrarMovimientos();
+
 
 
 }
 
 
+
+
+
+// ==========================================
+// EXPORTAR FUNCIONES
+// ==========================================
 
 
 window.mostrarMovimientos = mostrarMovimientos;
+
 window.nuevoMovimiento = nuevoMovimiento;
+
 window.guardarMovimiento = guardarMovimiento;
+
 window.finalizarMovimiento = finalizarMovimiento;
+
 window.eliminarMovimiento = eliminarMovimiento;
