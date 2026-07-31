@@ -359,15 +359,19 @@ const modulos = [
     },
 
     {
-        nombre: "🌊 Rescate acuático",
-        codigo: "RA",
-        subdivisiones: [
-            {
-                nombre: "📦 Depósito",
-                codigo: "RA-DEP"
-            }
-        ]
-    },
+    nombre: "🌊 Rescate acuático",
+    codigo: "RA",
+    subdivisiones: [
+        {
+            nombre: "📦 Depósito",
+            codigo: "RA-DEP"
+        },
+        {
+            nombre: "🧰 Cajones 1° intervención",
+            codigo: "RA-CAJ-1"
+        }
+    ]
+},
 
     {
         nombre: "🪢 G.R.I.M.P.",
