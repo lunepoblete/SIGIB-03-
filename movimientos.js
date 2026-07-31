@@ -4,6 +4,12 @@
 ========================================== */
 
 
+let movimientos = JSON.parse(
+    localStorage.getItem("movimientos")
+) || [];
+
+
+
 function mostrarMovimientos(){
 
 
@@ -13,15 +19,29 @@ let html = `
 
 
 <button onclick="nuevoMovimiento()">
-
 ➕ Nuevo Movimiento
-
 </button>
 
 
 <hr>
 
 `;
+
+
+
+if(movimientos.length === 0){
+
+html += `
+
+<div class="card">
+
+<p>No hay movimientos registrados</p>
+
+</div>
+
+`;
+
+}
 
 
 
@@ -41,8 +61,14 @@ ${m.material}
 
 <br>
 
-Cantidad:
+🔢 Cantidad:
 ${m.cantidad}
+
+
+<br>
+
+📍 Ubicación:
+${m.destino}
 
 
 <br>
@@ -55,6 +81,12 @@ ${m.responsable}
 
 📅 Fecha:
 ${m.fecha}
+
+
+<br>
+
+🟡 Estado:
+${m.estado}
 
 
 <br><br>
@@ -78,19 +110,13 @@ ${m.fecha}
 
 `;
 
-
-
 });
-
 
 
 cambiarContenido(html);
 
 
 }
-
-
-
 
 
 
@@ -107,22 +133,28 @@ let html = `
 
 <select id="movTipo">
 
-<option>
-Salida
-</option>
+<option>Salida</option>
 
-<option>
-Ingreso
-</option>
+<option>Ingreso</option>
+
+<option>Mantenimiento</option>
+
+<option>Baja</option>
 
 </select>
 
+
+
+<br><br>
 
 
 <input id="movMaterial"
 
 placeholder="Material">
 
+
+
+<br><br>
 
 
 <input id="movCantidad"
@@ -133,10 +165,16 @@ placeholder="Cantidad">
 
 
 
+<br><br>
+
+
 <input id="movDestino"
 
 placeholder="Destino / Ubicación">
 
+
+
+<br><br>
 
 
 <textarea id="movObs"
@@ -146,10 +184,22 @@ placeholder="Observaciones">
 </textarea>
 
 
+<br><br>
+
 
 <button onclick="guardarMovimiento()">
 
 💾 Guardar Movimiento
+
+</button>
+
+
+<br><br>
+
+
+<button onclick="mostrarMovimientos()">
+
+⬅ Volver
 
 </button>
 
@@ -167,42 +217,35 @@ cambiarContenido(html);
 
 
 
+function guardarMovimiento(){
 
-
-
-
-async function guardarMovimiento(){
 
 
 let movimiento = {
 
 
 tipo:
-movTipo.value,
+document.getElementById("movTipo").value,
 
 
 material:
-movMaterial.value,
+document.getElementById("movMaterial").value,
 
 
 cantidad:
-Number(movCantidad.value),
+Number(document.getElementById("movCantidad").value),
 
 
 destino:
-movDestino.value,
+document.getElementById("movDestino").value,
 
 
 observacion:
-movObs.value,
+document.getElementById("movObs").value,
 
 
 responsable:
-usuarioActual.nombre,
-
-
-legajo:
-usuarioActual.legajo,
+"Usuario SIGIB",
 
 
 estado:
@@ -217,10 +260,8 @@ new Date().toLocaleString()
 
 
 
-
-// respaldo local
-
 movimientos.push(movimiento);
+
 
 
 localStorage.setItem(
@@ -230,19 +271,6 @@ localStorage.setItem(
 JSON.stringify(movimientos)
 
 );
-
-
-
-
-// Firebase
-
-if(typeof guardarMovimientoFirebase === "function"){
-
-
-await guardarMovimientoFirebase(movimiento);
-
-
-}
 
 
 
@@ -257,23 +285,10 @@ mostrarMovimientos();
 
 
 
-
-
-
-
 function finalizarMovimiento(i){
 
 
 movimientos[i].estado="Finalizado";
-
-
-movimientos[i].finalizadoPor=
-usuarioActual.nombre;
-
-
-movimientos[i].fechaFinalizacion=
-new Date().toLocaleString();
-
 
 
 localStorage.setItem(
@@ -285,7 +300,6 @@ JSON.stringify(movimientos)
 );
 
 
-
 alert("Movimiento finalizado");
 
 
@@ -293,10 +307,6 @@ mostrarMovimientos();
 
 
 }
-
-
-
-
 
 
 
@@ -329,16 +339,8 @@ mostrarMovimientos();
 
 
 
-
-
-
-
 window.mostrarMovimientos = mostrarMovimientos;
-
 window.nuevoMovimiento = nuevoMovimiento;
-
 window.guardarMovimiento = guardarMovimiento;
-
 window.finalizarMovimiento = finalizarMovimiento;
-
 window.eliminarMovimiento = eliminarMovimiento;
