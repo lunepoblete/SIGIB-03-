@@ -7,3 +7,4 @@ const personal = [
 ];
 
 alert("DATOS CARGADO OK");
+alert("DATOS TERMINADO OK");
