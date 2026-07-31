@@ -1,247 +1,614 @@
 // ========================================
 // SIGIB 03
-// APP.JS - PARTE 1
+// APP.JS - NAVEGACIÓN PRINCIPAL
 // ========================================
+
 
 let usuarioActivo = null;
 
 
-// ================================
-// INGRESO AL SISTEMA
-// ================================
+// ========================================
+// INGRESO POR LEGAJO
+// ========================================
 
 function ingresar() {
 
-    const legajo = document.getElementById("legajo").value;
+    const legajo =
+        document.getElementById("legajo").value.trim();
 
-    const bombero = personal.find(p => p.legajo === legajo);
 
-    if (!bombero) {
+    const usuario =
+        personal.find(
+            persona => persona.legajo === legajo
+        );
+
+
+    if (!usuario) {
 
         alert("Legajo no registrado");
         return;
 
     }
 
-    usuarioActivo = bombero;
+
+    usuarioActivo = usuario;
+
 
     document.getElementById("login").style.display = "none";
+
     document.getElementById("panel").style.display = "block";
 
-    const titulo = document.querySelector("header p");
 
-    if (titulo) {
-        titulo.innerHTML =
-            "Bienvenido " +
-            bombero.nombre +
-            " | " +
-            bombero.funcion;
-    }
+    mostrarMenuModulos();
+
 
 }
 
 
 
-// ================================
-// ABRIR MÓDULOS
-// ================================
-
-function abrirModulo(modulo) {
-
-    switch (modulo) {
-
-        case "🚒 Equipamiento estructural":
-            mostrarEquipamiento();
-            break;
-
-        default:
-            alert("Módulo en desarrollo.");
-
-    }
-
-}
 // ========================================
-// APP.JS - PARTE 2
-// MÓDULO EQUIPAMIENTO ESTRUCTURAL
+// MOSTRAR MENÚ DE MÓDULOS
 // ========================================
 
-function mostrarEquipamiento() {
+function mostrarMenuModulos() {
 
-    let html = `
-        <h2>🚒 Equipamiento Estructural</h2>
 
-        <input
-            type="text"
-            id="busqueda"
-            placeholder="Buscar elemento..."
-            onkeyup="buscarElemento()">
+    let contenido = `
 
-        <br><br>
+        <header>
 
-        <button onclick="agregarElemento()">
-            ➕ Agregar elemento
-        </button>
+            <h1>🚒 SIGIB 03</h1>
 
-        <br><br>
+            <p>
+            👤 ${usuarioActivo.nombre}
+            <br>
+            ${usuarioActivo.funcion}
+            </p>
 
-        <div id="listaEquipamiento">
+        </header>
+
+
+        <h2>
+            Seleccione un área
+        </h2>
+
+
+        <div class="modulos">
+
     `;
 
-    equipamientoEstructural.forEach((item, indice) => {
 
-        html += `
 
-        <div class="tarjeta">
+    modulos.forEach((modulo, indice) => {
 
-            <h3>${item.nombre}</h3>
 
-            <p><strong>Cantidad:</strong> ${item.cantidad}</p>
+        contenido += `
 
-            <p><strong>Estado:</strong> ${item.estado}</p>
+            <button onclick="abrirModulo(${indice})">
 
-            <p><strong>Ubicación:</strong> ${item.ubicacion}</p>
+                ${modulo.nombre}
 
-            <p><strong>Observaciones:</strong> ${item.observaciones}</p>
-
-            <button onclick="editarElemento(${indice})">
-                ✏️ Editar
             </button>
 
-            <button onclick="eliminarElemento(${indice})">
-                🗑 Eliminar
-            </button>
-
-        </div>
-
-        <hr>
 
         `;
 
+
     });
 
-    html += "</div>";
 
-    document.getElementById("panel").innerHTML = html;
+
+    contenido += `
+
+        </div>
+
+    `;
+
+
+    document.getElementById("panel").innerHTML = contenido;
+
 
 }
 
 
 
-// ================================
-// BUSCADOR
-// ================================
+// ========================================
+// ABRIR UN MÓDULO
+// ========================================
 
-function buscarElemento() {
+function abrirModulo(indice) {
 
-    const texto = document
+
+    const modulo =
+        modulos[indice];
+
+
+    let contenido = `
+
+
+        <button onclick="mostrarMenuModulos()">
+            ⬅️ Volver
+        </button>
+
+
+        <h2>
+            ${modulo.nombre}
+        </h2>
+
+
+        <div class="modulos">
+
+    `;
+
+
+
+    modulo.subdivisiones.forEach(
+        (subdivision) => {
+
+
+        contenido += `
+
+
+            <button onclick="abrirInventario('${modulo.nombre}','${subdivision}')">
+
+                ${subdivision}
+
+            </button>
+
+
+        `;
+
+
+    });
+
+
+
+    contenido += `</div>`;
+
+
+    document.getElementById("panel").innerHTML = contenido;
+
+// ========================================
+// APP.JS - PARTE 2
+// INVENTARIO POR ÁREA Y SUBDIVISIÓN
+// ========================================
+
+
+// Base de inventarios
+// Cada área y ubicación tendrá su propio listado
+
+let inventarios = {};
+
+
+
+// ========================================
+// ABRIR INVENTARIO
+// ========================================
+
+function abrirInventario(modulo, subdivision) {
+
+
+    const clave =
+        modulo + "_" + subdivision;
+
+
+    if (!inventarios[clave]) {
+
+        inventarios[clave] = [];
+
+    }
+
+
+
+    let contenido = `
+
+
+        <button onclick="volverModulo('${modulo}')">
+            ⬅️ Volver
+        </button>
+
+
+        <h2>
+            ${modulo}
+        </h2>
+
+
+        <h3>
+            ${subdivision}
+        </h3>
+
+
+        <input 
+            type="text"
+            id="busqueda"
+            placeholder="🔍 Buscar elemento..."
+            onkeyup="buscarInventario()"
+        >
+
+
+        <br><br>
+
+
+        <button onclick="agregarInventario('${clave}')">
+
+            ➕ Agregar elemento
+
+        </button>
+
+
+        <div id="listaInventario">
+
+
+    `;
+
+
+
+    if (inventarios[clave].length === 0) {
+
+
+        contenido += `
+
+            <p>
+                📦 No hay elementos cargados.
+            </p>
+
+        `;
+
+
+    } else {
+
+
+        inventarios[clave].forEach(
+            (item, indice) => {
+
+
+            contenido += `
+
+
+            <div class="tarjeta">
+
+
+                <h3>
+                    ${item.nombre}
+                </h3>
+
+
+                <p>
+                    📦 Cantidad:
+                    ${item.cantidad}
+                </p>
+
+
+                <p>
+                    🟢 Estado:
+                    ${item.estado}
+                </p>
+
+
+                <p>
+                    📍 Ubicación:
+                    ${item.ubicacion}
+                </p>
+
+
+                <p>
+                    📝 ${item.observaciones}
+                </p>
+
+
+                <button onclick="editarInventario('${clave}',${indice})">
+                    ✏️ Editar
+                </button>
+
+
+                <button onclick="eliminarInventario('${clave}',${indice})">
+                    🗑️ Eliminar
+                </button>
+
+
+            </div>
+
+
+            `;
+
+
+        });
+
+
+    }
+
+
+
+    contenido += `</div>`;
+
+
+    document.getElementById("panel").innerHTML =
+        contenido;
+
+
+}
+
+
+
+// ========================================
+// VOLVER A SUBDIVISIÓN
+// ========================================
+
+function volverModulo(nombreModulo) {
+
+
+    const indice =
+        modulos.findIndex(
+            m => m.nombre === nombreModulo
+        );
+
+
+    abrirModulo(indice);
+
+
+}
+
+
+
+// ========================================
+// BUSCAR INVENTARIO
+// ========================================
+
+function buscarInventario() {
+
+
+    const texto =
+        document
         .getElementById("busqueda")
         .value
         .toLowerCase();
 
-    const tarjetas = document.querySelectorAll(".tarjeta");
 
-    tarjetas.forEach(tarjeta => {
 
-        if (tarjeta.innerText.toLowerCase().includes(texto)) {
+    const tarjetas =
+        document.querySelectorAll(".tarjeta");
 
-            tarjeta.style.display = "block";
 
-        } else {
 
-            tarjeta.style.display = "none";
+    tarjetas.forEach(
+        tarjeta => {
 
-        }
+
+        tarjeta.style.display =
+            tarjeta.innerText
+            .toLowerCase()
+            .includes(texto)
+            ?
+            "block"
+            :
+            "none";
+
 
     });
 
-}
 // ========================================
 // APP.JS - PARTE 3
-// AGREGAR - EDITAR - ELIMINAR
+// GESTIÓN DE ELEMENTOS
 // ========================================
 
-function agregarElemento() {
 
-    let nombre = prompt("Nombre del elemento:");
+// ========================================
+// CARGAR DATOS GUARDADOS
+// ========================================
+
+let datosGuardados =
+    localStorage.getItem("SIGIB_inventarios");
+
+
+if (datosGuardados) {
+
+    inventarios = JSON.parse(datosGuardados);
+
+}
+
+
+
+// ========================================
+// GUARDAR INVENTARIO
+// ========================================
+
+function guardarInventario() {
+
+
+    localStorage.setItem(
+        "SIGIB_inventarios",
+        JSON.stringify(inventarios)
+    );
+
+
+}
+
+
+
+// ========================================
+// AGREGAR ELEMENTO
+// ========================================
+
+function agregarInventario(clave) {
+
+
+    let nombre =
+        prompt("Nombre del elemento:");
 
     if (!nombre) return;
 
-    let cantidad = prompt("Cantidad:");
+
+
+    let cantidad =
+        prompt("Cantidad:");
 
     if (cantidad === null) return;
 
-    let estado = prompt("Estado (Bueno / Revisar / Fuera de servicio):", "Bueno");
+
+
+    let estado =
+        prompt(
+            "Estado:",
+            "Bueno"
+        );
 
     if (estado === null) return;
 
-    let ubicacion = prompt("Ubicación:");
 
-    if (ubicacion === null) return;
 
-    let observaciones = prompt("Observaciones:", "");
+    let observaciones =
+        prompt(
+            "Observaciones:",
+            ""
+        );
 
-    if (observaciones === null) observaciones = "";
 
-    equipamientoEstructural.push({
+
+    inventarios[clave].push({
+
         nombre: nombre,
+
         cantidad: Number(cantidad),
+
         estado: estado,
-        ubicacion: ubicacion,
-        observaciones: observaciones
+
+        ubicacion: clave,
+
+        observaciones:
+            observaciones || ""
+
     });
 
-    mostrarEquipamiento();
+
+
+    guardarInventario();
+
+
+    alert(
+        "Elemento agregado correctamente"
+    );
+
+
+    location.reload();
+
 
 }
 
 
 
-function editarElemento(indice) {
+// ========================================
+// EDITAR ELEMENTO
+// ========================================
 
-    let item = equipamientoEstructural[indice];
+function editarInventario(clave, indice) {
 
-    let nombre = prompt("Nombre:", item.nombre);
+
+    let elemento =
+        inventarios[clave][indice];
+
+
+
+    let nombre =
+        prompt(
+            "Nombre:",
+            elemento.nombre
+        );
 
     if (nombre === null) return;
 
-    let cantidad = prompt("Cantidad:", item.cantidad);
+
+
+    let cantidad =
+        prompt(
+            "Cantidad:",
+            elemento.cantidad
+        );
 
     if (cantidad === null) return;
 
-    let estado = prompt("Estado:", item.estado);
+
+
+    let estado =
+        prompt(
+            "Estado:",
+            elemento.estado
+        );
 
     if (estado === null) return;
 
-    let ubicacion = prompt("Ubicación:", item.ubicacion);
 
-    if (ubicacion === null) return;
 
-    let observaciones = prompt("Observaciones:", item.observaciones);
+    let observaciones =
+        prompt(
+            "Observaciones:",
+            elemento.observaciones
+        );
 
-    if (observaciones === null) return;
 
-    item.nombre = nombre;
-    item.cantidad = Number(cantidad);
-    item.estado = estado;
-    item.ubicacion = ubicacion;
-    item.observaciones = observaciones;
 
-    mostrarEquipamiento();
+    elemento.nombre = nombre;
+
+    elemento.cantidad =
+        Number(cantidad);
+
+    elemento.estado = estado;
+
+    elemento.observaciones =
+        observaciones || "";
+
+
+
+    guardarInventario();
+
+
+    alert(
+        "Elemento actualizado"
+    );
+
+
+    location.reload();
+
 
 }
 
 
 
-function eliminarElemento(indice) {
+// ========================================
+// ELIMINAR ELEMENTO
+// ========================================
 
-    let confirmar = confirm(
-        "¿Desea eliminar este elemento?"
-    );
+function eliminarInventario(clave, indice) {
+
+
+    let confirmar =
+        confirm(
+            "¿Eliminar este elemento?"
+        );
+
+
 
     if (!confirmar) return;
 
-    equipamientoEstructural.splice(indice, 1);
 
-    mostrarEquipamiento();
 
+    inventarios[clave].splice(
+        indice,
+        1
+    );
+
+
+
+    guardarInventario();
+
+
+    alert(
+        "Elemento eliminado"
+    );
+
+
+    location.reload();
+
+
+}
+}
 }
