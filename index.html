@@ -2,19 +2,24 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SIGIB 03</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
 
-    <!-- INGRESO -->
+    <!-- LOGIN -->
 
-    <div id="login">
+    <section id="login">
 
         <h1>🚒 SIGIB 03</h1>
 
@@ -22,17 +27,21 @@
             Sistema Integral de Gestión de Inventario Bomberos
         </p>
 
+
         <input 
-            type="number" 
-            id="legajo" 
-            placeholder="Número de legajo"
+            type="number"
+            id="legajo"
+            placeholder="Ingrese su legajo"
         >
+
 
         <button onclick="ingresar()">
             Ingresar
         </button>
 
-    </div>
+
+    </section>
+
 
 
 
@@ -40,45 +49,72 @@
 
     <main id="panel" style="display:none;">
 
+
         <header>
-            <h1>🚒 SIGIB 03</h1>
-            <p>Panel principal</p>
+
+            <h1>
+                🚒 SIGIB 03
+            </h1>
+
+            <p>
+                Panel principal
+            </p>
+
         </header>
 
 
-        <h2>Módulos</h2>
+
+        <h2>
+            Áreas
+        </h2>
+
 
 
         <div class="modulos">
 
 
             <button onclick="abrirModulo('🚒 Equipamiento estructural')">
-                🚒 Equipamiento estructural
+                🚒 Incendio estructural
             </button>
 
 
-            <button onclick="abrirModulo('🧯 Extintores')">
-                🧯 Extintores
+            <button onclick="abrirModulo('🌲 Incendio forestal')">
+                🌲 Incendio forestal
             </button>
 
 
-            <button onclick="abrirModulo('🚑 Rescate')">
-                🚑 Rescate
+            <button onclick="abrirModulo('🚗 Rescate vehicular')">
+                🚗 Rescate vehicular
             </button>
 
 
-            <button onclick="abrirModulo('🔦 Herramientas')">
-                🔦 Herramientas
+            <button onclick="abrirModulo('🩺 Trauma')">
+                🩺 Trauma
             </button>
 
 
-            <button onclick="abrirModulo('👕 Indumentaria')">
-                👕 Indumentaria
+            <button onclick="abrirModulo('🌊 Rescate acuático')">
+                🌊 Rescate acuático
             </button>
 
 
-            <button onclick="abrirModulo('📋 Salidas y devoluciones')">
-                📋 Salidas y devoluciones
+            <button onclick="abrirModulo('🪢 GRIMP')">
+                🪢 G.R.I.M.P.
+            </button>
+
+
+            <button onclick="abrirModulo('🫁 ERA')">
+                🫁 Equipos de Respiración Autónoma (E.R.A.)
+            </button>
+
+
+            <button onclick="abrirModulo('👕 Ropería')">
+                👕 Ropería
+            </button>
+
+
+            <button onclick="abrirModulo('⚙️ Equipos a explosión')">
+                ⚙️ Equipos a explosión
             </button>
 
 
@@ -92,14 +128,16 @@
     <footer>
 
         <p>
-            SIGIB 03 - Sistema en desarrollo
+            SIGIB 03 - Sistema de Gestión de Inventario
         </p>
 
     </footer>
 
 
 
+
     <script src="datos.js"></script>
+
     <script src="app.js"></script>
 
 
