@@ -1,3 +1,4 @@
+console.log("ENTRANDO A FIREBASE.JS");
 /* ==========================================
    SIGIB 03
    CONEXIÓN FIREBASE
