@@ -21,22 +21,34 @@
 
     <section id="login">
 
-        <h1>🚒 SIGIB 03</h1>
+
+        <h1>
+            🚒 SIGIB 03
+        </h1>
+
 
         <h3>
             Sistema Integral de Gestión de Inventario Bomberos
         </h3>
 
 
+
         <input
+
             type="number"
+
             id="legajo"
+
             placeholder="Ingrese legajo"
+
         >
 
 
+
         <button onclick="ingresar()">
+
             🔐 Ingresar
+
         </button>
 
 
@@ -44,29 +56,75 @@
 
 
 
+
+
     <!-- APLICACIÓN -->
 
-    <main 
+    <main
+
         id="panel"
+
         style="display:none;"
+
     >
+
 
     </main>
 
 
 
 
-   <!-- CARGA DE ARCHIVOS -->
 
-<script src="./datos.js"></script>
+    <!-- DATOS PRINCIPALES -->
 
-<script type="module" src="./firebase.js"></script>
+    <script src="./datos.js"></script>
 
-<script type="module" src="./pizarra.js"></script>
 
-<script src="./movimientos.js"></script>
 
-<script src="./app.js"></script>
+
+
+    <!-- CONEXIÓN FIREBASE -->
+
+    <script
+
+        type="module"
+
+        src="./firebase.js">
+
+    </script>
+
+
+
+
+
+    <!-- MÓDULOS FIREBASE -->
+
+    <script
+
+        type="module"
+
+        src="./pizarra.js">
+
+    </script>
+
+
+
+    <script
+
+        type="module"
+
+        src="./movimientos.js">
+
+    </script>
+
+
+
+
+
+    <!-- APLICACIÓN PRINCIPAL -->
+
+    <script src="./app.js"></script>
+
 
 
 </body>
