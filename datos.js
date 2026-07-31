@@ -3,7 +3,6 @@
 // PARTE 1: PERSONAL
 // ========================================
 
-
 const personal = [
 
     {
@@ -281,208 +280,165 @@ const personal = [
 // PARTE 2: MÓDULOS SIGIB 03
 // ========================================
 
-
 const modulos = [
 
     {
         nombre: "🚒 Incendio estructural",
         codigo: "IE",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "IE-DEP"
             },
-
             {
                 nombre: "🚒 Móvil 32",
                 codigo: "IE-32"
             },
-
             {
                 nombre: "🚒 Móvil 38",
                 codigo: "IE-38"
             },
-
             {
                 nombre: "🚒 Móvil 40",
                 codigo: "IE-40"
-            },
-
+            }
         ]
     },
-
 
     {
         nombre: "🌲 Incendio forestal",
         codigo: "IF",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "IF-DEP"
             },
-
             {
                 nombre: "🚒 Móvil 26",
                 codigo: "IF-26"
             },
-
             {
                 nombre: "🚒 Móvil 36",
                 codigo: "IF-36"
-            },
-
+            }
         ]
     },
-
 
     {
         nombre: "🚗 Rescate vehicular",
         codigo: "RV",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "RV-DEP"
             },
-
             {
                 nombre: "🚒 Móvil 41",
                 codigo: "RV-41"
             }
-
         ]
     },
-
 
     {
         nombre: "🩺 Trauma",
         codigo: "TR",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "TR-DEP"
             },
-
             {
                 nombre: "🚒 Móvil 32",
                 codigo: "TR-32"
             },
-
             {
                 nombre: "🚒 Móvil 41",
                 codigo: "TR-41"
             }
-
         ]
     },
-
 
     {
         nombre: "🌊 Rescate acuático",
         codigo: "RA",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "RA-DEP"
-            },
-
+            }
         ]
     },
-
 
     {
         nombre: "🪢 G.R.I.M.P.",
         codigo: "GRIMP",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "GRIMP-DEP"
             },
-
             {
                 nombre: "🚒 Móvil 32",
                 codigo: "GRIMP-32"
             },
-
             {
                 nombre: "🚒 Móvil 41",
                 codigo: "GRIMP-41"
             }
-
         ]
     },
-
 
     {
         nombre: "🫁 E.R.A. (Equipos de Respiración Autónoma)",
         codigo: "ERA",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "ERA-DEP"
             },
-
             {
                 nombre: "🚒 Móvil 26",
                 codigo: "ERA-26"
             },
-
             {
                 nombre: "🚒 Móvil 32",
                 codigo: "ERA-32"
             },
-
             {
                 nombre: "🚒 Móvil 38",
                 codigo: "ERA-38"
             }
-
         ]
     },
-
 
     {
         nombre: "👕 Ropería",
         codigo: "ROP",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "ROP-DEP"
             }
-
         ]
     },
-
 
     {
         nombre: "⚙️ Equipos a explosión",
         codigo: "EXP",
         subdivisiones: [
-
             {
                 nombre: "📦 Depósito",
                 codigo: "EXP-DEP"
             }
-
         ]
     }
 
-
 ];
 // ========================================
-// PARTE 3: INVENTARIOS INICIALES SIGIB 03
+// PARTE 3: INVENTARIO SIGIB 03
 // ========================================
 
-
-const inventariosIniciales = {
-
+const inventario = {
 
     // 🚒 INCENDIO ESTRUCTURAL
 
@@ -502,139 +458,22 @@ const inventariosIniciales = {
             observaciones: ""
         },
 
-     {
-    nombre: "ESCALERAS",
-    cantidad: 0,
-    estado: "Bueno",
-    observaciones: ""
-},
-
-{
-    nombre: "BIFURCADORES",
-    cantidad: 0,
-    estado: "Bueno",
-    observaciones: ""
-},
-
-{
-    nombre: "EQUIPOS GEN. ESPUMA",
-    cantidad: 0,
-    estado: "Bueno",
-    observaciones: ""
-},
-
-    ],
-
-
-    "movil-32": [],
-    "movil-38": [],
-    "movil-40": [],
-
-
-
-    // 🌲 INCENDIO FORESTAL
-
-    "IF-DEP": [
-
         {
-            nombre: "Mochila forestal",
+            nombre: "REDUCTORES",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
         },
 
         {
-            nombre: "herramientas manuales",
+            nombre: "HIDRANTES",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
         },
-        {
-            nombre: "mangas",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        }
-
-    ],
-
-    "MOVIL-26": [],
-    "MOVIL-36": [],
-
-
-
-    // 🚗 RESCATE VEHICULAR
-
-    "RV-DEP": [
 
         {
-            nombre: "Equipo hidráulico",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "estabilizacion",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        }
-
-    ],
-
-    "MOVIL-41": [],
-
-
-
-    // 🩺 TRAUMA
-
-    "TR-DEP": [
-
-        {
-            nombre: "Bolso de trauma",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "inmovilizacion",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        }
-    
-
-    ],
-
-    "MOVIL-32": [],
-    "MOVIL-41": [],
-
-
-
-    // 🌊 RESCATE ACUÁTICO
-
-    "EBRA": [
-
-        {
-            nombre: "trajes de neoprene",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "bolsas de rescate",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "cascos",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "chalecos",
+            nombre: "MATERIAL DE VENTILACIÓN",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
@@ -643,83 +482,24 @@ const inventariosIniciales = {
     ],
 
 
-
-    // 🪢 G.R.I.M.P.
-
-    "GRIMP-DEP": [
+    "IE-32": [
 
         {
-            nombre: "Cuerdas",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "Arneses",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-        {
-            nombre: "Cascos",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        }
-
-    ],
-
-    "MOVIL-32": [],
-    "MOVIL-41": [],
-
-
-
-    // 🫁 E.R.A.
-
-    "ERA-DEP": [
-
-        {
-            nombre: "Equipo ERA completo",
+            nombre: "MANGAS",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
         },
 
         {
-            nombre: "Máscara ERA",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        }
-
-    ],
-
-    "ERA-26": [],
-    "ERA-32": [],
-    "ERA-38": [],
-
-
-
-    // 👕 ROPERÍA
-
-    "ROP-DEP": [
-
-        {
-            nombre: "Chaquetones",
+            nombre: "LANZAS",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
         },
 
         {
-            nombre: "Pantalones",
-            cantidad: 0,
-            estado: "Bueno",
-            observaciones: ""
-        },
-
-        {
-            nombre: "Botas",
+            nombre: "HERRAMIENTAS",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
@@ -728,33 +508,55 @@ const inventariosIniciales = {
     ],
 
 
-
-    // ⚙️ EQUIPOS A EXPLOSIÓN
-
-    "EXP-DEP": [
+    "IE-38": [
 
         {
-            nombre: "Motosierra",
+            nombre: "MANGAS",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
         },
 
         {
-            nombre: "Generador",
+            nombre: "LANZAS",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
         },
 
         {
-            nombre: "Motobombas",
+            nombre: "HERRAMIENTAS",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        }
+
+    ],
+
+
+    "IE-40": [
+
+        {
+            nombre: "MANGAS",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        },
+
+        {
+            nombre: "LANZAS",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        },
+
+        {
+            nombre: "HERRAMIENTAS",
             cantidad: 0,
             estado: "Bueno",
             observaciones: ""
         }
 
     ]
-
 
 };
