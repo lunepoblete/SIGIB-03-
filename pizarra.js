@@ -1,24 +1,42 @@
-// ========================================
+// ==========================================
 // SIGIB 03
-// MODULO PIZARRA OPERATIVA
-// ========================================
+// PIZARRA OPERATIVA FIREBASE
+// ==========================================
 
 
-let tareasPizarra = JSON.parse(
-    localStorage.getItem("SIGIB_tareas")
-) || [];
+import { db } from "./firebase.js";
+
+
+import {
+
+    collection,
+    addDoc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    doc,
+    orderBy,
+    query
+
+} from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
 
-// ========================================
+
+// ==========================================
 // MOSTRAR PIZARRA
-// ========================================
-
-function mostrarPizarra() {
+// ==========================================
 
 
-    const panel = document.getElementById("panel");
+async function mostrarPizarra(){
+
+
+    const panel =
+    document.getElementById("panel");
+
 
 
     let contenido = `
@@ -28,36 +46,93 @@ function mostrarPizarra() {
 
 
     <button onclick="mostrarMenuPrincipal()">
-        ⬅ Volver
+
+    ⬅ Volver
+
     </button>
 
 
     <h1>
-        📋 PIZARRA SIGIB 03
+    📋 PIZARRA SIGIB 03
     </h1>
 
 
     <h2>
-        Tareas operativas
+    Tareas operativas
     </h2>
 
 
     <button onclick="nuevaTarea()">
-        ➕ Nueva tarea
+
+    ➕ Nueva tarea
+
     </button>
 
 
     <hr>
 
 
+    <div id="listaTareas">
+
+    Cargando tareas...
+
+    </div>
+
+
+    </div>
+
+
     `;
 
 
+    panel.innerHTML = contenido;
 
-    if(tareasPizarra.length === 0){
+
+    cargarTareas();
 
 
-        contenido += `
+}
+
+
+
+
+
+// ==========================================
+// CARGAR TAREAS FIRESTORE
+// ==========================================
+
+
+async function cargarTareas(){
+
+
+    const lista =
+    document.getElementById("listaTareas");
+
+
+
+    lista.innerHTML = "";
+
+
+
+    const q = query(
+
+        collection(db,"tareas"),
+
+        orderBy("fechaCreacion","desc")
+
+    );
+
+
+
+    const datos =
+    await getDocs(q);
+
+
+
+    if(datos.empty){
+
+
+        lista.innerHTML = `
 
         <p>
         📋 No hay tareas cargadas
@@ -66,272 +141,292 @@ function mostrarPizarra() {
         `;
 
 
+        return;
+
     }
 
 
 
-    tareasPizarra.forEach((tarea,index)=>{
 
 
-        contenido += `
+    datos.forEach((documento)=>{
+
+
+        let tarea =
+        documento.data();
+
+
+        let id =
+        documento.id;
+
+
+
+
+        lista.innerHTML += `
+
 
 
         <div class="tarjeta">
 
 
         <h3>
+
         📝 ${tarea.tarea}
+
         </h3>
 
 
+
         <p>
+
         🎯 Área:
+
         ${tarea.area}
+
         </p>
 
 
+
         <p>
+
         🚨 Prioridad:
+
         ${tarea.prioridad}
+
         </p>
 
 
+
         <p>
+
         📅 Creada:
+
         ${tarea.fechaCreacion}
+
         </p>
 
 
+
         <p>
+
         👤 Creada por:
+
         ${tarea.creador}
+
         </p>
 
 
 
         <p>
+
         Estado:
+
         ${tarea.estado}
+
         </p>
 
 
 
-        `;
+        ${
+        tarea.estado === "Pendiente"
+
+        ?
+
+        `
+
+        <button onclick="realizarTarea('${id}')">
+
+        ✅ Realizar
+
+        </button>
+
+        `
+
+        :
+
+        `
+
+        <p>
+        👤 Realizada por:
+        ${tarea.realizadaPor}
+        </p>
 
 
+        <p>
+        📅 Finalizada:
+        ${tarea.fechaFinalizacion}
+        </p>
 
-        if(tarea.estado === "Pendiente"){
-
-
-            contenido += `
-
-
-            <button onclick="realizarTarea(${index})">
-
-            ✅ Realizar
-
-            </button>
-
-
-            `;
-
-
-        }
-        else{
-
-
-            contenido += `
-
-
-            <p>
-            👤 Realizada por:
-            ${tarea.realizadaPor}
-            </p>
-
-
-            <p>
-            📅 Finalizada:
-            ${tarea.fechaFinalizacion}
-            </p>
-
-
-            `;
-
+        `
 
         }
 
 
 
-        contenido += `
+        <button onclick="eliminarTarea('${id}')">
+
+        🗑️ Eliminar
+
+        </button>
+
 
 
         </div>
 
 
-        `;
 
+        `;
 
 
     });
 
 
-
-
-    contenido += `
-
-
-    </div>
-
-
-    `;
-
-
-
-    panel.innerHTML = contenido;
-
-
 }
 
 
 
 
 
-// ========================================
+// ==========================================
 // NUEVA TAREA
-// ========================================
+// ==========================================
 
 
 function nuevaTarea(){
 
 
-    const panel =
-    document.getElementById("panel");
+const panel =
+document.getElementById("panel");
 
 
 
-    panel.innerHTML = `
+panel.innerHTML = `
 
 
-    <div class="contenedor">
+<div class="contenedor">
 
 
-    <button onclick="mostrarPizarra()">
-        ⬅ Volver
-    </button>
+<button onclick="mostrarPizarra()">
 
+⬅ Volver
 
-    <h2>
-    ➕ Nueva tarea
-    </h2>
+</button>
 
 
 
-    <textarea
+<h2>
+➕ Nueva tarea
+</h2>
 
-    id="textoTarea"
 
-    placeholder="Descripción de la tarea">
 
-    </textarea>
+<textarea
 
+id="textoTarea"
 
-    <br><br>
+placeholder="Descripción de la tarea">
 
+</textarea>
 
 
-    <select id="areaTarea">
 
+<br><br>
 
-        <option>
-        🚒 Incendio estructural
-        </option>
 
 
-        <option>
-        🌲 Incendio forestal
-        </option>
+<select id="areaTarea">
 
 
-        <option>
-        🚗 Rescate vehicular
-        </option>
+<option>
+🚒 Incendio estructural
+</option>
 
 
-        <option>
-        🩺 Trauma
-        </option>
+<option>
+🌲 Incendio forestal
+</option>
 
 
-        <option>
-        🌊 Rescate acuático
-        </option>
+<option>
+🚗 Rescate vehicular
+</option>
 
 
-        <option>
-        🧗 GRIMP
-        </option>
+<option>
+🩺 Trauma
+</option>
 
 
-        <option>
-        🫁 ERA
-        </option>
+<option>
+🌊 Rescate acuático
+</option>
 
 
-        <option>
-        👕 Ropería
-        </option>
+<option>
+🧗 GRIMP
+</option>
 
 
-        <option>
-        ⚙️ Equipos a explosión
-        </option>
+<option>
+🫁 ERA
+</option>
 
 
-    </select>
+<option>
+👕 Ropería
+</option>
 
 
-    <br><br>
+<option>
+⚙️ Equipos a explosión
+</option>
 
 
+</select>
 
-    <select id="prioridadTarea">
 
 
-        <option>
-        🔴 ALTA
-        </option>
+<br><br>
 
 
-        <option>
-        🟡 MEDIA
-        </option>
 
+<select id="prioridadTarea">
 
-        <option>
-        🟢 BAJA
-        </option>
 
+<option>
+🔴 ALTA
+</option>
 
-    </select>
 
+<option>
+🟡 MEDIA
+</option>
 
 
-    <br><br>
+<option>
+🟢 BAJA
+</option>
 
 
+</select>
 
-    <button onclick="guardarTarea()">
 
-        💾 Guardar tarea
 
-    </button>
+<br><br>
 
 
 
-    </div>
+<button onclick="guardarTarea()">
 
+💾 Guardar
 
-    `;
+</button>
+
+
+</div>
+
+
+`;
 
 
 }
@@ -340,92 +435,34 @@ function nuevaTarea(){
 
 
 
-// ========================================
-// GUARDAR TAREA
-// ========================================
+// ==========================================
+// GUARDAR TAREA EN FIRESTORE
+// ==========================================
 
 
-function guardarTarea(){
+async function guardarTarea(){
 
 
-
-    let nueva = {
-
-
-        tarea:
-        document.getElementById("textoTarea").value,
+let tarea = {
 
 
-        area:
-        document.getElementById("areaTarea").value,
+    tarea:
+    document.getElementById("textoTarea").value,
 
 
-        prioridad:
-        document.getElementById("prioridadTarea").value,
+    area:
+    document.getElementById("areaTarea").value,
 
 
-        fechaCreacion:
-        new Date().toLocaleString(),
+    prioridad:
+    document.getElementById("prioridadTarea").value,
 
 
-        creador:
-        usuarioActivo 
-        ?
-        usuarioActivo.nombre
-        :
-        "Usuario SIGIB",
+    fechaCreacion:
+    new Date().toLocaleString(),
 
 
-        estado:
-        "Pendiente"
-
-
-
-    };
-
-
-
-    tareasPizarra.push(nueva);
-
-
-
-    localStorage.setItem(
-
-        "SIGIB_tareas",
-
-        JSON.stringify(tareasPizarra)
-
-    );
-
-
-
-    alert("Tarea creada");
-
-
-    mostrarPizarra();
-
-
-}
-
-
-
-
-
-// ========================================
-// FINALIZAR TAREA
-// ========================================
-
-
-function realizarTarea(index){
-
-
-
-    tareasPizarra[index].estado =
-    "Realizado";
-
-
-
-    tareasPizarra[index].realizadaPor =
+    creador:
 
     usuarioActivo
 
@@ -435,27 +472,33 @@ function realizarTarea(index){
 
     :
 
-    "Usuario SIGIB";
+    "Usuario SIGIB",
 
 
 
-    tareasPizarra[index].fechaFinalizacion =
+    estado:
 
-    new Date().toLocaleString();
+    "Pendiente"
 
 
-
-    localStorage.setItem(
-
-        "SIGIB_tareas",
-
-        JSON.stringify(tareasPizarra)
-
-    );
+};
 
 
 
-    mostrarPizarra();
+await addDoc(
+
+    collection(db,"tareas"),
+
+    tarea
+
+);
+
+
+
+alert("Tarea creada");
+
+
+mostrarPizarra();
 
 
 }
@@ -463,9 +506,97 @@ function realizarTarea(index){
 
 
 
-// ========================================
+
+// ==========================================
+// REALIZAR TAREA
+// ==========================================
+
+
+async function realizarTarea(id){
+
+
+
+await updateDoc(
+
+    doc(db,"tareas",id),
+
+    {
+
+
+    estado:"Realizado",
+
+
+    realizadaPor:
+
+    usuarioActivo
+
+    ?
+
+    usuarioActivo.nombre
+
+    :
+
+    "Usuario SIGIB",
+
+
+
+    fechaFinalizacion:
+
+    new Date().toLocaleString()
+
+
+    }
+
+);
+
+
+
+mostrarPizarra();
+
+
+}
+
+
+
+
+
+// ==========================================
+// ELIMINAR TAREA
+// ==========================================
+
+
+async function eliminarTarea(id){
+
+
+let confirmar =
+confirm("¿Eliminar tarea?");
+
+
+
+if(!confirmar) return;
+
+
+
+await deleteDoc(
+
+    doc(db,"tareas",id)
+
+);
+
+
+
+mostrarPizarra();
+
+
+}
+
+
+
+
+
+// ==========================================
 // EXPORTAR
-// ========================================
+// ==========================================
 
 
 window.mostrarPizarra = mostrarPizarra;
@@ -475,3 +606,5 @@ window.nuevaTarea = nuevaTarea;
 window.guardarTarea = guardarTarea;
 
 window.realizarTarea = realizarTarea;
+
+window.eliminarTarea = eliminarTarea;
