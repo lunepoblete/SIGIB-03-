@@ -170,7 +170,12 @@ const modulos = [
         nombre: "👕 Ropería",
         subdivisiones: [
             "📦 Depósito"
-        ]
+      {
+            nombre: "Chaquetones",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        }  ]
     },
 
 
@@ -178,7 +183,56 @@ const modulos = [
         nombre: "⚙️ Equipos a explosión",
         subdivisiones: [
             "📦 Depósito"
-        ]
+      {
+            nombre: "Motosierras",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+      }  ]
     }
 
 ];
+// ========================================
+// INVENTARIO INICIAL SIGIB 03
+// ========================================
+
+const inventariosIniciales = {
+
+    "🚒 Incendio estructural_📦 Depósito": [
+        {
+            nombre: "Lanzas",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        },
+        {
+            nombre: "Mangas",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        },
+        {
+            nombre: "Bifurcadores",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        }
+    ],
+
+
+    "🫁 E.R.A. (Equipos de Respiración Autónoma)_📦 Depósito": [
+        {
+            nombre: "Equipo ERA",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        },
+        {
+            nombre: "Máscara ERA",
+            cantidad: 0,
+            estado: "Bueno",
+            observaciones: ""
+        }
+    ]
+
+};
