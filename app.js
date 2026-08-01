@@ -547,7 +547,7 @@ onkeyup="buscarInventario()"
 
 ${
 
-puedeModificarInventario()
+puedeModificarInventario(codigoModulo)
 
 ?
 
@@ -944,7 +944,7 @@ nombreUbicacion
 
 
 
-if(!puedeModificarInventario()){
+puedeModificarInventario(codigoModulo)
 
 
 alert("No tiene permisos para modificar inventario");
@@ -1221,8 +1221,7 @@ async function eliminarInventario(id){
 
 
 
-if(!puedeModificarInventario()){
-
+if(puedeModificarInventario(codigoUbicacion.substring(0,2)))
 
 alert("No tiene permisos");
 
