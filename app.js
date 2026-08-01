@@ -911,7 +911,7 @@ nombreUbicacion
 
 
 
-puedeModificarInventario(codigoModulo)
+if(!puedeModificarInventario(codigoModulo)){
 
 
 alert("No tiene permisos para modificar inventario");
