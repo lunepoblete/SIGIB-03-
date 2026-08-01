@@ -1,6 +1,6 @@
 // ========================================
 // SIGIB 03 - DATOS
-// PARTE 1: PERSONAL
+// PARTE 1: PERSONAL CON AREAS
 // ========================================
 
 const personal = [
@@ -8,271 +8,336 @@ const personal = [
     {
         legajo: "72",
         nombre: "RIFO Raúl",
-        funcion: "Jefe de cuerpo"
+        funcion: "Jefe de cuerpo",
+        areas:["TODAS"]
     },
 
     {
         legajo: "78",
         nombre: "ZUÑIGA Domingo",
-        funcion: "2° Jefe de cuerpo"
+        funcion: "2° Jefe de cuerpo",
+        areas:["TODAS"]
     },
 
     {
         legajo: "76",
         nombre: "SCHOUA Gabriel",
-        funcion: "Subcomandante"
+        funcion: "Subcomandante",
+        areas:["TODAS"]
     },
 
     {
         legajo: "73",
         nombre: "DE ANTUENO Ignacio",
-        funcion: "Subcomandante"
+        funcion: "Subcomandante",
+        areas:["TODAS"]
     },
 
     {
         legajo: "31",
         nombre: "CURIÑANCO Jorge",
-        funcion: "Subcomandante"
+        funcion: "Subcomandante",
+        areas:["TODAS"]
     },
 
     {
         legajo: "94",
         nombre: "GONZALEZ Eduardo",
-        funcion: "Encargado Materiales"
+        funcion: "Encargado Materiales",
+        areas:["TODAS"]
     },
 
     {
         legajo: "95",
         nombre: "SALAZAR Luis",
-        funcion: "Encargado Capacitación"
+        funcion: "Encargado Capacitación",
+        areas:["CAP"]
     },
 
     {
         legajo: "100",
         nombre: "MUÑOZ Patricio",
-        funcion: "Encargado Automotores"
+        funcion: "Encargado Automotores",
+        areas:["AUT"]
     },
 
     {
         legajo: "99",
         nombre: "SPINELLI Leonardo",
-        funcion: "Of. Ayte."
+        funcion: "Of. Ayte.",
+        areas:[]
     },
 
     {
         legajo: "137",
         nombre: "KULJKO Facundo",
-        funcion: "Encargado Equipos a explosión"
+        funcion: "Encargado Equipos a explosión",
+        areas:["EXP"]
     },
 
     {
         legajo: "103",
         nombre: "LOPEZ Cecilia",
-        funcion: "Encargada Trauma"
+        funcion: "Encargada Trauma",
+        areas:["TR"]
     },
 
     {
         legajo: "150",
         nombre: "ORTIZ Ruben",
-        funcion: "Encargado Incendios Forestales"
+        funcion: "Encargado Incendios Forestales",
+        areas:["IF"]
     },
 
     {
         legajo: "131",
         nombre: "SESTO Carlos",
-        funcion: "Cabo 1°"
+        funcion: "Cabo 1°",
+        areas:[]
     },
 
     {
         legajo: "113",
         nombre: "OCARES Dario",
-        funcion: "Encargado Comunicaciones"
+        funcion: "Encargado Comunicaciones",
+        areas:["COM"]
     },
 
     {
         legajo: "149",
         nombre: "OVANDO Claudio",
-        funcion: "Cabo 1°"
+        funcion: "Cabo 1°",
+        areas:[]
     },
 
     {
         legajo: "127",
         nombre: "SALAZAR Diego",
-        funcion: "Encargado Rescate acuático"
+        funcion: "Encargado Rescate acuático",
+        areas:["RA"]
     },
 
     {
         legajo: "130",
         nombre: "BRAVO Daniela",
-        funcion: "Cabo 1°"
+        funcion: "Cabo 1°",
+        areas:["CAP"]
     },
 
     {
         legajo: "157",
         nombre: "SANCHEZ Franco",
-        funcion: "Encargado Cadetes"
+        funcion: "Encargado Cadetes",
+        areas:["CAD"]
     },
 
     {
         legajo: "129",
         nombre: "GODOY Walter",
-        funcion: "Cabo"
+        funcion: "Cabo",
+        areas:["IF"]
     },
 
     {
         legajo: "134",
         nombre: "HERRERA Damian",
-        funcion: "Encargado Intendencia"
+        funcion: "Encargado Intendencia",
+        areas:["INT"]
     },
 
     {
         legajo: "145",
         nombre: "CORIA Joaquin",
-        funcion: "Encargado Incendios Estructurales"
+        funcion: "Encargado Incendios Estructurales",
+        areas:["IE"]
     },
 
     {
         legajo: "167",
         nombre: "VIDAL Marcelo",
-        funcion: "BV"
+        funcion: "BV",
+        areas:[
+            "ERA",
+            "EXP"
+        ]
     },
 
     {
         legajo: "171",
         nombre: "MELLADO Karen",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["RA"]
     },
 
     {
         legajo: "174",
         nombre: "BARROSO Paola",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["IE"]
     },
 
     {
         legajo: "176",
         nombre: "BIANCHI Jose",
-        funcion: "Auxiliar"
+        funcion: "Auxiliar",
+        areas:[]
     },
 
     {
         legajo: "126",
         nombre: "MUÑOZ Eduardo",
-        funcion: "Auxiliar"
+        funcion: "Auxiliar",
+        areas:[]
     },
 
     {
         legajo: "183",
         nombre: "MANSILLA Maria Josefina",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["INT"]
     },
 
     {
         legajo: "193",
         nombre: "HUENUFIL Hector",
-        funcion: "Auxiliar"
+        funcion: "Auxiliar",
+        areas:[]
     },
 
     {
         legajo: "197",
         nombre: "PAILACURA Romina",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["INT"]
     },
 
     {
         legajo: "199",
         nombre: "ROSEMBLUN Rocio",
-        funcion: "BV"
+        funcion: "BV",
+        areas:[
+            "RV",
+            "CAD"
+        ]
     },
 
     {
         legajo: "200",
         nombre: "SARAVIA Enzo",
-        funcion: "Encargado Rescate Vehicular"
+        funcion: "Encargado Rescate Vehicular",
+        areas:[
+            "RV",
+            "TR"
+        ]
     },
 
     {
         legajo: "201",
         nombre: "KUCNER Lara",
-        funcion: "Encargada Inventarios"
+        funcion: "Encargada Inventarios",
+        areas:[
+            "INV",
+            "IE"
+        ]
     },
 
     {
         legajo: "202",
         nombre: "BRUNO Juan",
-        funcion: "Encargado ERA"
+        funcion: "Encargado ERA",
+        areas:["ERA"]
     },
 
     {
         legajo: "204",
         nombre: "VIVEROS Moira",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["TR"]
     },
 
     {
         legajo: "205",
         nombre: "GODOY Micaela",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["IF"]
     },
 
     {
         legajo: "207",
         nombre: "ROCHA Sergio",
-        funcion: "Encargado GRIMP"
+        funcion: "Encargado GRIMP",
+        areas:[
+            "GRIMP",
+            "ERA"
+        ]
     },
-
     {
         legajo: "165",
         nombre: "DIAZ Lucas",
-        funcion: "Auxiliar"
+        funcion: "Auxiliar",
+        areas:[]
     },
 
     {
         legajo: "208",
         nombre: "BARROS Romina",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["ROP"]
     },
 
     {
         legajo: "209",
         nombre: "POBLETE Luciano",
-        funcion: "Encargado Ropería"
+        funcion: "Encargado Ropería",
+        areas:["ROP"]
     },
 
     {
         legajo: "124",
         nombre: "PEREZ Ramiro",
-        funcion: "BV"
+        funcion: "BV",
+        areas:[
+            "TR",
+            "CAP"
+        ]
     },
 
     {
         legajo: "210",
         nombre: "MUÑOZ Enzo",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["IF"]
     },
 
     {
         legajo: "211",
         nombre: "ROMERO Walter",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["GRIMP"]
     },
 
     {
         legajo: "212",
         nombre: "AGOSTO Ailen",
-        funcion: "BV"
+        funcion: "BV",
+        areas:["TR"]
     },
 
     {
         legajo: "213",
         nombre: "PAREDES Brisa",
-        funcion: "BV"
+        funcion: "BV",
+        areas:[
+            "ERA",
+            "GRIMP"
+        ]
     },
 
     {
         legajo: "215",
         nombre: "HUENUFIL Tiziano",
-        funcion: "Auxiliar"
+        funcion: "Auxiliar",
+        areas:[]
     }
 
 ];
