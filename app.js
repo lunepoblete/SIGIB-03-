@@ -1,226 +1,26 @@
 // ==========================================
 // SIGIB 03
 // APP.JS
-// PARTE 1
-// LOGIN + PERMISOS + MENU
+// PARTE 2
+// MODULOS + INVENTARIO FIREBASE
 // ==========================================
-
-
-import { db } from "./firebase.js";
-
-
-import {
-
-    collection,
-    addDoc,
-    getDocs,
-    updateDoc,
-    deleteDoc,
-    doc,
-    query,
-    where,
-    orderBy
-
-} from
-
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
 
 
 
 // ==========================================
-// USUARIO ACTIVO
+// ABRIR AREA
 // ==========================================
 
 
-let usuarioActivo = null;
+function abrirModulo(index){
 
 
 
+const modulo =
 
+modulos[index];
 
-// ==========================================
-// PERMISOS
-// ==========================================
 
-
-function esAdministrador(){
-
-
-    if(!usuarioActivo)
-        return false;
-
-
-
-    let cargo =
-    usuarioActivo.funcion.toLowerCase();
-
-
-
-    return (
-
-        cargo.includes("jefe de cuerpo")
-
-        ||
-
-        cargo.includes("2° jefe")
-
-        ||
-
-        cargo.includes("subcomandante")
-
-    );
-
-
-}
-
-
-
-
-
-function esEncargado(){
-
-
-    if(!usuarioActivo)
-        return false;
-
-
-
-    let cargo =
-    usuarioActivo.funcion.toLowerCase();
-
-
-
-    return (
-
-        cargo.includes("encargado")
-
-        ||
-
-        cargo.includes("encargada")
-
-    );
-
-
-}
-
-
-
-
-
-function puedeModificarInventario(){
-
-
-    return (
-
-        esAdministrador()
-
-        ||
-
-        esEncargado()
-
-    );
-
-
-}
-
-
-
-
-
-
-// ==========================================
-// LOGIN
-// ==========================================
-
-
-function ingresar(){
-
-
-
-const legajo =
-
-document
-
-.getElementById("legajo")
-
-.value
-
-.trim();
-
-
-
-
-
-const usuario =
-
-personal.find(
-
-persona => persona.legajo === legajo
-
-);
-
-
-
-
-
-if(!usuario){
-
-
-alert("Legajo no registrado");
-
-return;
-
-
-}
-
-
-
-
-
-usuarioActivo = usuario;
-
-
-
-
-
-document
-
-.getElementById("login")
-
-.style.display="none";
-
-
-
-
-
-document
-
-.getElementById("panel")
-
-.style.display="block";
-
-
-
-
-
-mostrarMenuModulos();
-
-
-
-}
-
-
-
-
-
-// ==========================================
-// MENU PRINCIPAL
-// ==========================================
-
-
-function mostrarMenuModulos(){
 
 
 
@@ -228,56 +28,18 @@ let contenido = `
 
 
 
-<div class="contenedor">
+<button onclick="mostrarMenuModulos()">
 
-
-<h1>
-
-🚒 SIGIB 03
-
-</h1>
-
-
-
-<p>
-
-👤 ${usuarioActivo.nombre}
-
-<br>
-
-${usuarioActivo.funcion}
-
-</p>
-
-
-
-<hr>
-
-
-
-<button onclick="mostrarPizarra()">
-
-📋 Pizarra
+⬅ Volver
 
 </button>
 
-
-
-<button onclick="mostrarMovimientos()">
-
-🔄 Movimientos
-
-</button>
-
-
-
-<hr>
 
 
 
 <h2>
 
-Seleccione un área
+${modulo.nombre}
 
 </h2>
 
@@ -292,7 +54,7 @@ Seleccione un área
 
 
 
-modulos.forEach((modulo,index)=>{
+modulo.subdivisiones.forEach((sub)=>{
 
 
 
@@ -300,10 +62,22 @@ contenido += `
 
 
 
-<button onclick="abrirModulo(${index})">
+<button onclick="abrirInventario(
+
+'${modulo.codigo}',
+
+'${sub.codigo}',
+
+'${modulo.nombre}',
+
+'${sub.nombre}'
+
+)">
 
 
-${modulo.nombre}
+
+${sub.nombre}
+
 
 
 </button>
@@ -323,10 +97,6 @@ ${modulo.nombre}
 contenido += `
 
 
-
-</div>
-
-
 </div>
 
 
@@ -341,6 +111,450 @@ document
 .getElementById("panel")
 
 .innerHTML = contenido;
+
+
+
+}
+
+
+
+
+
+
+
+// ==========================================
+// ABRIR INVENTARIO
+// ==========================================
+
+
+async function abrirInventario(
+
+codigoModulo,
+
+codigoUbicacion,
+
+nombreModulo,
+
+nombreUbicacion
+
+){
+
+
+
+let panel =
+
+document.getElementById("panel");
+
+
+
+
+
+panel.innerHTML = `
+
+
+
+<button onclick="mostrarMenuModulos()">
+
+⬅ Volver
+
+</button>
+
+
+
+<h2>
+
+${nombreModulo}
+
+</h2>
+
+
+
+<h3>
+
+${nombreUbicacion}
+
+</h3>
+
+
+
+
+<input
+
+id="busqueda"
+
+placeholder="🔍 Buscar elemento"
+
+onkeyup="buscarInventario()"
+
+>
+
+
+
+<br><br>
+
+
+
+
+${
+
+puedeModificarInventario()
+
+?
+
+`
+
+<button onclick="agregarInventario(
+
+'${codigoModulo}',
+
+'${codigoUbicacion}',
+
+'${nombreModulo}',
+
+'${nombreUbicacion}'
+
+)">
+
+➕ Agregar elemento
+
+</button>
+
+`
+
+:
+
+`
+
+<p>
+
+👁️ Modo consulta
+
+</p>
+
+`
+
+}
+
+
+
+
+<hr>
+
+
+
+<div id="listaInventario">
+
+Cargando inventario...
+
+</div>
+
+
+
+`;
+
+
+
+
+
+cargarInventario(codigoUbicacion);
+
+
+
+}
+
+
+
+
+
+
+// ==========================================
+// CARGAR INVENTARIO DESDE FIREBASE
+// ==========================================
+
+
+async function cargarInventario(codigoUbicacion){
+
+
+
+const lista =
+
+document.getElementById("listaInventario");
+
+
+
+
+
+lista.innerHTML = "";
+
+
+
+
+
+const q = query(
+
+
+
+collection(db,"inventario"),
+
+
+
+where(
+
+"ubicacion",
+
+"==",
+
+codigoUbicacion
+
+),
+
+
+
+orderBy(
+
+"nombre"
+
+)
+
+
+
+);
+
+
+
+
+
+
+const datos =
+
+await getDocs(q);
+
+
+
+
+
+
+if(datos.empty){
+
+
+
+lista.innerHTML = `
+
+
+<p>
+
+📦 No hay elementos cargados
+
+</p>
+
+
+`;
+
+
+
+return;
+
+
+}
+
+
+
+
+
+
+datos.forEach((documento)=>{
+
+
+
+const item =
+
+documento.data();
+
+
+
+
+let botones = "";
+
+
+
+
+
+
+if(puedeModificarInventario()){
+
+
+
+botones = `
+
+
+
+<button onclick="editarInventario('${documento.id}')">
+
+✏️ Editar
+
+</button>
+
+
+
+
+<button onclick="eliminarInventario('${documento.id}')">
+
+🗑️ Eliminar
+
+</button>
+
+
+
+`;
+
+
+
+}
+
+
+
+
+
+
+
+lista.innerHTML += `
+
+
+
+<div class="tarjeta">
+
+
+
+<h3>
+
+${item.nombre}
+
+</h3>
+
+
+
+
+<p>
+
+📦 Cantidad:
+
+${item.cantidad}
+
+</p>
+
+
+
+
+<p>
+
+🟢 Estado:
+
+${item.estado}
+
+</p>
+
+
+
+
+<p>
+
+📍 Ubicación:
+
+${item.ubicacion}
+
+</p>
+
+
+
+
+<p>
+
+📝 ${item.observaciones || ""}
+
+</p>
+
+
+
+
+${botones}
+
+
+
+</div>
+
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+// ==========================================
+// BUSCADOR
+// ==========================================
+
+
+function buscarInventario(){
+
+
+
+let texto =
+
+document
+
+.getElementById("busqueda")
+
+.value
+
+.toLowerCase();
+
+
+
+
+
+document
+
+.querySelectorAll(".tarjeta")
+
+.forEach((tarjeta)=>{
+
+
+
+tarjeta.style.display =
+
+
+
+tarjeta.innerText
+
+.toLowerCase()
+
+.includes(texto)
+
+
+
+?
+
+"block"
+
+
+
+:
+
+"none";
+
+
+
+});
 
 
 
