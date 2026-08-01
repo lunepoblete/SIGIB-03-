@@ -919,7 +919,7 @@ alert("No tiene permisos para modificar inventario");
 return;
 
 
-}
+
 
 
 
