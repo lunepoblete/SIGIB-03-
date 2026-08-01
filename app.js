@@ -44,6 +44,11 @@ let usuarioActivo = null;
 // ==========================================
 
 
+// ==========================================
+// PERMISOS POR AREA SIGIB 03
+// ==========================================
+
+
 function esAdministrador(){
 
 
@@ -51,23 +56,12 @@ function esAdministrador(){
         return false;
 
 
-    let cargo =
-
-    usuarioActivo.funcion.toLowerCase();
-
-
 
     return (
 
-        cargo.includes("jefe")
+        usuarioActivo.areas &&
 
-        ||
-
-        cargo.includes("subcomandante")
-
-        ||
-
-        cargo.includes("comandante")
+        usuarioActivo.areas.includes("TODAS")
 
     );
 
@@ -78,7 +72,7 @@ function esAdministrador(){
 
 
 
-function esEncargado(){
+function perteneceArea(codigoModulo){
 
 
     if(!usuarioActivo)
@@ -86,19 +80,18 @@ function esEncargado(){
 
 
 
-    let cargo =
+    if(esAdministrador())
 
-    usuarioActivo.funcion.toLowerCase();
+        return true;
+
 
 
 
     return (
 
-        cargo.includes("encargado")
+        usuarioActivo.areas &&
 
-        ||
-
-        cargo.includes("encargada")
+        usuarioActivo.areas.includes(codigoModulo)
 
     );
 
@@ -109,18 +102,11 @@ function esEncargado(){
 
 
 
-function puedeModificarInventario(){
+
+function puedeModificarInventario(codigoModulo){
 
 
-    return (
-
-        esAdministrador()
-
-        ||
-
-        esEncargado()
-
-    );
+    return perteneceArea(codigoModulo);
 
 
 }
@@ -749,7 +735,7 @@ let botones = "";
 
 
 
-if(puedeModificarInventario()){
+if(puedeModificarInventario(codigoUbicacion.substring(0,2)))
 
 
 
