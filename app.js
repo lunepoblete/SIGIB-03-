@@ -1,26 +1,231 @@
 // ==========================================
 // SIGIB 03
 // APP.JS
-// PARTE 2
-// MODULOS + INVENTARIO FIREBASE
+// PARTE 1
+// LOGIN + PERMISOS + MENU
 // ==========================================
 
 
+import { db } from "./firebase.js";
+
+
+import {
+
+    collection,
+    addDoc,
+    getDocs,
+    updateDoc,
+    deleteDoc,
+    doc,
+    query,
+    where,
+    orderBy
+
+} from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
 
 // ==========================================
-// ABRIR AREA
+// USUARIO ACTIVO
 // ==========================================
 
 
-function abrirModulo(index){
+let usuarioActivo = null;
 
 
 
-const modulo =
-
-modulos[index];
 
 
+// ==========================================
+// PERMISOS
+// ==========================================
+
+
+function esAdministrador(){
+
+
+    if(!usuarioActivo)
+        return false;
+
+
+    let cargo =
+
+    usuarioActivo.funcion.toLowerCase();
+
+
+
+    return (
+
+        cargo.includes("jefe")
+
+        ||
+
+        cargo.includes("subcomandante")
+
+        ||
+
+        cargo.includes("comandante")
+
+    );
+
+
+}
+
+
+
+
+
+function esEncargado(){
+
+
+    if(!usuarioActivo)
+        return false;
+
+
+
+    let cargo =
+
+    usuarioActivo.funcion.toLowerCase();
+
+
+
+    return (
+
+        cargo.includes("encargado")
+
+        ||
+
+        cargo.includes("encargada")
+
+    );
+
+
+}
+
+
+
+
+
+function puedeModificarInventario(){
+
+
+    return (
+
+        esAdministrador()
+
+        ||
+
+        esEncargado()
+
+    );
+
+
+}
+
+
+
+
+
+
+
+// ==========================================
+// INGRESO POR LEGAJO
+// ==========================================
+
+
+function ingresar(){
+
+
+
+const legajo =
+
+document
+
+.getElementById("legajo")
+
+.value
+
+.trim();
+
+
+
+
+
+const usuario =
+
+personal.find(
+
+persona => persona.legajo === legajo
+
+);
+
+
+
+
+
+if(!usuario){
+
+
+alert("Legajo no registrado");
+
+
+return;
+
+
+}
+
+
+
+
+
+usuarioActivo = usuario;
+
+
+
+
+
+document
+
+.getElementById("login")
+
+.style.display="none";
+
+
+
+
+
+document
+
+.getElementById("panel")
+
+.style.display="block";
+
+
+
+
+
+mostrarMenuModulos();
+
+
+
+}
+
+
+
+
+
+
+
+
+// ==========================================
+// MENU PRINCIPAL
+// ==========================================
+
+
+function mostrarMenuModulos(){
 
 
 
@@ -28,18 +233,60 @@ let contenido = `
 
 
 
-<button onclick="mostrarMenuModulos()">
+<div class="contenedor">
 
-⬅ Volver
+
+<h1>
+
+🚒 SIGIB 03
+
+</h1>
+
+
+
+
+<p>
+
+👤 ${usuarioActivo.nombre}
+
+<br>
+
+${usuarioActivo.funcion}
+
+</p>
+
+
+
+<hr>
+
+
+
+
+<button onclick="mostrarPizarra()">
+
+📋 Pizarra
 
 </button>
 
 
 
 
+<button onclick="mostrarMovimientos()">
+
+🔄 Movimientos
+
+</button>
+
+
+
+<hr>
+
+
+
+
 <h2>
 
-${modulo.nombre}
+Seleccione un área
 
 </h2>
 
@@ -54,7 +301,7 @@ ${modulo.nombre}
 
 
 
-modulo.subdivisiones.forEach((sub)=>{
+modulos.forEach((modulo,index)=>{
 
 
 
@@ -62,22 +309,10 @@ contenido += `
 
 
 
-<button onclick="abrirInventario(
-
-'${modulo.codigo}',
-
-'${sub.codigo}',
-
-'${modulo.nombre}',
-
-'${sub.nombre}'
-
-)">
+<button onclick="abrirModulo(${index})">
 
 
-
-${sub.nombre}
-
+${modulo.nombre}
 
 
 </button>
@@ -95,6 +330,10 @@ ${sub.nombre}
 
 
 contenido += `
+
+
+
+</div>
 
 
 </div>
@@ -111,450 +350,6 @@ document
 .getElementById("panel")
 
 .innerHTML = contenido;
-
-
-
-}
-
-
-
-
-
-
-
-// ==========================================
-// ABRIR INVENTARIO
-// ==========================================
-
-
-async function abrirInventario(
-
-codigoModulo,
-
-codigoUbicacion,
-
-nombreModulo,
-
-nombreUbicacion
-
-){
-
-
-
-let panel =
-
-document.getElementById("panel");
-
-
-
-
-
-panel.innerHTML = `
-
-
-
-<button onclick="mostrarMenuModulos()">
-
-⬅ Volver
-
-</button>
-
-
-
-<h2>
-
-${nombreModulo}
-
-</h2>
-
-
-
-<h3>
-
-${nombreUbicacion}
-
-</h3>
-
-
-
-
-<input
-
-id="busqueda"
-
-placeholder="🔍 Buscar elemento"
-
-onkeyup="buscarInventario()"
-
->
-
-
-
-<br><br>
-
-
-
-
-${
-
-puedeModificarInventario()
-
-?
-
-`
-
-<button onclick="agregarInventario(
-
-'${codigoModulo}',
-
-'${codigoUbicacion}',
-
-'${nombreModulo}',
-
-'${nombreUbicacion}'
-
-)">
-
-➕ Agregar elemento
-
-</button>
-
-`
-
-:
-
-`
-
-<p>
-
-👁️ Modo consulta
-
-</p>
-
-`
-
-}
-
-
-
-
-<hr>
-
-
-
-<div id="listaInventario">
-
-Cargando inventario...
-
-</div>
-
-
-
-`;
-
-
-
-
-
-cargarInventario(codigoUbicacion);
-
-
-
-}
-
-
-
-
-
-
-// ==========================================
-// CARGAR INVENTARIO DESDE FIREBASE
-// ==========================================
-
-
-async function cargarInventario(codigoUbicacion){
-
-
-
-const lista =
-
-document.getElementById("listaInventario");
-
-
-
-
-
-lista.innerHTML = "";
-
-
-
-
-
-const q = query(
-
-
-
-collection(db,"inventario"),
-
-
-
-where(
-
-"ubicacion",
-
-"==",
-
-codigoUbicacion
-
-),
-
-
-
-orderBy(
-
-"nombre"
-
-)
-
-
-
-);
-
-
-
-
-
-
-const datos =
-
-await getDocs(q);
-
-
-
-
-
-
-if(datos.empty){
-
-
-
-lista.innerHTML = `
-
-
-<p>
-
-📦 No hay elementos cargados
-
-</p>
-
-
-`;
-
-
-
-return;
-
-
-}
-
-
-
-
-
-
-datos.forEach((documento)=>{
-
-
-
-const item =
-
-documento.data();
-
-
-
-
-let botones = "";
-
-
-
-
-
-
-if(puedeModificarInventario()){
-
-
-
-botones = `
-
-
-
-<button onclick="editarInventario('${documento.id}')">
-
-✏️ Editar
-
-</button>
-
-
-
-
-<button onclick="eliminarInventario('${documento.id}')">
-
-🗑️ Eliminar
-
-</button>
-
-
-
-`;
-
-
-
-}
-
-
-
-
-
-
-
-lista.innerHTML += `
-
-
-
-<div class="tarjeta">
-
-
-
-<h3>
-
-${item.nombre}
-
-</h3>
-
-
-
-
-<p>
-
-📦 Cantidad:
-
-${item.cantidad}
-
-</p>
-
-
-
-
-<p>
-
-🟢 Estado:
-
-${item.estado}
-
-</p>
-
-
-
-
-<p>
-
-📍 Ubicación:
-
-${item.ubicacion}
-
-</p>
-
-
-
-
-<p>
-
-📝 ${item.observaciones || ""}
-
-</p>
-
-
-
-
-${botones}
-
-
-
-</div>
-
-
-
-`;
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-// ==========================================
-// BUSCADOR
-// ==========================================
-
-
-function buscarInventario(){
-
-
-
-let texto =
-
-document
-
-.getElementById("busqueda")
-
-.value
-
-.toLowerCase();
-
-
-
-
-
-document
-
-.querySelectorAll(".tarjeta")
-
-.forEach((tarjeta)=>{
-
-
-
-tarjeta.style.display =
-
-
-
-tarjeta.innerText
-
-.toLowerCase()
-
-.includes(texto)
-
-
-
-?
-
-"block"
-
-
-
-:
-
-"none";
-
-
-
-});
 
 
 
@@ -598,11 +393,13 @@ let contenido = `
 
 
 
+
 <h2>
 
 ${modulo.nombre}
 
 </h2>
+
 
 
 
@@ -682,7 +479,6 @@ document
 
 
 
-
 // ==========================================
 // ABRIR INVENTARIO
 // ==========================================
@@ -722,6 +518,8 @@ panel.innerHTML = `
 
 
 
+
+
 <h2>
 
 ${nombreModulo}
@@ -730,11 +528,14 @@ ${nombreModulo}
 
 
 
+
 <h3>
 
 ${nombreUbicacion}
 
 </h3>
+
+
 
 
 
@@ -751,7 +552,9 @@ onkeyup="buscarInventario()"
 
 
 
+
 <br><br>
+
 
 
 
@@ -799,7 +602,10 @@ puedeModificarInventario()
 
 
 
+
+
 <hr>
+
 
 
 
@@ -808,6 +614,7 @@ puedeModificarInventario()
 Cargando inventario...
 
 </div>
+
 
 
 
@@ -828,8 +635,9 @@ cargarInventario(codigoUbicacion);
 
 
 
+
 // ==========================================
-// CARGAR INVENTARIO DESDE FIREBASE
+// CARGAR INVENTARIO FIREBASE
 // ==========================================
 
 
@@ -1060,8 +868,9 @@ ${botones}
 
 
 
+
 // ==========================================
-// BUSCADOR
+// BUSCAR INVENTARIO
 // ==========================================
 
 
@@ -1126,6 +935,7 @@ tarjeta.innerText
 // PARTE 3
 // GESTION INVENTARIO + EXPORTACIONES
 // ==========================================
+
 
 
 
@@ -1416,7 +1226,6 @@ location.reload();
 
 
 
-
 // ==========================================
 // ELIMINAR INVENTARIO
 // ==========================================
@@ -1480,6 +1289,7 @@ location.reload();
 
 
 }
+
 
 
 
