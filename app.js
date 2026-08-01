@@ -630,12 +630,9 @@ cargarInventario(codigoUbicacion);
 async function cargarInventario(codigoUbicacion){
 
 
-
 const lista =
 
 document.getElementById("listaInventario");
-
-
 
 
 
@@ -644,14 +641,9 @@ lista.innerHTML = "";
 
 
 
-
 const q = query(
 
-
-
 collection(db,"inventario"),
-
-
 
 where(
 
@@ -663,18 +655,13 @@ codigoUbicacion
 
 ),
 
-
-
 orderBy(
 
 "nombre"
 
 )
 
-
-
 );
-
 
 
 
@@ -688,9 +675,7 @@ await getDocs(q);
 
 
 
-
 if(datos.empty){
-
 
 
 lista.innerHTML = `
@@ -716,15 +701,10 @@ return;
 
 
 
-
 datos.forEach((documento)=>{
 
 
-
-const item =
-
-documento.data();
-
+const item = documento.data();
 
 
 
@@ -734,13 +714,10 @@ let botones = "";
 
 
 
-
-if(puedeModificarInventario(codigoUbicacion.substring(0,2)))
-
+if(puedeModificarInventario(codigoUbicacion.substring(0,2))) {
 
 
 botones = `
-
 
 
 <button onclick="editarInventario('${documento.id}')">
@@ -762,13 +739,7 @@ botones = `
 
 `;
 
-
-
 }
-
-
-
-
 
 
 
@@ -835,6 +806,7 @@ ${botones}
 
 
 
+
 </div>
 
 
@@ -846,12 +818,7 @@ ${botones}
 });
 
 
-
 }
-
-
-
-
 
 
 
