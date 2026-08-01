@@ -1190,9 +1190,6 @@ async function eliminarInventario(id){
 
 
 
-async function eliminarInventario(id){
-
-
 if(!puedeModificarInventario()){
 
 
