@@ -918,6 +918,8 @@ alert("No tiene permisos para modificar inventario");
 
 return;
 
+}
+
 
 
 
@@ -1188,7 +1190,11 @@ async function eliminarInventario(id){
 
 
 
-if(puedeModificarInventario(codigoUbicacion.substring(0,2)))
+async function eliminarInventario(id){
+
+
+if(!puedeModificarInventario()){
+
 
 alert("No tiene permisos");
 
@@ -1279,9 +1285,6 @@ window.buscarInventario = buscarInventario;
 
 
 window.esAdministrador = esAdministrador;
-
-
-window.esEncargado = esEncargado;
 
 
 window.puedeModificarInventario = puedeModificarInventario;
