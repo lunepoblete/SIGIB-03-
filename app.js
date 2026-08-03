@@ -193,7 +193,7 @@ document
 
 
 
-mostrarMenuModulos();
+<button onclick="mostrarMenuModulos()">
 
 
 
