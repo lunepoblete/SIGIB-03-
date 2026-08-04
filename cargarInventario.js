@@ -3,102 +3,144 @@
 // CARGA INICIAL INVENTARIO A FIREBASE
 // ========================================
 
+
 import { db } from "./firebase.js";
 
+
 import {
-    collection,
-    addDoc,
-    getDocs
+
+collection,
+addDoc,
+getDocs
+
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
+
+// ========================================
+// CARGAR INVENTARIO INICIAL
+// ========================================
+
+
 async function cargarInventarioInicial(){
 
 
-    if(typeof inventario === "undefined"){
-
-        console.error(
-            "❌ No existe inventario. Revisar datos.js"
-        );
-
-        return;
-
-    }
+console.log("🚒 Iniciando carga inventario SIGIB 03");
 
 
 
-    const existente = await getDocs(
-        collection(db,"inventario")
-    );
+const existente = await getDocs(
 
+collection(db,"inventario")
 
-    if(!existente.empty){
-
-        console.warn(
-            "⚠️ Ya existen datos en inventario Firebase"
-        );
-
-        return;
-
-    }
+);
 
 
 
-    for(const ubicacion in inventario){
+if(!existente.empty){
+
+console.log(
+"⚠️ Ya existen datos en inventario Firebase"
+);
+
+return;
+
+}
 
 
-        const materiales = inventario[ubicacion];
 
 
-        for(const material of materiales){
+let total = 0;
 
 
-            await addDoc(
-
-                collection(db,"inventario"),
-
-                {
-
-                    ubicacion: ubicacion,
-
-                    nombre: material.nombre,
-
-                    cantidad: material.cantidad,
-
-                    estado: material.estado,
-
-                    observaciones: material.observaciones,
-
-                    fechaCarga: new Date()
-
-                }
-
-            );
 
 
-            console.log(
-                "✅ Cargado:",
-                ubicacion,
-                material.nombre
-            );
+for(const ubicacion in inventario){
 
 
-        }
+
+const materiales = inventario[ubicacion];
 
 
-    }
+
+for(const material of materiales){
 
 
-    console.log(
-        "🔥 INVENTARIO SIGIB 03 CARGADO A FIREBASE"
-    );
+
+await addDoc(
+
+collection(db,"inventario"),
+
+{
+
+
+ubicacion: ubicacion,
+
+
+nombre: material.nombre,
+
+
+cantidad: material.cantidad,
+
+
+estado: material.estado,
+
+
+observaciones: material.observaciones,
+
+
+fechaCarga: new Date()
+
+
+
+}
+
+);
+
+
+
+total++;
+
+
+
+console.log(
+
+"✅ Cargado:",
+
+ubicacion,
+
+material.nombre
+
+);
+
 
 
 }
 
 
 
-window.cargarInventarioInicial =
-cargarInventarioInicial;
+}
+
+
+
+console.log(
+
+"🔥 INVENTARIO SIGIB 03 CARGADO CORRECTAMENTE:",
+
+total,
+
+"elementos"
+
+);
+
+
+
+}
+
+
+
+// dejar disponible en consola
+
+window.cargarInventarioInicial = cargarInventarioInicial;
