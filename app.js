@@ -6,8 +6,9 @@
 // ==========================================
 
 
-import { personal, modulos, inventario } from "./datos.js";
+
 import { db } from "./firebase.js";
+import { personal, modulos, inventario } from "./datos.js";
 
 
 import {
