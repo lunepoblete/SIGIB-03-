@@ -6,6 +6,7 @@
 // ==========================================
 
 
+import { personal, modulos, inventario } from "./datos.js";
 import { db } from "./firebase.js";
 
 
@@ -117,88 +118,40 @@ function puedeModificarInventario(codigoModulo){
 // INGRESO POR LEGAJO
 // ==========================================
 
-
 function ingresar(){
 
+    const legajo = document
+        .getElementById("legajo")
+        .value
+        .trim();
 
+    const usuario = personal.find(
+        persona => persona.legajo === legajo
+    );
 
-const legajo =
+    if(!usuario){
 
-document
+        alert("Legajo no registrado");
 
-.getElementById("legajo")
+        return;
 
-.value
+    }
 
-.trim();
+    window.usuarioActivo = usuario;
 
+    document
+        .getElementById("login")
+        .style.display = "none";
 
+    document
+        .getElementById("panel")
+        .style.display = "block";
 
-
-
-const usuario =
-
-personal.find(
-
-persona => persona.legajo === legajo
-
-);
-
-
-
-
-
-if(!usuario){
-
-
-alert("Legajo no registrado");
-
-
-return;
-
+    mostrarMenuModulos();
 
 }
 
-
-window.usuarioActivo = usuario;
-
-}
 window.ingresar = ingresar;
-
-
-
-document
-
-.getElementById("login")
-
-.style.display="none";
-
-
-
-
-
-document
-
-.getElementById("panel")
-
-.style.display="block";
-
-
-
-
-
-mostrarMenuModulos();
-
-
-
-}
-
-
-
-
-
-
-
 
 
 // ==========================================
