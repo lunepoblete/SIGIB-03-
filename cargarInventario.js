@@ -177,3 +177,5 @@ total
 
 
 window.cargarInventarioInicial = cargarInventarioInicial;
+
+cargarInventarioInicial();
