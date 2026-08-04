@@ -463,66 +463,709 @@ subdivisiones:[
 const inventario={
 
 
-"IE-DEP":[
-
-{
-nombre:"Mangas",
-cantidad:0,
-estado:"Bueno",
-observaciones:""
-},
-
-{
-nombre:"Lanzas",
-cantidad:0,
-estado:"Bueno",
-observaciones:""
-},
-
-{
-nombre:"Material de ventilacion",
-cantidad:0,
-estado:"Bueno",
-observaciones:""
-}
-
-],
-
+// ========================================
+// INCENDIO ESTRUCTURAL
+// MOVIL 32
+// ========================================
 
 "IE-32":[
 
 {
-nombre:"Material general",
-cantidad:0,
+nombre:"Cinta de peligro",
+cantidad:1,
 estado:"Bueno",
-observaciones:""
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Caja de guantes talle M",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Linternas",
+cantidad:3,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Guantes dielectricos",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Pares - Cabina delantera"
+},
+
+{
+nombre:"Guia Ciquime",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Camara termica",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Equipos ERA completos",
+cantidad:4,
+estado:"Bueno",
+observaciones:"Cabina trasera - 7 mascaras disponibles"
+},
+
+{
+nombre:"Collarin Philadelphia",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Cabezales",
+cantidad:4,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Botiquin",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Llaves compartimentos pequeños",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Cilindros ERA repuesto",
+cantidad:3,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Collarin",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Reflector",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Cilindros ERA repuesto",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Compartimento pequeño lado acompañante - arriba"
+},
+
+{
+nombre:"Agua",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Compartimento pequeño lado acompañante - abajo"
+},
+
+{
+nombre:"Torre de iluminacion",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Compartimento pequeño lado chofer - arriba"
+},
+
+{
+nombre:"Hacha de mano multiproposito",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 1"
+},
+
+{
+nombre:"Masa",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 1"
+},
+
+{
+nombre:"Corta pernos",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 1"
+},
+
+{
+nombre:"Hidrante",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 1"
+},
+
+{
+nombre:"Tijera de poda",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 1"
+},
+
+{
+nombre:"Pala corazon",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 1"
+},
+
+{
+nombre:"Manga 45 Storz",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Estibada con bifurcador 45 a 38 Storz"
+},
+
+{
+nombre:"Entrada abastecimiento 63 Storz",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 1"
+},
+
+{
+nombre:"Salida agua 45 y 38 Storz",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Persiana acompañante 1"
+},
+
+{
+nombre:"Lanza Protek 38 Storz combinada",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Lanza Leader 45 Storz combinada",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Lanza chorro pleno 38 Storz",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Bifurcador 63 a 45-45 Storz",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Reduccion 45 a 38 Storz",
+cantidad:3,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Propak",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Mangas 38 Storz",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Mangas 45 Storz",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Mangas 63 Storz",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
+},
+
+{
+nombre:"Control bomba",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Persiana acompañante 2"
 }
 
 ],
-
+    // ========================================
+// INCENDIO ESTRUCTURAL
+// MOVIL 38
+// ========================================
 
 "IE-38":[
 
 {
-nombre:"Material general",
-cantidad:0,
+nombre:"Linternas",
+cantidad:2,
 estado:"Bueno",
-observaciones:""
-}
+observaciones:"Cabina delantera"
+},
 
-],
+{
+nombre:"Guantes dielectricos",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Pares - Cabina delantera"
+},
 
+{
+nombre:"Chaleco reflectario",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Botiquin",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Barbijos",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Bolsas - Cabina delantera"
+},
+
+{
+nombre:"Llave de acople francesa",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Llave bomba municipal",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Llaves de acople",
+cantidad:3,
+estado:"Bueno",
+observaciones:"Puerta chofer"
+},
+
+{
+nombre:"Cinta de peligro",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Guia Ciquime",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Birome y anotador",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Lote de salvamento",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Torre de iluminacion",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina delantera"
+},
+
+{
+nombre:"Extintor triclase",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Debajo asiento acompañante"
+},
+
+{
+nombre:"Equipos ERA completos",
+cantidad:4,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Cilindros ERA repuesto",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Mascaras ERA",
+cantidad:4,
+estado:"Bueno",
+observaciones:"Cabina trasera"
+},
+
+{
+nombre:"Guantes nitrilo",
+cantidad:4,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Guantes latex",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Vendas 10 cm",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Venda elastica 10 cm",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Baja lenguas",
+cantidad:9,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Gasas 30x30",
+cantidad:5,
+estado:"Bueno",
+observaciones:"Paquetes - Botiquin"
+},
+
+{
+nombre:"Cinta hipoalergenica",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Vendas cambric 20 cm",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Caladryl",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Hipoglos",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Polvo cicatrizante",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Crema quemaduras",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Solucion fisiologica",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Toallas humedas",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Paquete - Botiquin"
+},
+
+{
+nombre:"Apositos grandes",
+cantidad:7,
+estado:"Bueno",
+observaciones:"Botiquin"
+},
+
+{
+nombre:"Pañal triangulo evacuacion",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Arneses",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Cintas tubulares azules",
+cantidad:3,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Cintas tubulares rojas",
+cantidad:3,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Cubre cuerda",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Mosquetones rojos",
+cantidad:6,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Poleas plateadas",
+cantidad:2,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Ocho de rescate Courant",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Anillo ventral",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+
+{
+nombre:"Cuerda 30 metros",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Lote de salvamento"
+},
+    ],
+// ========================================
+// INCENDIO ESTRUCTURAL
+// MOVIL 40
+// ========================================
 
 "IE-40":[
 
 {
-nombre:"Material general",
-cantidad:0,
+nombre:"Manga 63 Storz",
+cantidad:1,
 estado:"Bueno",
-observaciones:""
+observaciones:"Caja de herramientas lado acompañante"
+},
+
+{
+nombre:"Acople 63 Storz a 70 Frances",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Caja de herramientas lado acompañante"
+},
+
+{
+nombre:"Llave de acople",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Caja de herramientas lado acompañante"
+},
+
+{
+nombre:"Extintor",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Caja de herramientas lado acompañante"
+},
+
+{
+nombre:"Crique",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Caja de herramientas lado acompañante"
+},
+
+{
+nombre:"Llave bomba municipal",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina"
+},
+
+{
+nombre:"Base",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Cabina"
+},
+
+{
+nombre:"Manguerote de succion 63 Frances",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Parte superior"
 }
 
 ],
+    // ========================================
+// INCENDIO ESTRUCTURAL
+// DEPOSITO
+// ========================================
+
+"IE-DEP":[
+
+{
+nombre:"Mangas 20mm Storz",
+cantidad:3,
+estado:"Bueno",
+observaciones:"Depósito Incendio Estructural"
+},
+
+{
+nombre:"Mangas 38mm Storz",
+cantidad:7,
+estado:"Bueno",
+observaciones:"Depósito Incendio Estructural"
+},
+
+{
+nombre:"Mangas 63mm Storz",
+cantidad:49,
+estado:"Bueno",
+observaciones:"Depósito Incendio Estructural"
+},
+
+{
+nombre:"Mangas 63mm Storz empaquetadas",
+cantidad:20,
+estado:"Bueno",
+observaciones:"Depósito Incendio Estructural"
+},
+
+{
+nombre:"Mangas 63mm Storz de tela",
+cantidad:4,
+estado:"Bueno",
+observaciones:"Depósito Incendio Estructural"
+},
+
+{
+nombre:"Lanza Leader 38mm Storz",
+cantidad:1,
+estado:"Bueno",
+observaciones:"40-400 L/minuto. 6 Bar. Posee llave de corte, selector de caudal y selector de chorro"
+},
+
+{
+nombre:"Lanza Leader 45mm Storz",
+cantidad:1,
+estado:"Bueno",
+observaciones:"0-500 L/minuto. 8 Bar. Posee llave de corte, selector de caudal y selector de chorro"
+},
+
+{
+nombre:"Lanza Viper 38mm rosca fina",
+cantidad:1,
+estado:"Bueno",
+observaciones:"7 Bar - 16 Bar máximo. Posee llave de corte y selector de chorro"
+},
+
+{
+nombre:"Monitor de pie",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Acoples 63mm y 45mm Storz"
+},
+
+{
+nombre:"Acople reductor 63mm a 45mm Storz",
+cantidad:1,
+estado:"Bueno",
+observaciones:"Depósito Incendio Estructural"
+}
+
+];
     // ========================================
 // SIGIB 03
 // PARTE 2
