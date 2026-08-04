@@ -6,6 +6,8 @@
 
 import { db } from "./firebase.js";
 
+import { inventario } from "./datos.js";
+
 
 import {
 
