@@ -17,93 +17,96 @@
 <body>
 
 
-    <!-- LOGIN -->
+<!-- LOGIN -->
 
-    <section id="login">
-
-
-        <h1>
-            🚒 SIGIB 03
-        </h1>
+<section id="login">
 
 
-        <h3>
-            Sistema Integral de Gestión de Inventario Bomberos
-        </h3>
+    <h1>
+        🚒 SIGIB 03
+    </h1>
 
 
-
-        <input
-
-            type="number"
-
-            id="legajo"
-
-            placeholder="Ingrese legajo"
-
-        >
+    <h3>
+        Sistema Integral de Gestión de Inventario Bomberos
+    </h3>
 
 
 
-        <button onclick="ingresar()">
+    <input
 
-            🔐 Ingresar
+        type="number"
 
-        </button>
+        id="legajo"
 
-
-    </section>
-
-
-
-
-
-    <!-- APLICACIÓN -->
-
-    <main
-
-        id="panel"
-
-        style="display:none;"
+        placeholder="Ingrese legajo"
 
     >
 
 
-    </main>
+
+    <button onclick="ingresar()">
+
+        🔐 Ingresar
+
+    </button>
+
+
+</section>
 
 
 
 
 
-    <!-- DATOS PRINCIPALES -->
+<!-- PANEL PRINCIPAL -->
 
-    <script src="./datos.js"></script>
+<main
+
+    id="panel"
+
+    style="display:none;"
+
+>
+
+
+</main>
 
 
 
 
 
- <!-- DATOS SIGIB 03 -->
-<script src="datos.js"></script>
+<!-- DATOS SIGIB 03 -->
+
+<script src="./datos.js"></script>
+
+
+
 
 
 <!-- FIREBASE -->
-<script type="module" src="firebase.js"></script>
+
+<script type="module" src="./firebase.js"></script>
 
 
-<!-- BASE DE DATOS INICIAL (SOLO PARA CARGA) -->
-<script type="module" src="cargarInventario.js"></script>
 
 
-<!-- MODULOS SIGIB 03 -->
-<script src="pizarra.js"></script>
 
-<script src="movimientos.js"></script>
+<!-- MODULOS -->
+
+<script src="./pizarra.js"></script>
+
+<script src="./movimientos.js"></script>
+
+
+
 
 
 <!-- APP PRINCIPAL -->
-<script type="module" src="app.js"></script>
+
+<script type="module" src="./app.js"></script>
+
 
 
 </body>
+
 </html>
