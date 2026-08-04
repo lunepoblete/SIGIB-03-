@@ -6,10 +6,9 @@
 import { db } from "./firebase.js";
 
 import {
-
-collection,
-addDoc
-
+    collection,
+    addDoc,
+    getDocs
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -18,57 +17,88 @@ addDoc
 async function cargarInventarioInicial(){
 
 
-for(const ubicacion in inventario){
+    if(typeof inventario === "undefined"){
+
+        console.error(
+            "❌ No existe inventario. Revisar datos.js"
+        );
+
+        return;
+
+    }
 
 
-const materiales = inventario[ubicacion];
+
+    const existente = await getDocs(
+        collection(db,"inventario")
+    );
 
 
-for(const material of materiales){
+    if(!existente.empty){
+
+        console.warn(
+            "⚠️ Ya existen datos en inventario Firebase"
+        );
+
+        return;
+
+    }
 
 
-await addDoc(
 
-collection(db,"inventario"),
+    for(const ubicacion in inventario){
 
-{
 
-ubicacion: ubicacion,
+        const materiales = inventario[ubicacion];
 
-nombre: material.nombre,
 
-cantidad: material.cantidad,
+        for(const material of materiales){
 
-estado: material.estado,
 
-observaciones: material.observaciones,
+            await addDoc(
 
-fechaCarga: new Date()
+                collection(db,"inventario"),
+
+                {
+
+                    ubicacion: ubicacion,
+
+                    nombre: material.nombre,
+
+                    cantidad: material.cantidad,
+
+                    estado: material.estado,
+
+                    observaciones: material.observaciones,
+
+                    fechaCarga: new Date()
+
+                }
+
+            );
+
+
+            console.log(
+                "✅ Cargado:",
+                ubicacion,
+                material.nombre
+            );
+
+
+        }
+
+
+    }
+
+
+    console.log(
+        "🔥 INVENTARIO SIGIB 03 CARGADO A FIREBASE"
+    );
+
 
 }
 
-);
 
 
-console.log(
-"✅ Cargado:",
-ubicacion,
-material.nombre
-);
-
-
-}
-
-
-}
-
-
-console.log(
-"🔥 INVENTARIO SIGIB 03 CARGADO A FIREBASE"
-);
-
-
-}
-
-
-window.cargarInventarioInicial = cargarInventarioInicial;
+window.cargarInventarioInicial =
+cargarInventarioInicial;
