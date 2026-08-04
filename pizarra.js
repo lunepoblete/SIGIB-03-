@@ -485,13 +485,21 @@ let tarea = {
 
 
 
-await addDoc(
+try {
 
-    collection(db,"tareas"),
+    await addDoc(collection(db, "tareas"), tarea);
 
-    tarea
+    alert("✅ Tarea creada correctamente");
 
-);
+    mostrarPizarra();
+
+} catch (error) {
+
+    console.error(error);
+
+    alert("❌ Error al guardar la tarea:\n" + error.message);
+
+}
 
 
 
