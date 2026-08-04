@@ -1974,7 +1974,7 @@ observaciones:
 
 
 };
-
+export { personal, modulos, inventario };
 
 // ========================================
 // FIN DATOS SIGIB 03
