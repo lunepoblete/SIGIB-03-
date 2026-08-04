@@ -193,7 +193,13 @@ document
 
 
 
-<button onclick="mostrarMenuModulos()">
+document
+.getElementById("panel")
+.style.display="block";
+
+
+mostrarMenuModulos();
+
 
 
 
