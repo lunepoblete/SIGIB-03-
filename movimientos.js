@@ -33,8 +33,7 @@ import {
 async function mostrarMovimientos(){
 
 
-const panel =
-document.getElementById("panel");
+const panel = document.getElementById("panel");
 
 
 
@@ -53,7 +52,9 @@ panel.innerHTML = `
 
 
 <h1>
-🔄 Movimientos
+
+🔄 Movimientos SIGIB 03
+
 </h1>
 
 
@@ -94,8 +95,9 @@ cargarMovimientos();
 
 
 
+
 // ==========================================
-// CARGAR MOVIMIENTOS FIRESTORE
+// CARGAR MOVIMIENTOS
 // ==========================================
 
 
@@ -107,8 +109,7 @@ document.getElementById("listaMovimientos");
 
 
 
-lista.innerHTML = "";
-
+try{
 
 
 const q = query(
@@ -121,9 +122,11 @@ orderBy("fecha","desc")
 
 
 
-const datos =
-await getDocs(q);
+const datos = await getDocs(q);
 
+
+
+lista.innerHTML = "";
 
 
 
@@ -133,13 +136,15 @@ if(datos.empty){
 lista.innerHTML = `
 
 <p>
+
 🔄 No hay movimientos registrados
+
 </p>
 
 `;
 
-
 return;
+
 
 }
 
@@ -150,13 +155,9 @@ return;
 datos.forEach((documento)=>{
 
 
-let movimiento =
-documento.data();
+const movimiento = documento.data();
 
-
-let id =
-documento.id;
-
+const id = documento.id;
 
 
 
@@ -226,6 +227,16 @@ ${movimiento.responsable}
 
 <p>
 
+🆔 Legajo:
+
+${movimiento.legajo}
+
+</p>
+
+
+
+<p>
+
 📅 Fecha:
 
 ${movimiento.fecha}
@@ -287,7 +298,6 @@ ${movimiento.fechaFinalizacion}
 
 
 
-
 <button onclick="eliminarMovimiento('${id}')">
 
 🗑️ Eliminar
@@ -306,8 +316,30 @@ ${movimiento.fechaFinalizacion}
 });
 
 
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+lista.innerHTML = `
+
+<p>
+
+❌ Error cargando movimientos
+
+</p>
+
+`;
+
 
 }
+
+
+}
+
 
 
 
@@ -341,7 +373,9 @@ panel.innerHTML = `
 
 
 <h2>
+
 ➕ Nuevo Movimiento
+
 </h2>
 
 
@@ -351,12 +385,16 @@ panel.innerHTML = `
 
 
 <option>
+
 Salida
+
 </option>
 
 
 <option>
+
 Ingreso
+
 </option>
 
 
@@ -368,7 +406,6 @@ Ingreso
 
 
 
-
 <input
 
 id="movMaterial"
@@ -376,7 +413,6 @@ id="movMaterial"
 placeholder="Material"
 
 >
-
 
 
 
@@ -396,7 +432,6 @@ placeholder="Cantidad"
 
 
 
-
 <br><br>
 
 
@@ -411,7 +446,6 @@ placeholder="Destino / Ubicación"
 
 
 
-
 <br><br>
 
 
@@ -423,7 +457,6 @@ id="movObs"
 placeholder="Observaciones">
 
 </textarea>
-
 
 
 
@@ -452,8 +485,9 @@ placeholder="Observaciones">
 
 
 
+
 // ==========================================
-// GUARDAR MOVIMIENTO FIREBASE
+// GUARDAR MOVIMIENTO
 // ==========================================
 
 
@@ -461,7 +495,7 @@ async function guardarMovimiento(){
 
 
 
-let movimiento = {
+const movimiento = {
 
 
 tipo:
@@ -500,11 +534,11 @@ document.getElementById("movObs").value,
 
 responsable:
 
-usuarioActivo
+window.usuarioActivo
 
 ?
 
-usuarioActivo.nombre
+window.usuarioActivo.nombre
 
 :
 
@@ -514,11 +548,11 @@ usuarioActivo.nombre
 
 legajo:
 
-usuarioActivo
+window.usuarioActivo
 
 ?
 
-usuarioActivo.legajo
+window.usuarioActivo.legajo
 
 :
 
@@ -543,6 +577,9 @@ new Date().toLocaleString()
 
 
 
+try{
+
+
 await addDoc(
 
 collection(db,"movimientos"),
@@ -553,16 +590,37 @@ movimiento
 
 
 
-
-alert("Movimiento guardado");
+alert("✅ Movimiento guardado correctamente");
 
 
 
 mostrarMovimientos();
 
 
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+alert(
+
+"❌ Error guardando movimiento:\n"
+
++
+
+error.message
+
+);
+
 
 }
+
+
+}
+
 
 
 
@@ -577,6 +635,9 @@ async function finalizarMovimiento(id){
 
 
 
+try{
+
+
 await updateDoc(
 
 doc(db,"movimientos",id),
@@ -584,16 +645,19 @@ doc(db,"movimientos",id),
 {
 
 
-estado:"Finalizado",
+estado:
+
+"Finalizado",
+
 
 
 finalizadoPor:
 
-usuarioActivo
+window.usuarioActivo
 
 ?
 
-usuarioActivo.nombre
+window.usuarioActivo.nombre
 
 :
 
@@ -615,8 +679,22 @@ new Date().toLocaleString()
 mostrarMovimientos();
 
 
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+alert(error.message);
+
 
 }
+
+
+}
+
 
 
 
@@ -631,16 +709,13 @@ async function eliminarMovimiento(id){
 
 
 
-let confirmar =
-confirm("¿Eliminar movimiento?");
-
-
-
-if(!confirmar)
+if(!confirm("¿Eliminar movimiento?"))
 
 return;
 
 
+
+try{
 
 
 await deleteDoc(
@@ -654,8 +729,22 @@ doc(db,"movimientos",id)
 mostrarMovimientos();
 
 
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+alert(error.message);
+
 
 }
+
+
+}
+
 
 
 
@@ -675,3 +764,7 @@ window.guardarMovimiento = guardarMovimiento;
 window.finalizarMovimiento = finalizarMovimiento;
 
 window.eliminarMovimiento = eliminarMovimiento;
+
+
+
+console.log("🔄 Movimientos SIGIB 03 cargado correctamente");
