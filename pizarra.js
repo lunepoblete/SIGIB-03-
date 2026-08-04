@@ -503,13 +503,8 @@ try {
 
 
 
-alert("Tarea creada");
 
 
-mostrarPizarra();
-
-
-}
 
 
 
