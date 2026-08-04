@@ -160,14 +160,10 @@ return;
 }
 
 
-window.ingresar = ingresar;
-
-}
-
-
 window.usuarioActivo = usuario;
 
-
+}
+window.ingresar = ingresar;
 
 
 
