@@ -1165,7 +1165,9 @@ estado:"Bueno",
 observaciones:"Depósito Incendio Estructural"
 }
 
-];
+]
+
+};
     // ========================================
 // SIGIB 03
 // PARTE 2
