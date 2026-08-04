@@ -1,90 +1,177 @@
 // ========================================
 // SIGIB 03
-// CARGA INICIAL INVENTARIO A FIREBASE
+// LIMPIAR Y CARGAR INVENTARIO FIREBASE
 // ========================================
+
 
 import { db } from "./firebase.js";
 
+
 import {
-    collection,
-    addDoc,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc
+
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
 
 
 // ========================================
-// CARGAR INVENTARIO INICIAL
+// CARGA COMPLETA INVENTARIO
 // ========================================
 
-async function cargarInventarioInicial() {
 
-    console.log("🚒 VERSION NUEVA 04/08/2026");
+async function cargarInventarioInicial(){
 
-    const existente = await getDocs(
-        collection(db, "inventario")
-    );
 
-    console.log("📦 Cantidad de documentos:", existente.size);
+console.log("🚒 INICIANDO CARGA COMPLETA SIGIB 03");
 
-    existente.forEach((doc) => {
 
-        console.log("ID:", doc.id);
-        console.log(doc.data());
 
-    });
 
-    if (!existente.empty) {
+// BORRAR INVENTARIO ANTERIOR
 
-        console.log("⚠️ Ya existen datos en inventario Firebase");
 
-        return;
+const anterior = await getDocs(
 
-    }
+collection(db,"inventario")
 
-    let total = 0;
+);
 
-    for (const ubicacion in inventario) {
 
-        const materiales = inventario[ubicacion];
 
-        for (const material of materiales) {
+console.log(
+"🗑️ Documentos encontrados:",
+anterior.size
+);
 
-            await addDoc(
 
-                collection(db, "inventario"),
 
-                {
-                    ubicacion: ubicacion,
-                    nombre: material.nombre,
-                    cantidad: material.cantidad,
-                    estado: material.estado,
-                    observaciones: material.observaciones,
-                    fechaCarga: new Date()
-                }
+for(const documento of anterior.docs){
 
-            );
 
-            total++;
+await deleteDoc(
 
-            console.log(
-                "✅ Cargado:",
-                ubicacion,
-                material.nombre
-            );
+doc(
+db,
+"inventario",
+documento.id
+)
 
-        }
+);
 
-    }
 
-    console.log(
-        "🔥 INVENTARIO SIGIB 03 CARGADO CORRECTAMENTE"
-    );
+console.log(
+"🗑️ Eliminado:",
+documento.id
+);
 
-    console.log(
-        "📦 Total de elementos:",
-        total
-    );
 
 }
+
+
+
+
+let total = 0;
+
+
+
+
+// CARGAR DATOS NUEVOS
+
+
+for(const ubicacion in inventario){
+
+
+
+const materiales = inventario[ubicacion];
+
+
+
+for(const material of materiales){
+
+
+
+await addDoc(
+
+collection(db,"inventario"),
+
+{
+
+
+ubicacion: ubicacion,
+
+
+nombre: material.nombre,
+
+
+cantidad: material.cantidad,
+
+
+estado: material.estado,
+
+
+observaciones: material.observaciones,
+
+
+fechaCarga: new Date()
+
+
+
+}
+
+);
+
+
+
+total++;
+
+
+
+console.log(
+
+"✅ Cargado:",
+
+ubicacion,
+
+material.nombre
+
+);
+
+
+
+}
+
+
+}
+
+
+
+
+console.log(
+
+"🔥 INVENTARIO SIGIB 03 CARGADO CORRECTAMENTE"
+
+);
+
+
+console.log(
+
+"📦 Total elementos:",
+
+total
+
+);
+
+
+}
+
+
+
 
 window.cargarInventarioInicial = cargarInventarioInicial;
