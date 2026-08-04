@@ -461,18 +461,11 @@ let tarea = {
     fechaCreacion:
     new Date().toLocaleString(),
 
-
-    creador:
-
-    usuarioActivo
-
-    ?
-
-    usuarioActivo.nombre
-
-    :
-
-    "Usuario SIGIB",
+window.usuarioActivo
+?
+window.usuarioActivo.nombre
+:
+"Usuario SIGIB"
 
 
 
@@ -531,16 +524,11 @@ await updateDoc(
 
     realizadaPor:
 
-    usuarioActivo
-
-    ?
-
-    usuarioActivo.nombre
-
-    :
-
-    "Usuario SIGIB",
-
+    window.usuarioActivo
+?
+window.usuarioActivo.nombre
+:
+"Usuario SIGIB"
 
 
     fechaFinalizacion:
