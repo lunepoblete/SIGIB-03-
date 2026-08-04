@@ -17,93 +17,100 @@
 <body>
 
 
-<!-- LOGIN -->
+    <!-- LOGIN -->
 
-<section id="login">
-
-
-    <h1>
-        🚒 SIGIB 03
-    </h1>
+    <section id="login">
 
 
-    <h3>
-        Sistema Integral de Gestión de Inventario Bomberos
-    </h3>
+        <h1>
+            🚒 SIGIB 03
+        </h1>
+
+
+        <h3>
+            Sistema Integral de Gestión de Inventario Bomberos
+        </h3>
 
 
 
-    <input
+        <input
 
-        type="number"
+            type="number"
 
-        id="legajo"
+            id="legajo"
 
-        placeholder="Ingrese legajo"
+            placeholder="Ingrese legajo"
+
+        >
+
+
+
+        <button onclick="ingresar()">
+
+            🔐 Ingresar
+
+        </button>
+
+
+    </section>
+
+
+
+
+
+    <!-- PANEL PRINCIPAL -->
+
+    <main
+
+        id="panel"
+
+        style="display:none;"
 
     >
 
-
-
-    <button onclick="ingresar()">
-
-        🔐 Ingresar
-
-    </button>
-
-
-</section>
+    </main>
 
 
 
 
 
-<!-- PANEL PRINCIPAL -->
+    <!-- DATOS SIGIB 03 -->
 
-<main
-
-    id="panel"
-
-    style="display:none;"
-
->
-
-
-</main>
+    <script src="./datos.js"></script>
 
 
 
 
 
-<!-- DATOS SIGIB 03 -->
+    <!-- FIREBASE -->
 
-<script src="./datos.js"></script>
-
-
-
-
-
-<!-- FIREBASE -->
-
-<script type="module" src="./firebase.js"></script>
+    <script type="module" src="./firebase.js"></script>
 
 
 
 
 
-<!-- MODULOS -->
+    <!-- CARGA INICIAL FIREBASE -->
 
-<script src="./pizarra.js"></script>
-
-<script src="./movimientos.js"></script>
+    <script type="module" src="./cargarInventario.js"></script>
 
 
 
 
 
-<!-- APP PRINCIPAL -->
+    <!-- MODULOS SIGIB -->
 
-<script type="module" src="./app.js"></script>
+    <script type="module" src="./pizarra.js"></script>
+
+    <script type="module" src="./movimientos.js"></script>
+
+
+
+
+
+    <!-- APP PRINCIPAL -->
+
+    <script type="module" src="./app.js"></script>
 
 
 
