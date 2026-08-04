@@ -27,7 +27,7 @@ getDocs
 async function cargarInventarioInicial(){
 
 
-console.log("🚒 Iniciando carga inventario SIGIB 03");
+console.log("🚒 VERSION NUEVA 04/08/2026");
 
 
 
