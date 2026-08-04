@@ -38,30 +38,25 @@ window.usuarioActivo = null;
 
 
 
-
 // ==========================================
 // PERMISOS
-// ==========================================
-
-
-// ==========================================
-// PERMISOS POR AREA SIGIB 03
 // ==========================================
 
 
 function esAdministrador(){
 
 
-    if(!usuarioActivo)
+    if(!window.usuarioActivo)
+
         return false;
 
 
 
     return (
 
-        usuarioActivo.areas &&
+        window.usuarioActivo.areas &&
 
-        usuarioActivo.areas.includes("TODAS")
+        window.usuarioActivo.areas.includes("TODAS")
 
     );
 
@@ -75,7 +70,9 @@ function esAdministrador(){
 function perteneceArea(codigoModulo){
 
 
-    if(!usuarioActivo)
+
+    if(!window.usuarioActivo)
+
         return false;
 
 
@@ -89,9 +86,9 @@ function perteneceArea(codigoModulo){
 
     return (
 
-        usuarioActivo.areas &&
+        window.usuarioActivo.areas &&
 
-        usuarioActivo.areas.includes(codigoModulo)
+        window.usuarioActivo.areas.includes(codigoModulo)
 
     );
 
@@ -110,7 +107,6 @@ function puedeModificarInventario(codigoModulo){
 
 
 }
-
 
 
 
@@ -193,17 +189,12 @@ document
 
 
 
-document
-.getElementById("panel")
-.style.display="block";
-
-
 mostrarMenuModulos();
 
 
 
-
 }
+
 
 
 
@@ -239,17 +230,18 @@ let contenido = `
 
 <p>
 
-👤 ${usuarioActivo.nombre}
+👤 ${window.usuarioActivo.nombre}
 
 <br>
 
-${usuarioActivo.funcion}
+${window.usuarioActivo.funcion}
 
 </p>
 
 
 
 <hr>
+
 
 
 
@@ -263,11 +255,14 @@ ${usuarioActivo.funcion}
 
 
 
+
 <button onclick="mostrarMovimientos()">
 
 🔄 Movimientos
 
 </button>
+
+
 
 
 
@@ -281,6 +276,7 @@ ${usuarioActivo.funcion}
 Seleccione un área
 
 </h2>
+
 
 
 
@@ -355,6 +351,7 @@ document
 
 
 
+
 // ==========================================
 // ABRIR AREA
 // ==========================================
@@ -364,9 +361,7 @@ function abrirModulo(index){
 
 
 
-const modulo =
-
-modulos[index];
+const modulo = modulos[index];
 
 
 
@@ -391,6 +386,7 @@ let contenido = `
 ${modulo.nombre}
 
 </h2>
+
 
 
 
@@ -447,6 +443,7 @@ ${sub.nombre}
 contenido += `
 
 
+
 </div>
 
 
@@ -471,6 +468,9 @@ document
 
 
 
+
+
+
 // ==========================================
 // ABRIR INVENTARIO
 // ==========================================
@@ -487,6 +487,12 @@ nombreModulo,
 nombreUbicacion
 
 ){
+
+
+
+window.moduloActual = codigoModulo;
+
+window.ubicacionActual = codigoUbicacion;
 
 
 
@@ -521,11 +527,13 @@ ${nombreModulo}
 
 
 
+
 <h3>
 
 ${nombreUbicacion}
 
 </h3>
+
 
 
 
@@ -545,7 +553,10 @@ onkeyup="buscarInventario()"
 
 
 
+
 <br><br>
+
+
 
 
 
@@ -596,7 +607,9 @@ puedeModificarInventario(codigoModulo)
 
 
 
+
 <hr>
+
 
 
 
@@ -606,6 +619,7 @@ puedeModificarInventario(codigoModulo)
 Cargando inventario...
 
 </div>
+
 
 
 
@@ -628,12 +642,15 @@ cargarInventario(codigoUbicacion);
 
 
 
+
+
 // ==========================================
 // CARGAR INVENTARIO FIREBASE
 // ==========================================
 
 
 async function cargarInventario(codigoUbicacion){
+
 
 
 const lista =
@@ -644,6 +661,11 @@ document.getElementById("listaInventario");
 
 lista.innerHTML = "";
 
+
+
+
+
+try{
 
 
 
@@ -673,9 +695,7 @@ orderBy(
 
 
 
-const datos =
-
-await getDocs(q);
+const datos = await getDocs(q);
 
 
 
@@ -696,8 +716,6 @@ lista.innerHTML = `
 
 `;
 
-
-
 return;
 
 
@@ -707,7 +725,10 @@ return;
 
 
 
+
+
 datos.forEach((documento)=>{
+
 
 
 const item = documento.data();
@@ -720,10 +741,16 @@ let botones = "";
 
 
 
-if(puedeModificarInventario(codigoUbicacion.substring(0,2))) {
+if(
+
+puedeModificarInventario(window.moduloActual)
+
+){
+
 
 
 botones = `
+
 
 
 <button onclick="editarInventario('${documento.id}')">
@@ -731,6 +758,7 @@ botones = `
 ✏️ Editar
 
 </button>
+
 
 
 
@@ -745,7 +773,13 @@ botones = `
 
 `;
 
+
+
 }
+
+
+
+
 
 
 
@@ -766,6 +800,7 @@ ${item.nombre}
 
 
 
+
 <p>
 
 📦 Cantidad:
@@ -773,6 +808,7 @@ ${item.nombre}
 ${item.cantidad}
 
 </p>
+
 
 
 
@@ -788,6 +824,7 @@ ${item.estado}
 
 
 
+
 <p>
 
 📍 Ubicación:
@@ -795,6 +832,7 @@ ${item.estado}
 ${item.ubicacion}
 
 </p>
+
 
 
 
@@ -808,7 +846,9 @@ ${item.ubicacion}
 
 
 
+
 ${botones}
+
 
 
 
@@ -824,7 +864,38 @@ ${botones}
 });
 
 
+
 }
+
+catch(error){
+
+
+console.error(error);
+
+
+
+lista.innerHTML = `
+
+<p>
+
+❌ Error cargando inventario
+
+</p>
+
+`;
+
+
+
+}
+
+
+
+}
+
+
+
+
+
 
 
 
@@ -924,10 +995,8 @@ alert("No tiene permisos para modificar inventario");
 
 return;
 
+
 }
-
-
-
 
 
 
@@ -939,12 +1008,9 @@ prompt("Nombre del elemento:");
 
 
 
-
-
 if(!nombre)
 
 return;
-
 
 
 
@@ -956,12 +1022,9 @@ prompt("Cantidad:");
 
 
 
-
-
 if(cantidad === null)
 
 return;
-
 
 
 
@@ -993,6 +1056,11 @@ prompt(
 
 
 
+
+
+
+
+try{
 
 
 
@@ -1041,13 +1109,13 @@ observaciones || "",
 
 cargadoPor:
 
-usuarioActivo.nombre,
+window.usuarioActivo.nombre,
 
 
 
 legajo:
 
-usuarioActivo.legajo,
+window.usuarioActivo.legajo,
 
 
 
@@ -1065,8 +1133,7 @@ new Date().toLocaleString()
 
 
 
-
-alert("Elemento agregado correctamente");
+alert("✅ Elemento agregado correctamente");
 
 
 
@@ -1088,6 +1155,30 @@ nombreUbicacion
 
 }
 
+catch(error){
+
+
+console.error(error);
+
+
+alert(
+
+"❌ Error cargando material:\n"
+
++
+
+error.message
+
+);
+
+
+}
+
+
+
+}
+
+
 
 
 
@@ -1095,7 +1186,7 @@ nombreUbicacion
 
 
 // ==========================================
-// EDITAR INVENTARIO
+// EDITAR INVENTARIO POR CAMPOS
 // ==========================================
 
 
@@ -1103,10 +1194,17 @@ async function editarInventario(id){
 
 
 
-if(!puedeModificarInventario()){
+if(!window.moduloActual)
+
+return;
+
+
+
+if(!puedeModificarInventario(window.moduloActual)){
 
 
 alert("No tiene permisos");
+
 
 return;
 
@@ -1117,11 +1215,25 @@ return;
 
 
 
-let nombre =
+let opcion = prompt(
 
-prompt(
+"¿Qué desea modificar?\n\n"
 
-"Nuevo nombre del elemento:"
++
+
+"1 - Nombre\n"
+
++
+
+"2 - Cantidad\n"
+
++
+
+"3 - Estado\n"
+
++
+
+"4 - Observaciones"
 
 );
 
@@ -1129,12 +1241,136 @@ prompt(
 
 
 
-if(!nombre)
+let cambios = {};
+
+
+
+
+
+switch(opcion){
+
+
+
+case "1":
+
+
+let nombre = prompt(
+
+"Nuevo nombre:"
+
+);
+
+
+if(nombre)
+
+cambios.nombre = nombre;
+
+
+break;
+
+
+
+
+
+case "2":
+
+
+let cantidad = prompt(
+
+"Nueva cantidad:"
+
+);
+
+
+if(cantidad !== null)
+
+cambios.cantidad = Number(cantidad);
+
+
+break;
+
+
+
+
+
+case "3":
+
+
+let estado = prompt(
+
+"Nuevo estado:"
+
+);
+
+
+if(estado)
+
+cambios.estado = estado;
+
+
+break;
+
+
+
+
+
+case "4":
+
+
+let observaciones = prompt(
+
+"Nuevas observaciones:"
+
+);
+
+
+if(observaciones !== null)
+
+cambios.observaciones = observaciones;
+
+
+break;
+
+
+
+
+
+default:
+
 
 return;
 
 
+}
 
+
+
+
+
+cambios.modificadoPor =
+
+window.usuarioActivo.nombre;
+
+
+
+cambios.legajoModificacion =
+
+window.usuarioActivo.legajo;
+
+
+
+cambios.fechaModificacion =
+
+new Date().toLocaleString();
+
+
+
+
+
+
+
+
+try{
 
 
 
@@ -1142,28 +1378,7 @@ await updateDoc(
 
 doc(db,"inventario",id),
 
-{
-
-
-nombre:
-
-nombre,
-
-
-
-modificadoPor:
-
-usuarioActivo.nombre,
-
-
-
-fechaModificacion:
-
-new Date().toLocaleString()
-
-
-
-}
+cambios
 
 );
 
@@ -1171,7 +1386,9 @@ new Date().toLocaleString()
 
 
 
-alert("Elemento actualizado");
+alert("✅ Material actualizado");
+
+
 
 
 
@@ -1180,6 +1397,30 @@ location.reload();
 
 
 }
+
+catch(error){
+
+
+console.error(error);
+
+
+alert(
+
+"❌ Error actualizando:\n"
+
++
+
+error.message
+
+);
+
+
+}
+
+
+
+}
+
 
 
 
@@ -1196,10 +1437,11 @@ async function eliminarInventario(id){
 
 
 
-if(!puedeModificarInventario()){
+if(!puedeModificarInventario(window.moduloActual)){
 
 
 alert("No tiene permisos");
+
 
 return;
 
@@ -1210,24 +1452,25 @@ return;
 
 
 
-let confirmar =
+if(
 
-confirm(
+!confirm(
 
 "¿Eliminar este elemento?"
 
-);
+)
 
-
-
-
-
-if(!confirmar)
+)
 
 return;
 
 
 
+
+
+
+
+try{
 
 
 
@@ -1241,11 +1484,36 @@ doc(db,"inventario",id)
 
 
 
-alert("Elemento eliminado");
+alert("🗑️ Elemento eliminado");
+
+
 
 
 
 location.reload();
+
+
+
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+alert(
+
+"❌ Error eliminando:\n"
+
++
+
+error.message
+
+);
+
+
+}
 
 
 
@@ -1294,4 +1562,8 @@ window.puedeModificarInventario = puedeModificarInventario;
 
 
 
-console.log("🔥 SIGIB 03 APP.JS cargado correctamente");
+console.log(
+
+"🔥 SIGIB 03 APP.JS cargado correctamente"
+
+);
