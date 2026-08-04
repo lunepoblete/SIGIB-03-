@@ -33,7 +33,7 @@ import {
 // ==========================================
 
 
-let usuarioActivo = null;
+window.usuarioActivo = null;
 
 
 
@@ -167,7 +167,7 @@ return;
 
 
 
-usuarioActivo = usuario;
+window.usuarioActivo = usuario;
 
 
 
