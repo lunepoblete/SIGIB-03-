@@ -68,6 +68,13 @@ areas:["AUT"]
 },
 
 {
+legajo:"99",
+nombre:"SPINELLI Leonardo",
+funcion:"Of. Ayte.",
+areas:[]
+},
+
+{
 legajo:"137",
 nombre:"KULJKO Facundo",
 funcion:"Encargado Equipos a explosion",
@@ -89,10 +96,59 @@ areas:["IF"]
 },
 
 {
+legajo:"131",
+nombre:"SESTO Carlos",
+funcion:"Cabo 1°",
+areas:[]
+},
+
+{
+legajo:"113",
+nombre:"OCARES Dario",
+funcion:"Encargado Comunicaciones",
+areas:["COM"]
+},
+
+{
+legajo:"149",
+nombre:"OVANDO Claudio",
+funcion:"Cabo 1°",
+areas:[]
+},
+
+{
 legajo:"127",
 nombre:"SALAZAR Diego",
 funcion:"Encargado Rescate acuatico",
 areas:["RA"]
+},
+
+{
+legajo:"130",
+nombre:"BRAVO Daniela",
+funcion:"Cabo 1°",
+areas:["CAP"]
+},
+
+{
+legajo:"157",
+nombre:"SANCHEZ Franco",
+funcion:"Encargado Cadetes",
+areas:["CAD"]
+},
+
+{
+legajo:"129",
+nombre:"GODOY Walter",
+funcion:"Cabo",
+areas:["IF"]
+},
+
+{
+legajo:"134",
+nombre:"HERRERA Damian",
+funcion:"Encargado Intendencia",
+areas:["INT"]
 },
 
 {
@@ -103,17 +159,66 @@ areas:["IE"]
 },
 
 {
-legajo:"202",
-nombre:"BRUNO Juan",
-funcion:"Encargado ERA",
-areas:["ERA"]
+legajo:"167",
+nombre:"VIDAL Marcelo",
+funcion:"BV",
+areas:["ERA","EXP"]
 },
 
 {
-legajo:"207",
-nombre:"ROCHA Sergio",
-funcion:"Encargado GRIMP",
-areas:["GRIMP","ERA"]
+legajo:"171",
+nombre:"MELLADO Karen",
+funcion:"BV",
+areas:["RA"]
+},
+
+{
+legajo:"174",
+nombre:"BARROSO Paola",
+funcion:"BV",
+areas:["IE"]
+},
+
+{
+legajo:"176",
+nombre:"BIANCHI Jose",
+funcion:"Auxiliar",
+areas:[]
+},
+
+{
+legajo:"126",
+nombre:"MUÑOZ Eduardo",
+funcion:"Auxiliar",
+areas:[]
+},
+
+{
+legajo:"183",
+nombre:"MANSILLA Maria Josefina",
+funcion:"BV",
+areas:["INT"]
+},
+
+{
+legajo:"193",
+nombre:"HUENUFIL Hector",
+funcion:"Auxiliar",
+areas:[]
+},
+
+{
+legajo:"197",
+nombre:"PAILACURA Romina",
+funcion:"BV",
+areas:["INT"]
+},
+
+{
+legajo:"199",
+nombre:"ROSEMBLUN Rocio",
+funcion:"BV",
+areas:["RV","CAD"]
 },
 
 {
@@ -124,6 +229,55 @@ areas:["RV","TR"]
 },
 
 {
+legajo:"201",
+nombre:"KUCNER Lara",
+funcion:"Encargada Inventarios",
+areas:["INV","IE"]
+},
+
+{
+legajo:"202",
+nombre:"BRUNO Juan",
+funcion:"Encargado ERA",
+areas:["ERA"]
+},
+
+{
+legajo:"204",
+nombre:"VIVEROS Moira",
+funcion:"BV",
+areas:["TR"]
+},
+
+{
+legajo:"205",
+nombre:"GODOY Micaela",
+funcion:"BV",
+areas:["IF"]
+},
+
+{
+legajo:"207",
+nombre:"ROCHA Sergio",
+funcion:"Encargado GRIMP",
+areas:["GRIMP","ERA"]
+},
+
+{
+legajo:"165",
+nombre:"DIAZ Lucas",
+funcion:"Auxiliar",
+areas:[]
+},
+
+{
+legajo:"208",
+nombre:"BARROS Romina",
+funcion:"BV",
+areas:["ROP"]
+},
+
+{
 legajo:"209",
 nombre:"POBLETE Luciano",
 funcion:"Encargado Roperia",
@@ -131,14 +285,48 @@ areas:["ROP"]
 },
 
 {
-legajo:"201",
-nombre:"KUCNER Lara",
-funcion:"Encargada Inventarios",
-areas:["INV","IE"]
+legajo:"124",
+nombre:"PEREZ Ramiro",
+funcion:"BV",
+areas:["TR","CAP"]
+},
+
+{
+legajo:"210",
+nombre:"MUÑOZ Enzo",
+funcion:"BV",
+areas:["IF"]
+},
+
+{
+legajo:"211",
+nombre:"ROMERO Walter",
+funcion:"BV",
+areas:["GRIMP"]
+},
+
+{
+legajo:"212",
+nombre:"AGOSTO Ailen",
+funcion:"BV",
+areas:["TR"]
+},
+
+{
+legajo:"213",
+nombre:"PAREDES Brisa",
+funcion:"BV",
+areas:["ERA","GRIMP"]
+},
+
+{
+legajo:"215",
+nombre:"HUENUFIL Tiziano",
+funcion:"Auxiliar",
+areas:[]
 }
 
 ];
-
 
 
 // ========================================
