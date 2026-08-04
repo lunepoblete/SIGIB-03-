@@ -25,7 +25,6 @@ import {
 
 
 
-
 // ==========================================
 // MOSTRAR PIZARRA
 // ==========================================
@@ -34,61 +33,67 @@ import {
 async function mostrarPizarra(){
 
 
-    const panel =
-    document.getElementById("panel");
+const panel = document.getElementById("panel");
 
 
 
-    let contenido = `
+panel.innerHTML = `
 
 
-    <div class="contenedor">
+<div class="contenedor">
 
 
-    <button onclick="mostrarMenuPrincipal()">
+<button onclick="mostrarMenuModulos()">
 
-    ⬅ Volver
+⬅ Volver
 
-    </button>
-
-
-    <h1>
-    📋 PIZARRA SIGIB 03
-    </h1>
+</button>
 
 
-    <h2>
-    Tareas operativas
-    </h2>
+
+<h1>
+
+📋 PIZARRA SIGIB 03
+
+</h1>
 
 
-    <button onclick="nuevaTarea()">
 
-    ➕ Nueva tarea
+<h2>
 
-    </button>
+Tareas operativas
 
-
-    <hr>
+</h2>
 
 
-    <div id="listaTareas">
 
-    Cargando tareas...
+<button onclick="nuevaTarea()">
 
-    </div>
+➕ Nueva tarea
 
-
-    </div>
+</button>
 
 
-    `;
+
+<hr>
 
 
-    panel.innerHTML = contenido;
+<div id="listaTareas">
+
+Cargando tareas...
+
+</div>
 
 
-    cargarTareas();
+
+</div>
+
+
+`;
+
+
+
+cargarTareas();
 
 
 }
@@ -98,190 +103,215 @@ async function mostrarPizarra(){
 
 
 // ==========================================
-// CARGAR TAREAS FIRESTORE
+// CARGAR TAREAS
 // ==========================================
 
 
 async function cargarTareas(){
 
 
-    const lista =
-    document.getElementById("listaTareas");
+const lista = document.getElementById("listaTareas");
 
 
 
-    lista.innerHTML = "";
+try {
 
 
+const q = query(
 
-    const q = query(
+collection(db,"tareas"),
 
-        collection(db,"tareas"),
+orderBy("fechaCreacion","desc")
 
-        orderBy("fechaCreacion","desc")
+);
 
-    );
 
 
+const datos = await getDocs(q);
 
-    const datos =
-    await getDocs(q);
 
 
+lista.innerHTML = "";
 
-    if(datos.empty){
 
 
-        lista.innerHTML = `
+if(datos.empty){
 
-        <p>
-        📋 No hay tareas cargadas
-        </p>
 
-        `;
+lista.innerHTML = `
 
+<p>
 
-        return;
+📋 No hay tareas cargadas
 
-    }
+</p>
 
+`;
 
-
-
-
-    datos.forEach((documento)=>{
-
-
-        let tarea =
-        documento.data();
-
-
-        let id =
-        documento.id;
-
-
-
-
-        lista.innerHTML += `
-
-
-
-        <div class="tarjeta">
-
-
-        <h3>
-
-        📝 ${tarea.tarea}
-
-        </h3>
-
-
-
-        <p>
-
-        🎯 Área:
-
-        ${tarea.area}
-
-        </p>
-
-
-
-        <p>
-
-        🚨 Prioridad:
-
-        ${tarea.prioridad}
-
-        </p>
-
-
-
-        <p>
-
-        📅 Creada:
-
-        ${tarea.fechaCreacion}
-
-        </p>
-
-
-
-        <p>
-
-        👤 Creada por:
-
-        ${tarea.creador}
-
-        </p>
-
-
-
-        <p>
-
-        Estado:
-
-        ${tarea.estado}
-
-        </p>
-
-
-
-        ${
-        tarea.estado === "Pendiente"
-
-        ?
-
-        `
-
-        <button onclick="realizarTarea('${id}')">
-
-        ✅ Realizar
-
-        </button>
-
-        `
-
-        :
-
-        `
-
-        <p>
-        👤 Realizada por:
-        ${tarea.realizadaPor}
-        </p>
-
-
-        <p>
-        📅 Finalizada:
-        ${tarea.fechaFinalizacion}
-        </p>
-
-        `
-
-        }
-
-
-
-        <button onclick="eliminarTarea('${id}')">
-
-        🗑️ Eliminar
-
-        </button>
-
-
-
-        </div>
-
-
-
-        `;
-
-
-    });
+return;
 
 
 }
+
+
+
+datos.forEach((documento)=>{
+
+
+const tarea = documento.data();
+
+const id = documento.id;
+
+
+
+lista.innerHTML += `
+
+
+<div class="tarjeta">
+
+
+<h3>
+
+📝 ${tarea.tarea}
+
+</h3>
+
+
+
+<p>
+
+🎯 Área:
+
+${tarea.area}
+
+</p>
+
+
+
+<p>
+
+🚨 Prioridad:
+
+${tarea.prioridad}
+
+</p>
+
+
+
+<p>
+
+📅 Creada:
+
+${tarea.fechaCreacion}
+
+</p>
+
+
+
+<p>
+
+👤 Creada por:
+
+${tarea.creador}
+
+</p>
+
+
+
+<p>
+
+Estado:
+
+${tarea.estado}
+
+</p>
+
+
+
+${
+tarea.estado === "Pendiente"
+
+?
+
+`
+
+<button onclick="realizarTarea('${id}')">
+
+✅ Realizar
+
+</button>
+
+`
+
+:
+
+`
+
+<p>
+
+👤 Realizada por:
+
+${tarea.realizadaPor}
+
+</p>
+
+
+
+<p>
+
+📅 Finalizada:
+
+${tarea.fechaFinalizacion}
+
+</p>
+
+`
+
+}
+
+
+
+<button onclick="eliminarTarea('${id}')">
+
+🗑️ Eliminar
+
+</button>
+
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+lista.innerHTML = `
+
+<p>
+
+❌ Error cargando tareas
+
+</p>
+
+`;
+
+
+}
+
+
+}
+
 
 
 
@@ -295,8 +325,7 @@ async function cargarTareas(){
 function nuevaTarea(){
 
 
-const panel =
-document.getElementById("panel");
+const panel = document.getElementById("panel");
 
 
 
@@ -315,7 +344,9 @@ panel.innerHTML = `
 
 
 <h2>
+
 ➕ Nueva tarea
+
 </h2>
 
 
@@ -337,49 +368,23 @@ placeholder="Descripción de la tarea">
 <select id="areaTarea">
 
 
-<option>
-🚒 Incendio estructural
-</option>
+<option>🚒 Incendio estructural</option>
 
+<option>🌲 Incendio forestal</option>
 
-<option>
-🌲 Incendio forestal
-</option>
+<option>🚗 Rescate vehicular</option>
 
+<option>🩺 Trauma</option>
 
-<option>
-🚗 Rescate vehicular
-</option>
+<option>🌊 Rescate acuático</option>
 
+<option>🧗 GRIMP</option>
 
-<option>
-🩺 Trauma
-</option>
+<option>🫁 ERA</option>
 
+<option>👕 Ropería</option>
 
-<option>
-🌊 Rescate acuático
-</option>
-
-
-<option>
-🧗 GRIMP
-</option>
-
-
-<option>
-🫁 ERA
-</option>
-
-
-<option>
-👕 Ropería
-</option>
-
-
-<option>
-⚙️ Equipos a explosión
-</option>
+<option>⚙️ Equipos a explosión</option>
 
 
 </select>
@@ -393,19 +398,11 @@ placeholder="Descripción de la tarea">
 <select id="prioridadTarea">
 
 
-<option>
-🔴 ALTA
-</option>
+<option>🔴 ALTA</option>
 
+<option>🟡 MEDIA</option>
 
-<option>
-🟡 MEDIA
-</option>
-
-
-<option>
-🟢 BAJA
-</option>
+<option>🟢 BAJA</option>
 
 
 </select>
@@ -423,12 +420,14 @@ placeholder="Descripción de la tarea">
 </button>
 
 
+
 </div>
 
 
 `;
 
 
+
 }
 
 
@@ -436,68 +435,110 @@ placeholder="Descripción de la tarea">
 
 
 // ==========================================
-// GUARDAR TAREA EN FIRESTORE
+// GUARDAR TAREA
 // ==========================================
 
 
 async function guardarTarea(){
 
 
-let tarea = {
+
+const tarea = {
 
 
-    tarea:
-    document.getElementById("textoTarea").value,
+tarea:
+
+document.getElementById("textoTarea").value,
 
 
-    area:
-    document.getElementById("areaTarea").value,
+
+area:
+
+document.getElementById("areaTarea").value,
 
 
-    prioridad:
-    document.getElementById("prioridadTarea").value,
+
+prioridad:
+
+document.getElementById("prioridadTarea").value,
 
 
-    fechaCreacion:
-    new Date().toLocaleString(),
+
+fechaCreacion:
+
+new Date().toLocaleString(),
+
+
+
+creador:
 
 window.usuarioActivo
+
 ?
+
 window.usuarioActivo.nombre
+
 :
-"Usuario SIGIB"
+
+"Usuario SIGIB",
 
 
 
-    estado:
+estado:
 
-    "Pendiente"
+"Pendiente"
 
 
 };
 
 
 
-try {
 
-    await addDoc(collection(db, "tareas"), tarea);
 
-    alert("✅ Tarea creada correctamente");
+try{
 
-    mostrarPizarra();
 
-} catch (error) {
+await addDoc(
 
-    console.error(error);
+collection(db,"tareas"),
 
-    alert("❌ Error al guardar la tarea:\n" + error.message);
+tarea
+
+);
+
+
+
+alert("✅ Tarea creada correctamente");
+
+
+
+mostrarPizarra();
+
+
+
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+alert(
+
+"❌ Error al guardar tarea:\n"
+
++
+
+error.message
+
+);
+
 
 }
 
 
 }
-
-
 
 
 
@@ -512,31 +553,42 @@ async function realizarTarea(id){
 
 
 
+try{
+
+
 await updateDoc(
 
-    doc(db,"tareas",id),
+doc(db,"tareas",id),
 
-    {
-
-
-    estado:"Realizado",
+{
 
 
-    realizadaPor:
+estado:
 
-    window.usuarioActivo
+"Realizado",
+
+
+
+realizadaPor:
+
+window.usuarioActivo
+
 ?
+
 window.usuarioActivo.nombre
+
 :
-"Usuario SIGIB"
+
+"Usuario SIGIB",
 
 
-    fechaFinalizacion:
 
-    new Date().toLocaleString()
+fechaFinalizacion:
+
+new Date().toLocaleString()
 
 
-    }
+}
 
 );
 
@@ -546,6 +598,22 @@ mostrarPizarra();
 
 
 }
+
+catch(error){
+
+
+console.error(error);
+
+
+alert(error.message);
+
+
+}
+
+
+
+}
+
 
 
 
@@ -559,18 +627,16 @@ mostrarPizarra();
 async function eliminarTarea(id){
 
 
-let confirmar =
-confirm("¿Eliminar tarea?");
 
+if(!confirm("¿Eliminar tarea?"))
 
-
-if(!confirmar) return;
+return;
 
 
 
 await deleteDoc(
 
-    doc(db,"tareas",id)
+doc(db,"tareas",id)
 
 );
 
@@ -579,7 +645,9 @@ await deleteDoc(
 mostrarPizarra();
 
 
+
 }
+
 
 
 
@@ -599,3 +667,7 @@ window.guardarTarea = guardarTarea;
 window.realizarTarea = realizarTarea;
 
 window.eliminarTarea = eliminarTarea;
+
+
+
+console.log("📋 Pizarra SIGIB 03 cargada correctamente");
